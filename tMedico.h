@@ -13,5 +13,5 @@ int EhCadastradoMedico(tMedico** vetor, tMedico *medico, int tam);
 tMedico** adcionaMedico(tMedico** vetor, tMedico *medico, int tam);
 void leMedico(tMedico* medico);
 tMedico* criaMedico();
-Login loginMedico(tMedico** vetor, char *senha, char usuario, int tam);
+Login loginMedico(tMedico** vetor, char *senha, char *usuario, int tam);
 #endif

@@ -88,13 +88,51 @@ tPaciente** adcionaPaciente(tPaciente** vetor, tPaciente *paciente, int tam) {
     return novoVetor;
 }
 
-int EhCadastradoPaciente(tPaciente** vetor, tPaciente *paciente, int tam){
+//retorna o indice do paciente;
+
+int EhCadastradoPaciente(tPaciente** vetor, char *cpf, int tam){
     for(int i=0; i<tam;i++){
         
-        if(strcmp(vetor[i]->cpf,paciente->cpf)==0){
-            return 1;
+        if(strcmp(vetor[i]->cpf,cpf)==0){
+            return i;
         }
     }
-    return 0;
+    return -1;
 }
 
+char * ObtemCpfPaciente(tPaciente* paciente){
+    return paciente->cpf;
+}
+char * ObtemNomePaciente(tPaciente* paciente){
+    return paciente->nomeCompleto;
+}
+ 
+char * ObtemDataPaciente(tPaciente* paciente){
+
+    return paciente->dataNascimento;
+ }
+
+int CompletaDadosPaciente(tPaciente* paciente){
+    printf("POSSUI DIABETES: ");
+    scanf("%d%*c", &paciente->diabetes);
+    printf("%d\n", paciente->diabetes);
+    
+    printf("FUMANTE: ");
+    scanf("%d%*c", &paciente->fumante);
+    printf("%d%*c", paciente->fumante);
+    
+    printf("ALEGIA A MEDICAMENTO: ");
+    scanf("%d%*c", &paciente->alergiaMedicamento);
+    printf("%d%*c", paciente->alergiaMedicamento);
+
+    printf("HISTORICO DE CANCER: ");
+    scanf("%d%*c", &paciente->historicoCancer);
+    printf("%d%*c", paciente->historicoCancer);
+
+    printf("TIPO DE PELE: ");
+    scanf("%4[^\n]%*c", paciente->tipoPele);
+    printf("%s%*c", paciente->tipoPele);
+
+    return 1;
+
+}

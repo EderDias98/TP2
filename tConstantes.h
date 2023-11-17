@@ -11,10 +11,7 @@ typedef enum
 typedef enum
 {
     CORRETO,
-    SENHA_IN,
-    USUARIO_IN,
-    
-
+    INCORRETO,
 } Login;
 
 #endif

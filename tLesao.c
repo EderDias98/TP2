@@ -24,15 +24,7 @@ struct lesao {
     int enviarCrioterapia; //Se a lesão deve ser enviada para crioterapia (inteiro assumindo 1 ou 0)
 };
 
-// Função para inicializar um lesao
-tLesao* criaPaciente() {
-    tLesao* lesao = (tLesao*)malloc(sizeof(tLesao));
-    if (lesao == NULL) {
-        printf("Erro ao alocar memória para o lesao.\n");
-        exit(EXIT_FAILURE);
-    }
-    return lesao;
-}
+
 
 // Função para liberar a memória alocada para um lesao
 void liberaLesao(tLesao* lesao) {
@@ -55,10 +47,10 @@ void leLesao(tLesao* lesao){
     scanf("%9[^\n]%*c", lesao->tamanho);
 
     printf("ENVIAR PARA CIRURGIA:\n");
-    scanf("%d%*c", lesao->enviarCirurgia);
+    scanf("%d%*c", &lesao->enviarCirurgia);
 
     printf("ENVIAR PARA CRIOTERAPIA:\n");
-    scanf("%d%*c", lesao->enviarCrioterapia);
+    scanf("%d%*c", &lesao->enviarCrioterapia);
 }
 
 // na clinica o tamanho começa com zero

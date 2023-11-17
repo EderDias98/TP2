@@ -26,6 +26,8 @@ int CadastraSecretarioClinica(tClinica* clinica);
 
 int CadastraMedicoClinica(tClinica* clinica);
 
+Login comfirmarLogin(tClinica* clinica,char* senha,char* usuario,Nivel *acesso);
 
+int EhCadastradoCLinica(tClinica* clinica, char cpf);
 
 #endif

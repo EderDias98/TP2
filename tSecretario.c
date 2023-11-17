@@ -86,13 +86,13 @@ int EhCadastradoSecretario(tSecretario** vetor, tSecretario *secretario, int tam
     for(int i=0; i<tam;i++){
         
         if(strcmp(vetor[i]->cpf,secretario->cpf)==0){
-            return 1;
+            return i;
         }
     }
-    return 0;
+    return -1;
 }
 
-Login loginSecretario(tSecretario** vetor, char *senha, char usuario, int tam, Nivel *acesso){
+Login loginSecretario(tSecretario** vetor, char *senha, char *usuario, int tam, Nivel *acesso){
     int senhaCorreta =0;
     int usuarioCorreto =0;
     int mesmaConta=0;
@@ -104,7 +104,7 @@ Login loginSecretario(tSecretario** vetor, char *senha, char usuario, int tam, N
         }
     }
     if(!senhaCorreta){
-        return SENHA_IN;
+        return INCORRETO;
     }
 
     for(j=0; j< tam; j++){
@@ -115,19 +115,15 @@ Login loginSecretario(tSecretario** vetor, char *senha, char usuario, int tam, N
     }
 
     if(!usuarioCorreto){
-        return USUARIO_IN;
+        return INCORRETO;
     }
 
     if(i==j){
         *acesso = ObtemNivelAcessoSecretario(vetor[i]);
         return CORRETO;
-    }else {
-        
-        if(!strcmp(vetor[i]->senha,senha))
-            return SENHA_IN;
-        if(!strcmp(vetor[j]->nomeUsuario,usuario))
-            return USUARIO_IN;
     }
+
+    return INCORRETO;
 
 }
 

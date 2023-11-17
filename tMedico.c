@@ -81,13 +81,13 @@ int EhCadastradoMedico(tMedico** vetor, tMedico *medico, int tam){
     for(int i=0; i<tam;i++){
 
         if(strcmp(vetor[i]->cpf,medico->cpf)==0){
-            return 1;
+            return i;
         }
     }
-    return 0;
+    return -1;
 }
 
-Login loginMedico(tMedico** vetor, char *senha, char usuario, int tam){
+Login loginMedico(tMedico** vetor, char *senha, char * usuario, int tam){
     int senhaCorreta =0;
     int usuarioCorreto =0;
     int mesmaConta=0;
@@ -99,7 +99,7 @@ Login loginMedico(tMedico** vetor, char *senha, char usuario, int tam){
         }
     }
     if(!senhaCorreta){
-        return SENHA_IN;
+        return INCORRETO;
     }
 
     for(j=0; j< tam; j++){
@@ -110,17 +110,13 @@ Login loginMedico(tMedico** vetor, char *senha, char usuario, int tam){
     }
 
     if(!usuarioCorreto){
-        return USUARIO_IN;
+        return INCORRETO;
     }
 
     if(i==j){
         return CORRETO;
-    }else {
-        
-        if(!strcmp(vetor[i]->senha,senha))
-            return SENHA_IN;
-        if(!strcmp(vetor[j]->nomeUsuario,usuario))
-            return USUARIO_IN;
     }
+    return INCORRETO;
+        
 
 }
