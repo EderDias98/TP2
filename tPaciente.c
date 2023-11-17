@@ -87,3 +87,14 @@ tPaciente** adcionaPaciente(tPaciente** vetor, tPaciente *paciente, int tam) {
 
     return novoVetor;
 }
+
+int EhCadastradoPaciente(tPaciente** vetor, tPaciente *paciente, int tam){
+    for(int i=0; i<tam;i++){
+        
+        if(strcmp(vetor[i]->cpf,paciente->cpf)==0){
+            return 1;
+        }
+    }
+    return 0;
+}
+

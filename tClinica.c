@@ -39,22 +39,6 @@ void InicializaClinicaVetores(tClinica* clinica){
     }
 }
 
-void inicializaClinica(tClinica *clinica) {
-    
-        // Inicializar os vetores de secretários, médicos e pacientes
-        clinica->secretarios = NULL;
-        clinica->numSecretarios = 0;
-
-        clinica->medicos = NULL;
-        clinica->numMedicos = 0;
-
-        clinica->pacientes = NULL;
-        clinica->numPacientes = 0;
-
-
-}
-
-
 
 
 // Função para destruir uma instância da clínica
@@ -84,3 +68,60 @@ void liberaClinica(tClinica* clinica) {
         free(clinica);
     }
 }
+
+//Cadastrar Paciente 
+// retorna se cadastro foi bem sucedido
+int CadastraPacienteClinica(tClinica *clinica){
+    tPaciente* paciente = criaPaciente();
+    lePaciente(paciente);
+    if(EhCadastradoPaciente(clinica->pacientes,paciente,clinica->numPacientes)){
+        //Incrementa numero de pacientes
+        clinica->numPacientes++;
+        adcionaPaciente(clinica->pacientes,paciente,clinica->numPacientes);
+        return 1;
+    }
+    return 0;
+}
+
+int CadastraSecretarioClinica(tClinica* clinica){
+    tSecretario* secretario = CriaSecretario();
+    leSecretario(secretario);
+    if(EhCadastradoSecretario(clinica->secretarios,secretario,clinica->numSecretarios)){
+        clinica->numSecretarios++;
+        adcionaSecretario(clinica->secretarios,secretario,clinica->numSecretarios);
+        return 1;
+    }
+    return 0;
+}
+
+int CadastraMedicoClinica(tClinica* clinica){
+    tMedico* medico = criaMedico();
+    leMedico(medico);
+    if(EhCadastradoMedico(clinica->medicos, medico, clinica->numMedicos)){
+        clinica->numMedicos++;
+        adcionaMedico(clinica->medicos, medico, clinica->numMedicos);
+        return 1;
+    }
+    return 0;
+}
+
+Login comfirmarLogin(tClinica* clinica,char* senha,char* usuario,Nivel *acesso){
+    //porcurar login ou senha em medicos seja e retornar login
+    Login medico;
+    medico  = loginMedico(clinica->medicos,senha,usuario, clinica->numMedicos);
+    if(medico == CORRETO){
+        *acesso = MEDI;
+        return CORRETO;
+    }
+    Login secretario = loginSecretario(clinica->secretarios, senha , usuario, clinica->numSecretarios, &acesso);
+
+    if(secretario == CORRETO){
+        return CORRETO;
+    }
+
+    return SENHA_IN;
+}
+
+//Cadastrar Medico
+
+//Cadastrar Secretario

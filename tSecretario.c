@@ -11,7 +11,7 @@ struct secretario {
     char nivelAcesso[10];
 };
 
-tSecretario* Secretario() {
+tSecretario* CriaSecretario() {
     tSecretario* secretario = (tSecretario*) calloc(1,sizeof(tSecretario));
     if (secretario == NULL) {
         printf("Erro ao alocar memória para o secretario.\n");
@@ -80,4 +80,62 @@ tSecretario** adcionaSecretario(tSecretario** vetor, tSecretario *secretario, in
     novoVetor[tam-1] = secretario;
 
     return novoVetor;
+}
+
+int EhCadastradoSecretario(tSecretario** vetor, tSecretario *secretario, int tam){
+    for(int i=0; i<tam;i++){
+        
+        if(strcmp(vetor[i]->cpf,secretario->cpf)==0){
+            return 1;
+        }
+    }
+    return 0;
+}
+
+Login loginSecretario(tSecretario** vetor, char *senha, char usuario, int tam, Nivel *acesso){
+    int senhaCorreta =0;
+    int usuarioCorreto =0;
+    int mesmaConta=0;
+    int i,j;
+    for(i=0; i< tam; i++){
+        if(strcmp(vetor[i]->senha,senha)){
+            senhaCorreta =1;
+            break;
+        }
+    }
+    if(!senhaCorreta){
+        return SENHA_IN;
+    }
+
+    for(j=0; j< tam; j++){
+        if(strcmp(vetor[j]->nomeUsuario,usuario)){
+            usuarioCorreto =1;
+            break;
+        }
+    }
+
+    if(!usuarioCorreto){
+        return USUARIO_IN;
+    }
+
+    if(i==j){
+        *acesso = ObtemNivelAcessoSecretario(vetor[i]);
+        return CORRETO;
+    }else {
+        
+        if(!strcmp(vetor[i]->senha,senha))
+            return SENHA_IN;
+        if(!strcmp(vetor[j]->nomeUsuario,usuario))
+            return USUARIO_IN;
+    }
+
+}
+
+Nivel ObtemNivelAcessoSecretario(tSecretario * secretario){
+    if(strcmp(secretario->nivelAcesso, "ADMIN")==0)
+        return ADMIN;
+    if(strcmp(secretario->nivelAcesso, "USER")==0)
+        return USER;
+    
+    return MEDI;
 }

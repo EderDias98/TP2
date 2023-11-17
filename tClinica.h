@@ -7,5 +7,25 @@
 typedef struct clinica tClinica;
 
 
+tClinica* criaClinica();
+
+
+void InicializaClinicaVetores(tClinica* clinica);
+
+
+// Função para destruir uma instância da clínica
+void liberaClinica(tClinica* clinica);
+
+//Cadastrar Paciente 
+// retorna se cadastro foi bem sucedido
+int CadastraPacienteClinica(tClinica *clinica);
+
+
+int CadastraSecretarioClinica(tClinica* clinica);
+ 
+
+int CadastraMedicoClinica(tClinica* clinica);
+
+
 
 #endif

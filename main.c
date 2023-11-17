@@ -1,20 +1,8 @@
 #include <stdio.h>
-
+#include "tClinica.h"
 #define TAM_CAMINHO 300
 
-typedef enum
-{
-    ADMIN,
-    USER,
-    MEDI,
-} Nivel;
 
-typedef enum
-{
-    CORRETO,
-    SENHA_IN,
-    USUARIO_IN,
-} Login;
 
 void MostrarLogin()
 {
@@ -83,24 +71,28 @@ int main(int argc, int *argv[])
 
     // se o binário existir é porque já existe um banco de dados para a
     // entidade se não vc ira cria-lo dentro do diretório informado
-
+    tClinica* clinica = criaClinica();
     int sair = 0;
+    Nivel acesso;
     while (1)
     {
         MostrarLogin();
+        char senha[21];
+        char usuario[21];
+        scanf("%20[^\n]%*c", senha);
+        scanf("%20[^\n]%*c", usuario);
         // definir essa função depois
-        Login resultado;
+        
+        Login resultado =ComfirmarLogin(clinica, senha, usuario, &acesso);
         switch (resultado)
         {
         case CORRETO:
             sair = 1;
             break;
         case SENHA_IN:
-            printf(" SENHA INCORRETA\n");
+            printf(" SENHA INCORRETA OU USUARIO INEXISTENTE\n");
             break;
-        case USUARIO_IN:
-            printf("USUARIO INEXISTENTE\n");
-            break;
+
         default:
             break;
         }
@@ -118,7 +110,7 @@ acesso ao sistema (ou seja, não existe nenhum usuário cadastrado), o sistema d
 direcionar para a tela de cadastro de usuário que terá o nível de acesso ADMIN. */
 
     // definir o tipo de acesso do usuario
-    Nivel acesso;
+
 
     int funcionalidade = 0;
 
@@ -132,6 +124,8 @@ direcionar para a tela de cadastro de usuário que terá o nível de acesso ADMI
 
         if (!EhOpcaoCorreta(acesso, funcionalidade))
             continue;
+        
+        
         switch (funcionalidade)
         {
         case 1:

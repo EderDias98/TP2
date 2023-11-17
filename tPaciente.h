@@ -11,4 +11,16 @@ typedef struct paciente tPaciente;
 
 void liberaPaciente(tPaciente* paciente);
 
+
+tPaciente* criaPaciente();
+ 
+void InicializaPacienteLesoes(tPaciente* paciente);
+
+
+void lePaciente(tPaciente* paciente);
+ 
+tPaciente** adcionaPaciente(tPaciente** vetor, tPaciente *paciente, int tam);
+int EhCadastradoPaciente(tPaciente** vetor, tPaciente *paciente, int tam);
+
+
 #endif
