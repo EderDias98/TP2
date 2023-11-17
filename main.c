@@ -127,8 +127,11 @@ direcionar para a tela de cadastro de usuário que terá o nível de acesso ADMI
         MostrarMenu(acesso);
         scanf("%d%*c", &funcionalidade);
 
+// fazer um teste pra ver se é possivel a opção, por exemplo um medico acessar a funcionalidade 3 seria um erro
+// pode usar um loop para voltar ao menu para escolher a opcao de novo
+
         if (!EhOpcaoCorreta(acesso, funcionalidade))
-            MostrarMenu(acesso);
+            continue;
         switch (funcionalidade)
         {
         case 1:
@@ -168,6 +171,3 @@ direcionar para a tela de cadastro de usuário que terá o nível de acesso ADMI
         return 0;
     }
 }
-
-// fazer um teste pra ver se é possivel a opção, por exemplo um medico acessar a funcionalidade 3 seria um erro
-// pode usar um loop para voltar ao menu para escolher a opcao de novo
