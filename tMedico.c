@@ -58,22 +58,20 @@ void leMedico(tMedico* medico){
 
 // na clinica o tamanho começa com zero
 
-tMedico** adcionaMedico(tMedico** vetor, tMedico *medico, int tam) {
+void adcionaMedico(tMedico** vetor, tMedico *medico, int tam) {
     
 
     // Realocar o vetor de pacientes para acomodar o novo tamanho
-    tMedico** novoVetor = (tMedico**)realloc(vetor, (tam) * sizeof(tMedico*));
+    tMedico** vetor = (tMedico**)realloc(vetor, (tam) * sizeof(tMedico*));
 
     // Verificar se a realocação foi bem-sucedida
-    if (novoVetor == NULL) {
+    if (vetor == NULL) {
         printf("Erro ao realocar memória para o vetor de medicos.\n");
         exit(EXIT_FAILURE);
     }
 
     //Inserir Paciente
-    novoVetor[tam-1] = medico;
-
-    return novoVetor;
+    vetor[tam-1] = medico;
 }
 
 
@@ -87,7 +85,7 @@ int EhCadastradoMedico(tMedico** vetor, tMedico *medico, int tam){
     return -1;
 }
 
-Login loginMedico(tMedico** vetor, char *senha, char * usuario, int tam){
+Login loginMedico(tMedico** vetor, char *senha, char * usuario, int tam,int *indexMedico){
     int senhaCorreta =0;
     int usuarioCorreto =0;
     int mesmaConta=0;
@@ -114,9 +112,17 @@ Login loginMedico(tMedico** vetor, char *senha, char * usuario, int tam){
     }
 
     if(i==j){
+        *indexMedico = i;
         return CORRETO;
     }
     return INCORRETO;
         
 
+}
+
+char * ObtemNomeMedico(tMedico* medico){
+    return medico->nomeCompleto;
+}
+char *ObtemCrm(tMedico*medico){
+    return medico->crm;
 }

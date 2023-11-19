@@ -63,23 +63,23 @@ void leSecretario(tSecretario* secretario){
 
     //incrementar numero de pacientes antes da funçao
 
-tSecretario** adcionaSecretario(tSecretario** vetor, tSecretario *secretario, int tam) {
+void adcionaSecretario(tSecretario** vetor, tSecretario *secretario, int tam) {
     
 
 
     // Realocar o vetor de pacientes para acomodar o novo tamanho
-    tSecretario** novoVetor = (tSecretario**)realloc(vetor, (tam) * sizeof(tSecretario*));
+    tSecretario** vetor = (tSecretario**)realloc(vetor, (tam) * sizeof(tSecretario*));
 
     // Verificar se a realocação foi bem-sucedida
-    if (novoVetor == NULL) {
+    if (vetor == NULL) {
         printf("Erro ao realocar memória para o vetor de secretarios.\n");
         exit(EXIT_FAILURE);
     }
 
     //Inserir Paciente
-    novoVetor[tam-1] = secretario;
+    vetor[tam-1] = secretario;
 
-    return novoVetor;
+
 }
 
 int EhCadastradoSecretario(tSecretario** vetor, tSecretario *secretario, int tam){

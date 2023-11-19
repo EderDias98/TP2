@@ -3,6 +3,7 @@
 #include "tPaciente.h"
 #include "tSecretario.h"
 #include "tMedico.h"
+#include "tConsulta.h"
 
 typedef struct clinica tClinica;
 
@@ -26,8 +27,13 @@ int CadastraSecretarioClinica(tClinica* clinica);
 
 int CadastraMedicoClinica(tClinica* clinica);
 
-Login comfirmarLogin(tClinica* clinica,char* senha,char* usuario,Nivel *acesso);
+Login comfirmarLogin(tClinica* clinica,char* senha,char* usuario,Nivel *acesso,int *indexMedico);
 
-int EhCadastradoCLinica(tClinica* clinica, char cpf);
+int EhCadastradoCLinica(tClinica* clinica, char *cpf);
+
+
+
+void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico);
+void ImprimiSubMenu();
 
 #endif

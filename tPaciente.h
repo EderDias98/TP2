@@ -19,7 +19,7 @@ void InicializaPacienteLesoes(tPaciente* paciente);
 
 void lePaciente(tPaciente* paciente);
  
-tPaciente** adcionaPaciente(tPaciente** vetor, tPaciente *paciente, int tam);
+void adcionaPaciente(tPaciente** vetor, tPaciente *paciente, int tam);
 int EhCadastradoPaciente(tPaciente** vetor, char *cpf, int tam);
 
 
@@ -28,4 +28,7 @@ char * ObtemDataPaciente(tPaciente* paciente);
 
 int CompletaDadosPaciente(tPaciente* paciente);
 char * ObtemCpfPaciente(tPaciente* paciente);
+
+
+ 
 #endif

@@ -74,6 +74,7 @@ int main(int argc, int *argv[])
     tClinica* clinica = criaClinica();
     int sair = 0;
     Nivel acesso;
+    int indexMedico =0;
     while (1)
     {
         MostrarLogin();
@@ -83,7 +84,7 @@ int main(int argc, int *argv[])
         scanf("%20[^\n]%*c", usuario);
         // definir essa função depois
         
-        Login resultado =comfirmarLogin(clinica, senha, usuario, &acesso);
+        Login resultado =comfirmarLogin(clinica, senha, usuario, &acesso, &indexMedico);
         switch (resultado)
         {
         case CORRETO:
@@ -163,13 +164,14 @@ direcionar para a tela de cadastro de usuário que terá o nível de acesso ADMI
             printf("#################### CONSULTA MEDICA #######################");
             printf("CPF DO PACIENTE:\n");
             printf("############################################################");
-            char cpf[15] = '\0';
+            char cpf[15] = {'\0'};
             scanf("%14[^\n]%*c",cpf);
-            int idx = EhCadastradoCLinica(clinica,cpf);
-            if(idx !=-1){
-                if(previaDaConsulta(clinica)){
-                    ConsultaMedica(clinica, idx);
-                }
+            int indexPaciente = EhCadastradoCLinica(clinica,cpf);
+            
+            if(indexPaciente !=-1){
+                
+                ConsultaMedica(clinica, indexPaciente,indexMedico);
+                
             }else{
                 printf("#################### CONSULTA MEDICA #######################");
                 printf("CPF DO PACIENTE: %s", cpf);

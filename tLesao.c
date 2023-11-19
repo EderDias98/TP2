@@ -24,6 +24,22 @@ struct lesao {
     int enviarCrioterapia; //Se a lesão deve ser enviada para crioterapia (inteiro assumindo 1 ou 0)
 };
 
+struct lesoes{
+    tLesao** vetor;
+    int indexPaciente;
+    int tam;
+};
+
+
+
+tLesao* criaLesao() {
+    tLesao* lesao = (tLesao*) calloc(1,sizeof(tLesao));
+    if (lesao == NULL) {
+        printf("Erro ao alocar memória para o lesao.\n");
+        exit(EXIT_FAILURE);
+    }
+    return lesao;
+}
 
 
 // Função para liberar a memória alocada para um lesao
@@ -59,16 +75,67 @@ tLesao** adcionaLesao(tLesao** vetor, tLesao *lesao, int tam) {
     
 
     // Realocar o vetor de pacientes para acomodar o novo tamanho
-    tLesao** novoVetor = (tLesao**)realloc(vetor, (tam) * sizeof(tLesao*));
+    tLesao** vetor = (tLesao**)realloc(vetor, (tam) * sizeof(tLesao*));
 
     // Verificar se a realocação foi bem-sucedida
-    if (novoVetor == NULL) {
+    if (vetor == NULL) {
         printf("Erro ao realocar memória para o vetor de pacientes.\n");
         exit(EXIT_FAILURE);
     }
 
     //Inserir Paciente
-    novoVetor[tam-1] = lesao;
+    vetor[tam-1] = lesao;
 
-    return novoVetor;
+    return vetor;
+}
+
+void adcionaLesoes(tLesoes ** vetor, tLesoes *lesoes, int tam) {
+    
+
+    // Realocar o vetor de pacientes para acomodar o novo tamanho
+    tLesoes ** vetor = (tLesoes**)realloc(vetor, (tam) * sizeof(tLesoes*));
+
+    // Verificar se a realocação foi bem-sucedida
+    if (vetor == NULL) {
+        printf("Erro ao realocar memória para o vetor de pacientes.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    //Inserir Paciente
+    vetor[tam-1] = lesoes;
+
+    return vetor;
+}
+tLesoes* CriaLesoes(){
+    tLesoes* lesoes = (tLesoes*) calloc(1,sizeof(tLesoes));
+    if (lesoes == NULL) {
+        printf("Erro ao alocar memória para o lesoes.\n");
+        exit(EXIT_FAILURE);
+    }
+    lesoes->vetor = (tLesao**) calloc(1,sizeof(tLesao*));
+    
+    if (lesoes->vetor == NULL) {
+        printf("Erro ao alocar memória para o lesoes->vetor .\n");
+        exit(EXIT_FAILURE);
+    }
+    return lesoes;
+}
+void CadastraLesaoClinica(tLesao** vetor, tLesao*lesao,int tam){
+
+    static int i = 1;
+    sprintf(lesao->rotulo, "L%d", i);
+    i++;
+    adcionaLesao(vetor,lesao,tam);
+};
+
+void IncrementaTamLesoes(tLesoes* lesoes){
+    lesoes->tam++;
+}
+
+tLesao ** ObtemVetorLesoes(tLesoes* lesoes){
+    lesoes->vetor;
+}
+
+int ObtemTamLesoes(tLesoes* lesoes){
+    return lesoes->tam;
 }

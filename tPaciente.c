@@ -70,22 +70,21 @@ void lePaciente(tPaciente* paciente){
 
 // na clinica o tamanho começa com zero
 
-tPaciente** adcionaPaciente(tPaciente** vetor, tPaciente *paciente, int tam) {
+void adcionaPaciente(tPaciente** vetor, tPaciente *paciente, int tam) {
     
 
     // Realocar o vetor de pacientes para acomodar o novo tamanho
-    tPaciente** novoVetor = (tPaciente**)realloc(vetor, (tam) * sizeof(tPaciente*));
+    tPaciente** vetor = (tPaciente**)realloc(vetor, (tam) * sizeof(tPaciente*));
 
     // Verificar se a realocação foi bem-sucedida
-    if (novoVetor == NULL) {
+    if (vetor == NULL) {
         printf("Erro ao realocar memória para o vetor de pacientes.\n");
         exit(EXIT_FAILURE);
     }
 
     //Inserir Paciente
-    novoVetor[tam-1] = paciente;
+    vetor[tam-1] = paciente;
 
-    return novoVetor;
 }
 
 //retorna o indice do paciente;
@@ -119,20 +118,21 @@ int CompletaDadosPaciente(tPaciente* paciente){
     
     printf("FUMANTE: ");
     scanf("%d%*c", &paciente->fumante);
-    printf("%d%*c", paciente->fumante);
+    printf("%d", paciente->fumante);
     
     printf("ALEGIA A MEDICAMENTO: ");
     scanf("%d%*c", &paciente->alergiaMedicamento);
-    printf("%d%*c", paciente->alergiaMedicamento);
+    printf("%d", paciente->alergiaMedicamento);
 
     printf("HISTORICO DE CANCER: ");
     scanf("%d%*c", &paciente->historicoCancer);
-    printf("%d%*c", paciente->historicoCancer);
+    printf("%d", paciente->historicoCancer);
 
     printf("TIPO DE PELE: ");
     scanf("%4[^\n]%*c", paciente->tipoPele);
-    printf("%s%*c", paciente->tipoPele);
+    printf("%s", paciente->tipoPele);
 
     return 1;
 
 }
+
