@@ -190,7 +190,7 @@ void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico){
     char dataConsulta[11]= {'\0'};
     scanf("%10[^\n]%*c",dataConsulta);    
     printf("%s\n", dataConsulta);
-
+    DefiniDataConsulta(paciente,dataConsulta);
     // Os documentos e lesoes serao adcionados de acordo 
     tConsulta* consulta= criaConsulta(indexPaciente,indexMedico,dataConsulta,obtemNomeMedico(medico));
     tLesoes *lesoes =NULL;
@@ -207,6 +207,7 @@ void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico){
                 clinica->tamVetorLesoes++;
                 tLesoes* lesoes = criaLesoes();
                 //compartilham o ponteiro para struct lesoes
+                DefiniLesoesPaciente(paciente,lesoes);
                 DefinirLesoesConsulta(consulta,lesoes);
                 adcionaLesoes(clinica->vetorLesoes,lesoes, clinica->tamVetorLesoes);
             }
@@ -318,10 +319,12 @@ void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico){
     adcionaConsulta(clinica->consultas,consulta,clinica->numConsultas);
 }
 
-
-
-
-
+tPaciente** ObtemPacientes(tClinica* clinica){
+    return clinica->pacientes;
+}
+int ObtemTamPacientes(tClinica* clinica){
+    return clinica->numPacientes;
+}
 
 
 

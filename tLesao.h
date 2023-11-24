@@ -31,4 +31,8 @@ tLesao ** ObtemVetorLesoes(tLesoes* lesoes);
 
 int ObtemTamLesoes(tLesoes* lesoes);
 
+char * ObtemDiagnostico(tLesao* lesao);
+
+char *ObtemlesaoVetor(tLesoes* lesoes, int index);
+
 #endif

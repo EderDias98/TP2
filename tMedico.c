@@ -62,7 +62,7 @@ void adcionaMedico(tMedico** vetor, tMedico *medico, int tam) {
     
 
     // Realocar o vetor de pacientes para acomodar o novo tamanho
-    tMedico** vetor = (tMedico**)realloc(vetor, (tam) * sizeof(tMedico*));
+    vetor = (tMedico**)realloc(vetor, (tam) * sizeof(tMedico*));
 
     // Verificar se a realocação foi bem-sucedida
     if (vetor == NULL) {

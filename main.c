@@ -184,6 +184,66 @@ direcionar para a tela de cadastro de usuário que terá o nível de acesso ADMI
             break;
         case 5:
             /* code */
+            printf("#################### BUSCAR PACIENTES #######################\n");
+            printf("NOME DO PACIENTE: ");
+            char nome[100] = {'\0'};
+            scanf("%99[^n]%*c",nome);
+            printf("\nDATA DA CONSULTA: ");
+            char data[11];
+            scanf("%10[^n]%*c",data);
+            printf("\nDIAGNOSTICO: ");
+            char diagnostico[30];
+            scanf("%29[^n]%*c",diagnostico);
+            int tamPacientes = ObtemTamPacientes(clinica);
+            tPaciente** pacientes = ObtemPacientes(clinica);
+            int tamLista=0;
+            tPaciente** lista = BuscarPacientes(pacientes,tamPacientes,
+            nome,data,diagnostico, &tamLista);
+            if(pacientes == NULL){
+
+                printf("#################### BUSCAR PACIENTES #######################\n");
+                printf("NENHUM PACIENTE FOI ENCONTRADO. PRESSIONE QUALQUER TECLA PARA\n");
+                printf("RETORNAR AO MENU ANTERIOR");
+                printf("############################################################");
+                scanf("%*c");
+                continue;
+            }
+
+            qsort(pacientes,tamPacientes,sizeof(tPaciente*), comparar_nomes);
+            
+            tLista *listaBusca = criaListaDeBusca(lista,tamLista);
+            
+            int opcao=0;
+            imprimeEmTelaLista(listaBusca);
+            scanf("%d%*c", &opcao);
+            if(opcao == 1){
+                printf(" #################### BUSCAR PACIENTES #######################\n");
+                printf("LISTA ENVIADA PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER TECLA PARA\n");
+                printf("RETORNAR AO MENU PRINCIPAL\n");
+                printf("############################################################");
+               scanf("%*c");
+            }else if(opcao==2){
+                int numPaciente=0;
+                printf(" #################### BUSCAR PACIENTES #######################\n");
+                printf("DIGITE O NUMERO DO PACIENTE: ");
+                scanf("%d%*c", &numPaciente);
+                printf("\n############################################################\n");
+                int opcaoB =0;
+                tPaciente *paciente = ObtemPaciente(pacientes, numPaciente-1);
+                imprimeEmTelaBusca(paciente);
+                scanf("%d%*c", &opcaoB);
+                if(opcao==1){
+                    printf(" #################### BUSCAR PACIENTES #######################\n");
+                    printf("DADOS ENVIADO PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER TECLA PARA\n");
+                    printf("RETORNAR AO MENU PRINCIPAL\n");
+                    printf("############################################################");
+                    scanf("%*c");                  
+                }else if(opcao==2){
+                    continue;
+                }
+            }
+
+
             break;
         case 6:
             /* code */

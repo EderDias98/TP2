@@ -1,24 +1,24 @@
-#ifndef LISTA_BUSCA_H
-#define  LISTA_BUSCA_H
+#ifndef T_BUSCA_H
+#define T_BUSCA_H
 
 #include "tPaciente.h"
 
 
-typedef struct lista tLista;
+typedef struct busca tBusca;
 
-tLista *criaListaDeBusca(tPaciente** lista, int tamLista);
+
 
 /**
  * Função que recebe o ponteiro genérico (que deve conter uma receita) e o desaloca da memória.
  * Essa função primeiro verifica se o ponteiro é NULL antes de desalocar.
  */
-void desalocaLista(void *dado);
+void desalocaBusca(void *dado);
 
 /**
  * Função que recebe um ponteiro genérico (que deve conter uma receita) e imprime os dados na tela
  * de acordo com o especificado na descrição do trabalho.
  */
-void imprimeEmTelaLista(void *dado);
+void imprimeEmTelaBusca(void *dado);
 
 /**
  * Função que recebe um ponteiro genérico (que deve conter uma receita) e imprime os dados no arquivo
@@ -27,9 +27,6 @@ void imprimeEmTelaLista(void *dado);
  * Ex: /home/usuario/Documentos
  * O nome do arquivo e a maneira de escrita é definido dentro da função
  */
-void imprimeEmArquivoLista(void *dado, char *path);
-
-
-
+void imprimeEmArquivoBusca(void *dado, char *path);
 
 #endif

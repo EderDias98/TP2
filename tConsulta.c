@@ -29,7 +29,7 @@ void adcionaConsulta(tConsulta** vetor, tConsulta *consulta, int tam) {
     
 
     // Realocar o vetor de pacientes para acomodar o novo tamanho
-    tConsulta** vetor = (tConsulta**)realloc(vetor, (tam) * sizeof(tConsulta*));
+     vetor = (tConsulta**)realloc(vetor, (tam) * sizeof(tConsulta*));
 
     // Verificar se a realocação foi bem-sucedida
     if (vetor == NULL) {

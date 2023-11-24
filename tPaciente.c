@@ -15,8 +15,8 @@ struct paciente{
     int totalLesoes;
     int enviadaCirurgia;
     int enviadaCrioterapia;
-    
-    tLesao ** lesoes;
+    char dataConsulta[11];
+    tLesoes * lesoes;
     
 };
 
@@ -74,7 +74,7 @@ void adcionaPaciente(tPaciente** vetor, tPaciente *paciente, int tam) {
     
 
     // Realocar o vetor de pacientes para acomodar o novo tamanho
-    tPaciente** vetor = (tPaciente**)realloc(vetor, (tam) * sizeof(tPaciente*));
+     vetor = (tPaciente**)realloc(vetor, (tam) * sizeof(tPaciente*));
 
     // Verificar se a realocação foi bem-sucedida
     if (vetor == NULL) {
@@ -135,4 +135,124 @@ int CompletaDadosPaciente(tPaciente* paciente){
     return 1;
 
 }
+void DefiniLesoesPaciente(tPaciente* paciente, tLesoes* lesoes){
+    paciente->lesoes = lesoes;
+}
 
+void DefiniDataConsulta(tPaciente* paciente, char data){
+    strcpy(paciente->dataConsulta,data);
+}
+
+tPaciente** BuscarPacientes(tPaciente** pacientes,int tamPacientes,char *nome,char *data,char *diagnostico,
+int* tamLista){
+    tPaciente** lista = (tPaciente**) calloc(1, sizeof(tPaciente*));
+    
+
+    tLesoes * lesoes = NULL;
+
+    if(lista == NULL){
+        printf("Erro ao alocar memória para a lista.\n");
+        exit(EXIT_FAILURE);
+    }
+    int peloMenosUmPaciente =0;
+    if(nome[0]!='\0'  && data[0] == '\0' && diagnostico[0] == '0'){
+        for(int i=0; i < tamPacientes;i++){
+            if(strcmp(nome, pacientes[i]->nomeCompleto)==0){
+                peloMenosUmPaciente =1;
+                (*tamLista)++;
+                adcionaPaciente(lista, pacientes[i],*tamLista);
+            }
+        }
+    }
+
+    if(nome[0]=='\0'  && data[0] != '\0' && diagnostico[0] == '0'){
+        for(int i=0; i < tamPacientes;i++){
+            if(strcmp(data, pacientes[i]->dataConsulta)==0){
+                peloMenosUmPaciente =1;
+                (*tamLista)++;
+                adcionaPaciente(lista, pacientes[i],*tamLista);
+            }
+        }
+    }
+
+    if(nome[0]=='\0'  && data[0] == '\0' && diagnostico[0] != '0'){
+        for(int i=0; i < tamPacientes;i++){
+            lesoes = pacientes[i]->lesoes;
+            for(int j=0; j< ObtemTamLesoes(lesoes);j++){
+                if(strcmp(diagnostico, ObtemDiagnostico(ObtemlesaoVetor(lesoes,j)))==0){
+                    peloMenosUmPaciente =1;
+                    (*tamLista)++;
+                    adcionaPaciente(lista, pacientes[i],*tamLista);
+                }
+            }
+        }
+    }
+
+    if(nome[0]!='\0'  && data[0] != '\0' && diagnostico[0] == '0'){
+        for(int i=0; i < tamPacientes;i++){
+            if(strcmp(nome, pacientes[i]->nomeCompleto)==0 &&
+            strcmp(data, pacientes[i]->dataConsulta)==0){
+                peloMenosUmPaciente =1;
+                (*tamLista)++;
+                adcionaPaciente(lista, pacientes[i],*tamLista);
+            }
+        }
+    }
+
+    if(nome[0]!='\0'  && data[0] == '\0' && diagnostico[0] != '0'){
+        for(int i=0; i < tamPacientes;i++){
+            lesoes = pacientes[i]->lesoes;
+            for(int j=0; j< ObtemTamLesoes(lesoes);j++){
+                if(strcmp(diagnostico, ObtemDiagnostico(ObtemlesaoVetor(lesoes,j)))==0 
+                && strcmp(nome, pacientes[i]->nomeCompleto)==0){
+                    peloMenosUmPaciente =1;
+                    (*tamLista)++;
+                    adcionaPaciente(lista, pacientes[i],*tamLista);
+                }
+            }
+        }
+    }
+
+    if(nome[0] =='\0'  && data[0] != '\0' && diagnostico[0] != '0'){
+        for(int i=0; i < tamPacientes;i++){
+            lesoes = pacientes[i]->lesoes;
+            for(int j=0; j< ObtemTamLesoes(lesoes);j++){
+                if(strcmp(diagnostico, ObtemDiagnostico(ObtemlesaoVetor(lesoes,j)))==0 
+                && strcmp(data, pacientes[i]->dataConsulta)==0){
+                    peloMenosUmPaciente =1;
+                    (*tamLista)++;
+                    adcionaPaciente(lista, pacientes[i],*tamLista);
+                }
+            }
+        }
+    }
+
+    if(nome[0] !='\0'  && data[0] != '\0' && diagnostico[0] != '0'){
+        for(int i=0; i < tamPacientes;i++){
+            lesoes = pacientes[i]->lesoes;
+            for(int j=0; j< ObtemTamLesoes(lesoes);j++){
+                if(strcmp(diagnostico, ObtemDiagnostico(ObtemlesaoVetor(lesoes,j)))==0 
+                && strcmp(data, pacientes[i]->dataConsulta)==0
+                && strcmp(nome, pacientes[i]->nomeCompleto)==0){
+                    peloMenosUmPaciente =1;
+                    (*tamLista)++;
+                    adcionaPaciente(lista, pacientes[i],*tamLista);
+                }
+            }
+        }
+    }
+
+    if(!peloMenosUmPaciente){
+        free(lista);
+        lista =NULL;
+    }
+
+    return lista;
+}
+int comparar_nomes( void *a, void *b) {
+    return strcmp(((tPaciente *)b)->nomeCompleto, ((tPaciente *)a)->nomeCompleto);
+}
+
+tPaciente* ObtemPaciente(tPaciente** pacientes,int index){
+    return pacientes[index];
+}

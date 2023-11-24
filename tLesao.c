@@ -75,7 +75,7 @@ tLesao** adcionaLesao(tLesao** vetor, tLesao *lesao, int tam) {
     
 
     // Realocar o vetor de pacientes para acomodar o novo tamanho
-    tLesao** vetor = (tLesao**)realloc(vetor, (tam) * sizeof(tLesao*));
+     vetor = (tLesao**)realloc(vetor, (tam) * sizeof(tLesao*));
 
     // Verificar se a realocação foi bem-sucedida
     if (vetor == NULL) {
@@ -93,7 +93,7 @@ void adcionaLesoes(tLesoes ** vetor, tLesoes *lesoes, int tam) {
     
 
     // Realocar o vetor de pacientes para acomodar o novo tamanho
-    tLesoes ** vetor = (tLesoes**)realloc(vetor, (tam) * sizeof(tLesoes*));
+     vetor = (tLesoes**)realloc(vetor, (tam) * sizeof(tLesoes*));
 
     // Verificar se a realocação foi bem-sucedida
     if (vetor == NULL) {
@@ -138,4 +138,12 @@ tLesao ** ObtemVetorLesoes(tLesoes* lesoes){
 
 int ObtemTamLesoes(tLesoes* lesoes){
     return lesoes->tam;
+}
+
+char * ObtemDiagnostico(tLesao* lesao){
+    return lesao->diagnosticoClinico;
+}
+
+char *ObtemlesaoVetor(tLesoes* lesoes, int index){
+    return lesoes->vetor[index];
 }
