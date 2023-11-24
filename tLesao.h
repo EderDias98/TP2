@@ -57,4 +57,10 @@ int ObtemEnviarCirurgia(tLesao *lesao);
 int ObtemEnviarCrioterapia(tLesao *lesao);
 
 tLesao* ObtemLesao(tLesao** vetor, int index);
+
+int QtdEnvidasCirurgia(tLesoes* lesoes);
+
+int QtdEnvidasCrioterapia(tLesoes* lesoes);
+
+char* EnviadaOnde(tLesao* lesao);
 #endif

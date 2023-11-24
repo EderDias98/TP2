@@ -27,6 +27,7 @@ tPaciente* criaPaciente() {
         printf("Erro ao alocar memória para o paciente.\n");
         exit(EXIT_FAILURE);
     }
+    paciente->lesoes =NULL;
     return paciente;
 }
 
@@ -98,6 +99,46 @@ char * ObtemNomePaciente(tPaciente* paciente){
 char * ObtemDataPaciente(tPaciente* paciente){
 
     return paciente->dataNascimento;
+ }
+
+ char* ObtemGeneroPaciente(tPaciente* paciente){
+    return paciente->genero;
+ }
+ char* ObtemTelefonePaciente(tPaciente* paciente){
+    return paciente->telefone;
+ }
+
+ int ObtemDiabetesPacientes(tPaciente* paciente){
+    return paciente->diabetes;
+ }
+ int ObtemFumantePaciente(tPaciente* paciente){
+    return paciente->fumante;
+ }
+ int ObtemAlergiaPaciente(tPaciente* paciente){
+    return paciente->alergiaMedicamento;
+ }
+ int ObtemHistoricoCancerPaciente(tPaciente* paciente){
+    return paciente->historicoCancer;
+ }
+
+ char* ObtemTipoPelePaciente(tPaciente* paciente){
+    return paciente->tipoPele;
+ }
+
+ char* SimOuNao(int afirmacao){
+    char *resp = NULL;
+    switch (afirmacao)
+    {
+    case 1 :
+        resp = "SIM";
+        break;
+    case 0:
+        resp = "NAO";
+        break;
+    default:
+        break;
+    }
+    return resp;
  }
 
 int CompletaDadosPaciente(tPaciente* paciente){
@@ -244,4 +285,61 @@ int comparar_nomes( void *a, void *b) {
 
 tPaciente* ObtemPaciente(tPaciente** pacientes,int index){
     return pacientes[index];
+}
+
+
+
+int CalculaIdade(char * data){
+    
+
+
+    int anoAtual=2023, mesAtual=11, diaAtual =9;
+    int ano=0,mes=0,dia=0;
+
+    sscanf(data, "%d/%d/%d", &dia, &mes, &ano);
+
+    int idade = anoAtual - ano;
+
+    // Ajusta a idade se a data de nascimento ainda não ocorreu este ano
+    if (( mes <mesAtual) || ( mes == mesAtual && dia < diaAtual)) {
+        idade--;
+    }
+
+
+    return idade;
+
+}
+
+tLesoes* ObtemLesoesPaciente(tPaciente* paciente){
+    return paciente->lesoes;
+}
+
+tPaciente* copiaPaciente(tPaciente* paciente, tLesoes*lesoes){
+    tPaciente* copia  = criaPaciente();
+    
+    if (copia == NULL) {
+        perror("Erro ao alocar memória para o paciente copiado");
+        exit(EXIT_FAILURE);
+    }
+
+    // Copia os campos do paciente original para a cópia
+    strcpy(copia->nomeCompleto, paciente->nomeCompleto);
+    strcpy(copia->cpf, paciente->cpf);
+    strcpy(copia->dataNascimento, paciente->dataNascimento);
+    strcpy(copia->telefone, paciente->telefone);
+    strcpy(copia->genero, paciente->genero);
+    copia->diabetes = paciente->diabetes;
+    copia->fumante = paciente->fumante;
+    copia->alergiaMedicamento = paciente->alergiaMedicamento;
+    copia->historicoCancer = paciente->historicoCancer;
+    strcpy(copia->tipoPele, paciente->tipoPele);
+    copia->totalLesoes = paciente->totalLesoes;
+    copia->enviadaCirurgia = paciente->enviadaCirurgia;
+    copia->enviadaCrioterapia = paciente->enviadaCrioterapia;
+    strcpy(copia->dataConsulta, paciente->dataConsulta);
+    
+    copia->lesoes = lesoes;
+
+    return copia;
+
 }

@@ -18,7 +18,7 @@ typedef enum
     TOPICO
 } eTipoUso;
 
-typedef struct receita tReceita;
+typedef struct tReceita tReceita;
 
 /**
  * Função que recebe todas as informações pertinentes a uma receita e retorna

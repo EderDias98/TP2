@@ -1,6 +1,6 @@
 #include "tReceita.h"
 
-struct receita{
+struct tReceita{
     char nomePaciente[100];  // ou qualquer tamanho desejado
     eTipoUso tipoUso;
     char nomeMedicamento[MAX_TAM_NOME_MEDICAMENTO];

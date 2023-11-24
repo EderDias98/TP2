@@ -8,11 +8,7 @@ typedef struct busca tBusca;
 
 
 
-/**
- * Função que recebe o ponteiro genérico (que deve conter uma receita) e o desaloca da memória.
- * Essa função primeiro verifica se o ponteiro é NULL antes de desalocar.
- */
-void desalocaBusca(void *dado);
+
 
 /**
  * Função que recebe um ponteiro genérico (que deve conter uma receita) e imprime os dados na tela

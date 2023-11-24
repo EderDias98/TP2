@@ -177,3 +177,25 @@ char * ObtemDiagnostico(tLesao* lesao){
 char *ObtemlesaoVetor(tLesoes* lesoes, int index){
     return lesoes->vetor[index];
 }
+
+int QtdEnvidasCirurgia(tLesoes* lesoes){
+    int soma=0;
+    for(int i=0; i< lesoes->tam;i++){
+        soma+=ObtemEnviarCirurgia(lesoes->vetor[i]);
+    }
+    return soma;
+}
+int QtdEnvidasCrioterapia(tLesoes* lesoes){
+    int soma=0;
+    for(int i=0; i< lesoes->tam;i++){
+        soma+=ObtemEnviarCrioterapia(lesoes->vetor[i]);
+    }
+    return soma;
+}
+
+char* EnviadaOnde(tLesao* lesao){
+    if(lesao->enviarCirurgia)
+        return "ENVIADA PARA CIRURGIA";
+    else
+        return "ENVIADA PARA CRIOTERAPIA";
+}
