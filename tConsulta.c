@@ -3,7 +3,8 @@
 struct consulta{
     int indexPaciente;
     int indexMedico;
-    char dataPaciente;
+    char nomePaciente[100];
+    char dataPaciente[11];
     char nomeMedico[100];
     //colocar as lesoes aqui
     tLesoes* lesoes;
@@ -12,7 +13,7 @@ struct consulta{
     tEncaminhamento* encaminhamento;
 };
 
-tConsulta* criaConsulta(int indexMedico, int indexPaciente, char *data, char * nomeMedico){
+tConsulta* criaConsulta(int indexMedico, int indexPaciente, char *data, char * nomeMedico, char * nomePaciente){
     tConsulta* consulta = (tConsulta*) calloc(1,sizeof(tConsulta));
     if (consulta == NULL) {
         printf("Erro ao alocar memória para o consulta.\n");
@@ -22,6 +23,7 @@ tConsulta* criaConsulta(int indexMedico, int indexPaciente, char *data, char * n
     consulta->indexPaciente = indexPaciente;
     strcpy(consulta->dataPaciente,data);
     strcpy(consulta->nomeMedico, nomeMedico);
+    strcpy(consulta->nomePaciente,nomePaciente);
     return consulta;
 }
 
@@ -48,17 +50,17 @@ void liberaConsulta(tConsulta* consulta) {
     }
 }
 
-void DefinirLesoesConsulta(tConsulta* consulta,tLesoes * lesoes){
+void DefiniLesoesConsulta(tConsulta* consulta,tLesoes * lesoes){
     consulta->lesoes = lesoes;
 }
 
 void DefiniReceitaConsulta(tConsulta* consulta,tReceita* receita){
     consulta->receita = receita;
 }
-void DefinirBiopsiaConsulta(tConsulta* consulta, tBiopsia * biobsia){
+void DefiniBiopsiaConsulta(tConsulta* consulta, tBiopsia * biobsia){
     consulta->biobsia  = biobsia;
 }
 
-void DefinirEncaminhamentoConsulta(tConsulta* consulta, tEncaminhamento* encaminhamento){
+void DefiniEncaminhamentoConsulta(tConsulta* consulta, tEncaminhamento* encaminhamento){
     consulta->encaminhamento = encaminhamento;
 }

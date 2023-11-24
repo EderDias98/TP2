@@ -19,10 +19,12 @@ struct lesao {
 // DORSO, ABDOME, BRAÇO, ANTEBRAÇO, MÃO, COXA, CANELA, PE e
 // OUTROS
     char regiaoCorpo[11]; 
-    char tamanho[10];//Tamanho (inteiro representando o tamanho em milímetros)
+    int tamanho;//Tamanho (inteiro representando o tamanho em milímetros)
     int enviarCirurgia; //Se a lesão deve ser enviada para cirurgia (inteiro assumindo 1 ou 0)
     int enviarCrioterapia; //Se a lesão deve ser enviada para crioterapia (inteiro assumindo 1 ou 0)
 };
+
+
 
 struct lesoes{
     tLesao** vetor;
@@ -30,6 +32,34 @@ struct lesoes{
     int tam;
 };
 
+
+char * ObtemRotulo(tLesao * lesao){
+    return lesao->rotulo;
+}
+// Função para obter o diagnóstico clínico da lesão
+char *ObtemDiagnosticoClinico(tLesao *lesao) {
+    return lesao->diagnosticoClinico;
+}
+
+// Função para obter a região do corpo da lesão
+char *ObtemRegiaoCorpo(tLesao *lesao) {
+    return lesao->regiaoCorpo;
+}
+
+// Função para obter o tamanho da lesão
+int ObtemTamanho(tLesao *lesao) {
+    return lesao->tamanho;
+}
+
+// Função para obter se a lesão deve ser enviada para cirurgia
+int ObtemEnviarCirurgia(tLesao *lesao) {
+    return lesao->enviarCirurgia;
+}
+
+// Função para obter se a lesão deve ser enviada para crioterapia
+int ObtemEnviarCrioterapia(tLesao *lesao) {
+    return lesao->enviarCrioterapia;
+}
 
 
 tLesao* criaLesao() {
@@ -60,7 +90,7 @@ void leLesao(tLesao* lesao){
     scanf("%10[^\n]%*c", lesao->regiaoCorpo);
 
     printf("TAMANHO:\n");
-    scanf("%9[^\n]%*c", lesao->tamanho);
+    scanf("%d%*c", lesao->tamanho);
 
     printf("ENVIAR PARA CIRURGIA:\n");
     scanf("%d%*c", &lesao->enviarCirurgia);

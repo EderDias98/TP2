@@ -9,15 +9,15 @@
 #include "tPaciente.h"
 
 typedef struct consulta tConsulta;
-tConsulta* criaConsulta(int indexMedico, int indexPacient, char *data, char * nomeMedico);
+tConsulta* criaConsulta(int indexMedico, int indexPacient, char *data, char * nomeMedico,char * nomePaciente);
 void adcionaConsulta(tConsulta** vetor, tConsulta *consulta, int tam);
 
 void liberaConsulta(tConsulta* consulta);
 
-void DefinirLesoesConsulta(tConsulta* consulta,tLesoes * lesoes);
+void DefiniLesoesConsulta(tConsulta* consulta,tLesoes * lesoes);
 void DefiniReceitaConsulta(tConsulta* consulta,tReceita* receita);
-void DefinirBiopsiaConsulta(tConsulta* consulta, tBiopsia * biobsia);
+void DefiniBiopsiaConsulta(tConsulta* consulta, tBiopsia * biobsia);
 
-void DefinirEncaminhamentoConsulta(tConsulta* consulta, tEncaminhamento* encaminhamento);
+void DefiniEncaminhamentoConsulta(tConsulta* consulta, tEncaminhamento* encaminhamento);
 
 #endif

@@ -1,6 +1,10 @@
 #ifndef T_ENCAMINHAMENTO
 #define T_ENCAMINHAMENTO
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 typedef struct  encaminhamento tEncaminhamento;
 
 /**

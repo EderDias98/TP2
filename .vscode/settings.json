@@ -1,6 +1,10 @@
 {
     "files.associations": {
         "string.h": "c",
+<<<<<<< HEAD
         "tlista_busca.h": "c"
+=======
+        "treceita.h": "c"
+>>>>>>> b4aebf10fe58c9cf2a5b5725ca98ac54958805b8
     }
 }

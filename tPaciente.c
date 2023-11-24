@@ -30,17 +30,6 @@ tPaciente* criaPaciente() {
     return paciente;
 }
 
-void InicializaPacienteLesoes(tPaciente* paciente){
-
-    // Inicializar o array de lesões (isso depende da lógica específica do seu programa)
-    paciente->lesoes = (tLesao **) calloc(1,sizeof(tLesao*));
-    
-    if (paciente->lesoes == NULL) {
-        printf("Erro ao alocar memória para o paciente->lesoes.\n");
-        exit(EXIT_FAILURE);
-    }
-}
-
 // Função para liberar a memória alocada para um paciente
 void liberaPaciente(tPaciente* paciente) {
     if(paciente!=NULL){

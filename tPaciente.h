@@ -14,7 +14,7 @@ void liberaPaciente(tPaciente* paciente);
 
 tPaciente* criaPaciente();
  
-void InicializaPacienteLesoes(tPaciente* paciente);
+
 
 
 void lePaciente(tPaciente* paciente);

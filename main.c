@@ -183,6 +183,16 @@ direcionar para a tela de cadastro de usuário que terá o nível de acesso ADMI
             }
             break;
         case 5:
+            printf("#################### BUSCAR PACIENTES #######################\n");
+            printf("NOME DO PACIENTE: ");
+            char nome[100] = {'\0'};
+            scanf("%99[^/n]%*c", nome);
+            printf("\nDATA DA CONSULTA: ");
+            char data[11]  = {'\0'};
+            scanf("%10[^/n]%*c", data);
+            char diagnostico[20] = {'\0'};
+            scanf("%19[^/n]%*c", diagnostico);
+            printf("\n############################################################\n");
             /* code */
             printf("#################### BUSCAR PACIENTES #######################\n");
             printf("NOME DO PACIENTE: ");
@@ -267,3 +277,5 @@ direcionar para a tela de cadastro de usuário que terá o nível de acesso ADMI
         return 0;
     }
 }
+
+
