@@ -68,7 +68,7 @@ void adcionaSecretario(tSecretario** vetor, tSecretario *secretario, int tam) {
 
 
     // Realocar o vetor de pacientes para acomodar o novo tamanho
-    tSecretario** vetor = (tSecretario**)realloc(vetor, (tam) * sizeof(tSecretario*));
+    vetor = (tSecretario**)realloc(vetor, (tam) * sizeof(tSecretario*));
 
     // Verificar se a realocação foi bem-sucedida
     if (vetor == NULL) {

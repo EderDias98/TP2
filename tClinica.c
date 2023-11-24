@@ -190,9 +190,9 @@ void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico){
     char dataConsulta[11]= {'\0'};
     scanf("%10[^\n]%*c",dataConsulta);    
     printf("%s\n", dataConsulta);
-
+    DefiniDataConsultaPaciente(paciente,dataConsulta);
     // Os documentos e lesoes serao adcionados de acordo 
-    tConsulta* consulta= criaConsulta(indexPaciente,indexMedico,dataConsulta,obtemNomeMedico(medico));
+    tConsulta* consulta= criaConsulta(indexPaciente,indexMedico,dataConsulta,obtemNomeMedico(medico), ObtemNomePaciente(paciente));
     tLesoes *lesoes =NULL;
     while (1)
     {
@@ -207,7 +207,8 @@ void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico){
                 clinica->tamVetorLesoes++;
                 tLesoes* lesoes = criaLesoes();
                 //compartilham o ponteiro para struct lesoes
-                DefinirLesoesConsulta(consulta,lesoes);
+                DefiniLesoesConsulta(consulta,lesoes);
+                DefiniLesoesPaciente(paciente,lesoes);
                 adcionaLesoes(clinica->vetorLesoes,lesoes, clinica->tamVetorLesoes);
             }
             lesoes =  clinica->vetorLesoes[clinica->tamVetorLesoes-1];
@@ -294,11 +295,15 @@ void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico){
             printf("\nMOTIVO: ");
             char motivo[301];
             scanf("%s300[^\n]%*c",motivo);
+
+            tEncaminhamento* encaminhamento = criaEncaminhamento(ObtemNomePaciente(paciente),ObtemCpfPaciente(paciente)
+            ,ObtemNomeMedico(medico),ObtemCrm(medico),dataConsulta,especialidade,motivo);
+            DefiniEncaminhamentoConsulta(consulta,encaminhamento);
+
             printf("\nENCAMINHAMENTO ENVIADO PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER\n");  
             printf("QUALQUER TECLA PARA RETORNAR AO MENU ANTERIOR\n");
             scanf("%*c");
-            tEncaminhamento* encaminhamento = criaEncaminhamento(ObtemNomePaciente(paciente),ObtemCpfPaciente(paciente)
-            ,ObtemNomeMedico(medico),ObtemCrm(medico),dataConsulta,especialidade,motivo);
+
             break;
         case 5:
             sair=1;

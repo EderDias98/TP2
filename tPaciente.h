@@ -14,7 +14,7 @@ void liberaPaciente(tPaciente* paciente);
 
 tPaciente* criaPaciente();
  
-void InicializaPacienteLesoes(tPaciente* paciente);
+
 
 
 void lePaciente(tPaciente* paciente);
@@ -28,6 +28,9 @@ char * ObtemDataPaciente(tPaciente* paciente);
 
 int CompletaDadosPaciente(tPaciente* paciente);
 char * ObtemCpfPaciente(tPaciente* paciente);
+
+void DefiniLesoesPaciente(tPaciente* paciente,tLesoes* lesoes);
+void DefiniDataConsultaPaciente(tPaciente* paciente, char * data);
 
 
  

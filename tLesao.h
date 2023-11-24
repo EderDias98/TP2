@@ -31,4 +31,26 @@ tLesao ** ObtemVetorLesoes(tLesoes* lesoes);
 
 int ObtemTamLesoes(tLesoes* lesoes);
 
+char * ObtemRotulo(tLesao * lesao);
+
+// Função para obter o diagnóstico clínico da lesão
+char *ObtemDiagnosticoClinico(tLesao *lesao);
+
+
+// Função para obter a região do corpo da lesão
+char *ObtemRegiaoCorpo(tLesao *lesao);
+
+
+// Função para obter o tamanho da lesão
+int ObtemTamanho(tLesao *lesao);
+ 
+
+// Função para obter se a lesão deve ser enviada para cirurgia
+int ObtemEnviarCirurgia(tLesao *lesao);
+
+
+// Função para obter se a lesão deve ser enviada para crioterapia
+int ObtemEnviarCrioterapia(tLesao *lesao);
+
+tLesao* ObtemLesao(tLesao** vetor, int index);
 #endif

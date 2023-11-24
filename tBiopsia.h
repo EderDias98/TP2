@@ -3,14 +3,14 @@
 
 #include "tLesao.h"
 
-typedef struct biobsia tBiopsia;
+typedef struct biopsia tBiopsia;
 
 /**
  * Função que recebe todas as informações pertinentes a uma receita e retorna
  * um ponteiro com a receita criada.
  *
  */
-tReceita *criaBiopsia(char *nomePaciente,  char *cpfPaciente,tLesoes*lesoes,
+tBiopsia *criaBiopsia(char *nomePaciente,  char *cpfPaciente,tLesoes*lesoes,
                       char *nomeMedico, char *CRM, char *dataStr);
 
 /**

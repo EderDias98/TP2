@@ -16,7 +16,9 @@ struct paciente{
     int enviadaCirurgia;
     int enviadaCrioterapia;
     
-    tLesao ** lesoes;
+    tLesoes *lesoes;
+
+    char dataConsulta[11];
     
 };
 
@@ -28,17 +30,6 @@ tPaciente* criaPaciente() {
         exit(EXIT_FAILURE);
     }
     return paciente;
-}
-
-void InicializaPacienteLesoes(tPaciente* paciente){
-
-    // Inicializar o array de lesões (isso depende da lógica específica do seu programa)
-    paciente->lesoes = (tLesao **) calloc(1,sizeof(tLesao*));
-    
-    if (paciente->lesoes == NULL) {
-        printf("Erro ao alocar memória para o paciente->lesoes.\n");
-        exit(EXIT_FAILURE);
-    }
 }
 
 // Função para liberar a memória alocada para um paciente
@@ -74,7 +65,7 @@ void adcionaPaciente(tPaciente** vetor, tPaciente *paciente, int tam) {
     
 
     // Realocar o vetor de pacientes para acomodar o novo tamanho
-    tPaciente** vetor = (tPaciente**)realloc(vetor, (tam) * sizeof(tPaciente*));
+    vetor = (tPaciente**)realloc(vetor, (tam) * sizeof(tPaciente*));
 
     // Verificar se a realocação foi bem-sucedida
     if (vetor == NULL) {
@@ -136,3 +127,32 @@ int CompletaDadosPaciente(tPaciente* paciente){
 
 }
 
+tPaciente* ObtemPaciente(tPaciente** pacientes, int index){
+    return pacientes[index];
+}
+tPaciente ** BuscarPaciente(tPaciente **pacientes, int tamPacientes,char * nome, char * data, char *diagnostico){
+    tPaciente** lista = (tPaciente**) calloc(1,sizeof(tPaciente*));
+    int tamLista = 0;
+    
+    if(nome[0] != '\0' && data[0] == '\0' && diagnostico[0] == '\0'){
+        for(int i=0; i<tamPacientes;i++){
+            if(strcmp(nome, pacientes[i]->nomeCompleto)==0){
+                tamLista++;
+                adcionaPaciente(pacientes, pacientes[i], tamLista);
+            }
+        }
+    }
+    
+
+
+
+
+
+    return lista;
+}
+void DefiniLesoesPaciente(tPaciente* paciente,tLesoes* lesoes){
+    paciente->lesoes = lesoes;
+}
+void DefiniDataConsultaPaciente(tPaciente* paciente, char * data){
+    strcpy(paciente->dataConsulta, data);
+}

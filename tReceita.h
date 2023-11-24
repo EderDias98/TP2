@@ -8,13 +8,17 @@
 #define MAX_TAM_INSTRUCOES 300
 #define NOME_ARQUIVO_RECEITA "receita.txt"
 
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
 typedef enum
 {
     ORAL,
     TOPICO
 } eTipoUso;
 
-typedef struct tReceita tReceita;
+typedef struct receita tReceita;
 
 /**
  * Função que recebe todas as informações pertinentes a uma receita e retorna
