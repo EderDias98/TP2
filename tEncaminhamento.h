@@ -12,7 +12,7 @@ typedef struct  encaminhamento tEncaminhamento;
  * um ponteiro com a receita criada.
  *
  */
-tReceita *criaEncaminhamento(char *nomePaciente,  char *cpfPaciente,
+tEncaminhamento *criaEncaminhamento(char *nomePaciente,  char *cpfPaciente,
                       char *nomeMedico, char *CRM, char *dataStr,char* especialidade, char* motivo);
 
 /**

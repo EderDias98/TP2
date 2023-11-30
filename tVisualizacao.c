@@ -1,5 +1,4 @@
-#include "tBusca.h"
-
+#include "tVisualizacao.h"
 
 /**
  * Função que recebe um ponteiro genérico (que deve conter uma receita) e imprime os dados na tela
@@ -20,19 +19,23 @@ void imprimeEmTelaBusca(void *dado){
     printf("HISTORICO DE CANCER: %s\n", SimOuNao(ObtemHistoricoCancerPaciente(paciente)));
     printf("TIPO DE PELE: %s\n", ObtemTipoPelePaciente(paciente));
     printf("LESOES:\n");
-    tLesoes* lesoes = ObtemLesoesPaciente(paciente);
-    if(lesoes){
-        int tamLesoes = ObtemTamLesoes(lesoes);
-        printf("TOTAL: %d",tamLesoes );
-        printf("ENVIADA PARA CIRURGIA: %d", QtdEnvidasCirurgia(lesoes));
-        printf("ENVIADA PARA CRIOTERAPIA: %d", QtdEnvidasCrioterapia(lesoes));
+    tLesoes** vetorlesoes = ObtemVetorLesoesPaciente(paciente);
+    int numVetorLesoes = ObtemNumLesoesPaciente(paciente);
+    if(vetorlesoes[0]){
+      
+        printf("TOTAL: %d", calculaNumLesao(vetorlesoes,numVetorLesoes));
+        printf("ENVIADA PARA CIRURGIA: %d", QtdEnvidasCirurgia(vetorlesoes,numVetorLesoes));
+        printf("ENVIADA PARA CRIOTERAPIA: %d", QtdEnvidasCrioterapia(vetorlesoes,numVetorLesoes));
         printf("DESCRICAO DAS LESOES:\n");
-        for(int i=0; i<tamLesoes;i++){
-            tLesao** vetorLesao = ObtemVetorLesoes(lesoes);
-            tLesao* lesao = ObtemLesao(vetorLesao,i);
-            printf("%s - %s - %s - %dMM - %s\n",ObtemRotulo(lesao),
-            ObtemDiagnostico(lesao), ObtemRegiaoCorpo(lesao), ObtemTamanho(lesao),EnviadaOnde(lesao));
-        }
+        for(int i=0; i< numVetorLesoes;i++){
+            tLesoes* lesoesAtual = obtemLesoes(vetorlesoes,i);
+            for(int j=0; j< ObtemTamLesoes(vetorlesoes[i]) ;j++){
+                tLesao* lesao = obtemLesao(lesoesAtual,j);
+                printf("%s - %s - %s - %dMM - %s\n",ObtemRotulo(lesao),
+                ObtemDiagnostico(lesao), ObtemRegiaoCorpo(lesao), ObtemTamanho(lesao),EnviadaOnde(lesao));
+            }
+            printf("\n");
+        }   
     }
 
 }
@@ -68,29 +71,26 @@ void imprimeEmArquivoBusca(void *dado, char *path){
     fprintf(arquivo, "ALERGIA A MEDICAMENTO: %s\n", SimOuNao(ObtemAlergiaPaciente(paciente)));
     fprintf(arquivo, "HISTORICO DE CANCER: %s\n", SimOuNao(ObtemHistoricoCancerPaciente(paciente)));
     fprintf(arquivo, "TIPO DE PELE: %s\n", ObtemTipoPelePaciente(paciente));
-
     fprintf(arquivo, "LESOES:\n");
-    tLesoes* lesoes = ObtemLesoesPaciente(paciente);
 
-    if (lesoes) {
-        int tamLesoes = ObtemTamLesoes(lesoes);
-        fprintf(arquivo, "TOTAL: %d\n", tamLesoes);
-        fprintf(arquivo, "ENVIADA PARA CIRURGIA: %d\n", QtdEnvidasCirurgia(lesoes));
-        fprintf(arquivo, "ENVIADA PARA CRIOTERAPIA: %d\n", QtdEnvidasCrioterapia(lesoes));
-
+    tLesoes** vetorlesoes = ObtemVetorLesoesPaciente(paciente);
+    int numVetorLesoes = ObtemNumLesoesPaciente(paciente);
+    if (vetorlesoes[0]) {
+       
+        fprintf(arquivo, "TOTAL: %d\n",calculaNumLesao(vetorlesoes,numVetorLesoes));
+        fprintf(arquivo, "ENVIADA PARA CIRURGIA: %d\n",  QtdEnvidasCirurgia(vetorlesoes,numVetorLesoes));
+        fprintf(arquivo, "ENVIADA PARA CRIOTERAPIA: %d\n",  QtdEnvidasCrioterapia(vetorlesoes,numVetorLesoes));
         fprintf(arquivo, "DESCRICAO DAS LESOES:\n");
 
-        for (int i = 0; i < tamLesoes; i++) {
-            tLesao** vetorLesao = ObtemVetorLesoes(lesoes);
-            tLesao* lesao = ObtemLesao(vetorLesao, i);
-
-            fprintf(arquivo, "%s - %s - %s - %dMM - %s\n",
-                    ObtemRotulo(lesao),
-                    ObtemDiagnostico(lesao),
-                    ObtemRegiaoCorpo(lesao),
-                    ObtemTamanho(lesao),
-                    EnviadaOnde(lesao));
-        }
+        for(int i=0; i< numVetorLesoes;i++){
+            tLesoes* lesoesAtual = obtemLesoes(vetorlesoes,i);
+            for(int j=0; j< ObtemTamLesoes(vetorlesoes[i]) ;j++){
+                tLesao* lesao = obtemLesao(lesoesAtual,j);
+                printf("%s - %s - %s - %dMM - %s\n",ObtemRotulo(lesao),
+                ObtemDiagnostico(lesao), ObtemRegiaoCorpo(lesao), ObtemTamanho(lesao),EnviadaOnde(lesao));
+            }
+            printf("\n");
+        }   
     }
 }
 

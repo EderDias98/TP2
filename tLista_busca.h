@@ -6,7 +6,7 @@
 
 typedef struct lista tLista;
 
-tLista *criaListaDeBusca(tPaciente** lista, int tamLista);
+tLista *criaListaDeBusca(tPaciente** lista, int numPacientesLista);
 
 /**
  * Função que recebe o ponteiro genérico (que deve conter uma receita) e o desaloca da memória.

@@ -5,7 +5,8 @@
 #include "tMedico.h"
 #include "tConsulta.h"
 #include "tLista_busca.h"
-#include "tBusca.h"
+#include "tVisualizacao.h"
+#include "tLesao.h"
 
 typedef struct clinica tClinica;
 
@@ -40,6 +41,14 @@ void ImprimiSubMenu();
 tPaciente** ObtemPacientes(tClinica* clinica);
 
 int ObtemTamPacientes(tClinica* clinica);
+int ObtemTamVetorLesoes(tClinica* clinica);
+
+
+tLesoes** ObtemVetor(tClinica* clinica);
+
+int obtemNumConsultas(tClinica* clinica);
+
+
  
 
 

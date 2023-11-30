@@ -191,42 +191,51 @@ void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico){
     scanf("%10[^\n]%*c",dataConsulta);    
     printf("%s\n", dataConsulta);
     //cada paciente tera uma consulta e sua data ta na sua struct
-    DefiniDataConsulta(paciente,dataConsulta);
+   
     // Os documentos e lesoes serao adcionados de acordo 
-    tConsulta* consulta= criaConsulta(indexPaciente,indexMedico,dataConsulta,obtemNomeMedico(medico), ObtemNomePaciente(paciente));
-    tLesoes *lesoes =NULL;
+    tConsulta* consulta= criaConsulta(paciente,medico,dataConsulta,obtemNomeMedico(medico), ObtemNomePaciente(paciente));
+    tLesoes* lesoes =NULL;
     while (1)
     {
         ImprimiSubMenu();
         int opcao;
-        int sair = 0,cont=0;
+        int sair = 0,cont=1;
         scanf("%d%*c", &opcao);
         switch (opcao)
         {
         case 1:
-            if(cont==0){
-                clinica->tamVetorLesoes++;
-                tLesoes* lesoes = criaLesoes();
+            if(cont==1){
+                
+                lesoes= criaLesoes();
                 //compartilham o ponteiro para struct lesoes
-                DefiniLesoesPaciente(paciente,lesoes);
-                DefinirLesoesConsulta(consulta,lesoes);
+                tLesoes** lesoesPaciente = ObtemVetorLesoesPaciente(paciente);
+                incrementaNumLesoesPaciente(paciente);
+                int tamLesoesPaciente = ObtemNumLesoesPaciente(paciente);
+                adcionaLesoes(lesoesPaciente,lesoes,tamLesoesPaciente);
+
+            
+                DefiniLesoesConsulta(consulta,lesoes);
+   
+                //sempre lembra de incrementar o tamanho antes da funçao adicionar
+                clinica->tamVetorLesoes++;
                 adcionaLesoes(clinica->vetorLesoes,lesoes, clinica->tamVetorLesoes);
             }
-            lesoes =  clinica->vetorLesoes[clinica->tamVetorLesoes-1];
+            
             printf("#################### CONSULTA MEDICA #######################\n");
             printf("CADASTRO DE LESAO:\n");
 
             
-            tLesao * lesao = criaLesao();
-            leLesao(lesao);
+            tLesao * lesaoAtual = criaLesao();
+            leLesao(lesaoAtual);
 
             IncrementaTamLesoes(lesoes);
-            CadastraLesaoClinica(ObtemVetorLesoes(lesoes),lesao,ObtemTamLesoes(lesoes));
+            CadastraLesao(ObtemVetorLesoes(lesoes),lesaoAtual,ObtemTamLesoes(lesoes));
 
             printf("LESAO REGISTRADA COM SUCESSO. PRESSIONE QUALQUER TECLA PARA\n");
             printf("RETORNAR AO MENU ANTERIOR");
             printf("############################################################");
             scanf("%*c");
+            cont++;
             break;
         case 2:
             printf("#################### CONSULTA MEDICA #######################\n");
@@ -314,7 +323,7 @@ void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico){
             break;
         }
 
-        cont++;
+        
 
         if(sair==1){
             break;
@@ -331,5 +340,15 @@ int ObtemTamPacientes(tClinica* clinica){
     return clinica->numPacientes;
 }
 
+int ObtemTamVetorLesoes(tClinica* clinica){
+    return clinica->tamVetorLesoes;
+}
+
+tLesoes** ObtemVetor(tClinica* clinica){
+    return clinica->vetorLesoes;
+}
 
 
+int obtemNumConsultas(tClinica* clinica){
+    return clinica->numConsultas;
+}

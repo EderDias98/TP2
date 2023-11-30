@@ -101,7 +101,7 @@ void leLesao(tLesao* lesao){
 
 // na clinica o tamanho começa com zero
 
-tLesao** adcionaLesao(tLesao** vetor, tLesao *lesao, int tam) {
+ void adcionaLesao(tLesao** vetor, tLesao *lesao, int tam) {
     
 
     // Realocar o vetor de pacientes para acomodar o novo tamanho
@@ -116,7 +116,6 @@ tLesao** adcionaLesao(tLesao** vetor, tLesao *lesao, int tam) {
     //Inserir Paciente
     vetor[tam-1] = lesao;
 
-    return vetor;
 }
 
 void adcionaLesoes(tLesoes ** vetor, tLesoes *lesoes, int tam) {
@@ -150,7 +149,7 @@ tLesoes* CriaLesoes(){
     }
     return lesoes;
 }
-void CadastraLesaoClinica(tLesao** vetor, tLesao*lesao,int tam){
+void CadastraLesao(tLesao** vetor, tLesao*lesao,int tam){
 
     static int i = 1;
     sprintf(lesao->rotulo, "L%d", i);
@@ -174,21 +173,33 @@ char * ObtemDiagnostico(tLesao* lesao){
     return lesao->diagnosticoClinico;
 }
 
-char *ObtemlesaoVetor(tLesoes* lesoes, int index){
+tLesao* obtemLesao(tLesoes* lesoes, int index){
     return lesoes->vetor[index];
 }
 
-int QtdEnvidasCirurgia(tLesoes* lesoes){
+int QtdEnvidasCirurgia(tLesoes** vetor, int tam){
     int soma=0;
-    for(int i=0; i< lesoes->tam;i++){
-        soma+=ObtemEnviarCirurgia(lesoes->vetor[i]);
+    for(int i=0; i< tam;i++){
+        
+        for(int j=0; j<ObtemTamLesoes(vetor[i]);j++){
+            
+            soma+=ObtemEnviarCirurgia(vetor[i]->vetor[j]);
+
+        }
+
     }
     return soma;
 }
-int QtdEnvidasCrioterapia(tLesoes* lesoes){
+int QtdEnvidasCrioterapia(tLesoes** vetor, int tam){
     int soma=0;
-    for(int i=0; i< lesoes->tam;i++){
-        soma+=ObtemEnviarCrioterapia(lesoes->vetor[i]);
+    for(int i=0; i< tam;i++){
+        
+        for(int j=0; j<ObtemTamLesoes(vetor[i]);j++){
+            
+            soma+=ObtemEnviarCrioterapia(vetor[i]->vetor[j]);
+
+        }
+
     }
     return soma;
 }
@@ -198,4 +209,16 @@ char* EnviadaOnde(tLesao* lesao){
         return "ENVIADA PARA CIRURGIA";
     else
         return "ENVIADA PARA CRIOTERAPIA";
+}
+
+int calculaNumLesao(tLesoes** vetor , int numLesoes){
+    int soma =0;
+    for(int i=0; i<numLesoes;i++){
+        soma += vetor[i]->tam;
+    }
+    return soma;
+}
+
+tLesoes *obtemLesoes(tLesoes** vetor, int index){
+    return vetor[index];
 }

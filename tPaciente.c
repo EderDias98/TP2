@@ -15,8 +15,9 @@ struct paciente{
     int totalLesoes;
     int enviadaCirurgia;
     int enviadaCrioterapia;
-    char dataConsulta[11];
-    tLesoes * lesoes;
+    tLesoes ** vetorLesoes;
+    int numConsultas;
+    int numLesoes;
     
 };
 
@@ -27,7 +28,8 @@ tPaciente* criaPaciente() {
         printf("Erro ao alocar memória para o paciente.\n");
         exit(EXIT_FAILURE);
     }
-    paciente->lesoes =NULL;
+    paciente->vetorLesoes = (tLesoes**) calloc(1,sizeof(tLesoes*)) ;
+    paciente->vetorLesoes[0] =NULL;
     return paciente;
 }
 
@@ -166,119 +168,12 @@ int CompletaDadosPaciente(tPaciente* paciente){
 
 }
 void DefiniLesoesPaciente(tPaciente* paciente, tLesoes* lesoes){
-    paciente->lesoes = lesoes;
+    paciente->numLesoes++;
+    paciente->vetorLesoes[paciente->numLesoes-1] = lesoes;
 }
 
-void DefiniDataConsulta(tPaciente* paciente, char data){
-    strcpy(paciente->dataConsulta,data);
-}
 
-tPaciente** BuscarPacientes(tPaciente** pacientes,int tamPacientes,char *nome,char *data,char *diagnostico,
-int* tamLista){
-    tPaciente** lista = (tPaciente**) calloc(1, sizeof(tPaciente*));
-    
 
-    tLesoes * lesoes = NULL;
-
-    if(lista == NULL){
-        printf("Erro ao alocar memória para a lista.\n");
-        exit(EXIT_FAILURE);
-    }
-    int peloMenosUmPaciente =0;
-    if(nome[0]!='\0'  && data[0] == '\0' && diagnostico[0] == '0'){
-        for(int i=0; i < tamPacientes;i++){
-            if(strcmp(nome, pacientes[i]->nomeCompleto)==0){
-                peloMenosUmPaciente =1;
-                (*tamLista)++;
-                adcionaPaciente(lista, pacientes[i],*tamLista);
-            }
-        }
-    }
-
-    if(nome[0]=='\0'  && data[0] != '\0' && diagnostico[0] == '0'){
-        for(int i=0; i < tamPacientes;i++){
-            if(strcmp(data, pacientes[i]->dataConsulta)==0){
-                peloMenosUmPaciente =1;
-                (*tamLista)++;
-                adcionaPaciente(lista, pacientes[i],*tamLista);
-            }
-        }
-    }
-
-    if(nome[0]=='\0'  && data[0] == '\0' && diagnostico[0] != '0'){
-        for(int i=0; i < tamPacientes;i++){
-            lesoes = pacientes[i]->lesoes;
-            for(int j=0; j< ObtemTamLesoes(lesoes);j++){
-                if(strcmp(diagnostico, ObtemDiagnostico(ObtemlesaoVetor(lesoes,j)))==0){
-                    peloMenosUmPaciente =1;
-                    (*tamLista)++;
-                    adcionaPaciente(lista, pacientes[i],*tamLista);
-                }
-            }
-        }
-    }
-
-    if(nome[0]!='\0'  && data[0] != '\0' && diagnostico[0] == '0'){
-        for(int i=0; i < tamPacientes;i++){
-            if(strcmp(nome, pacientes[i]->nomeCompleto)==0 &&
-            strcmp(data, pacientes[i]->dataConsulta)==0){
-                peloMenosUmPaciente =1;
-                (*tamLista)++;
-                adcionaPaciente(lista, pacientes[i],*tamLista);
-            }
-        }
-    }
-
-    if(nome[0]!='\0'  && data[0] == '\0' && diagnostico[0] != '0'){
-        for(int i=0; i < tamPacientes;i++){
-            lesoes = pacientes[i]->lesoes;
-            for(int j=0; j< ObtemTamLesoes(lesoes);j++){
-                if(strcmp(diagnostico, ObtemDiagnostico(ObtemlesaoVetor(lesoes,j)))==0 
-                && strcmp(nome, pacientes[i]->nomeCompleto)==0){
-                    peloMenosUmPaciente =1;
-                    (*tamLista)++;
-                    adcionaPaciente(lista, pacientes[i],*tamLista);
-                }
-            }
-        }
-    }
-
-    if(nome[0] =='\0'  && data[0] != '\0' && diagnostico[0] != '0'){
-        for(int i=0; i < tamPacientes;i++){
-            lesoes = pacientes[i]->lesoes;
-            for(int j=0; j< ObtemTamLesoes(lesoes);j++){
-                if(strcmp(diagnostico, ObtemDiagnostico(ObtemlesaoVetor(lesoes,j)))==0 
-                && strcmp(data, pacientes[i]->dataConsulta)==0){
-                    peloMenosUmPaciente =1;
-                    (*tamLista)++;
-                    adcionaPaciente(lista, pacientes[i],*tamLista);
-                }
-            }
-        }
-    }
-
-    if(nome[0] !='\0'  && data[0] != '\0' && diagnostico[0] != '0'){
-        for(int i=0; i < tamPacientes;i++){
-            lesoes = pacientes[i]->lesoes;
-            for(int j=0; j< ObtemTamLesoes(lesoes);j++){
-                if(strcmp(diagnostico, ObtemDiagnostico(ObtemlesaoVetor(lesoes,j)))==0 
-                && strcmp(data, pacientes[i]->dataConsulta)==0
-                && strcmp(nome, pacientes[i]->nomeCompleto)==0){
-                    peloMenosUmPaciente =1;
-                    (*tamLista)++;
-                    adcionaPaciente(lista, pacientes[i],*tamLista);
-                }
-            }
-        }
-    }
-
-    if(!peloMenosUmPaciente){
-        free(lista);
-        lista =NULL;
-    }
-
-    return lista;
-}
 int comparar_nomes( void *a, void *b) {
     return strcmp(((tPaciente *)b)->nomeCompleto, ((tPaciente *)a)->nomeCompleto);
 }
@@ -310,11 +205,11 @@ int CalculaIdade(char * data){
 
 }
 
-tLesoes* ObtemLesoesPaciente(tPaciente* paciente){
-    return paciente->lesoes;
+tLesoes** ObtemVetorLesoesPaciente(tPaciente* paciente){
+    return paciente->vetorLesoes;
 }
 
-tPaciente* copiaPaciente(tPaciente* paciente, tLesoes*lesoes){
+tPaciente* copiaPaciente(tPaciente* paciente, tLesoes **vetorLesoes){
     tPaciente* copia  = criaPaciente();
     
     if (copia == NULL) {
@@ -336,10 +231,26 @@ tPaciente* copiaPaciente(tPaciente* paciente, tLesoes*lesoes){
     copia->totalLesoes = paciente->totalLesoes;
     copia->enviadaCirurgia = paciente->enviadaCirurgia;
     copia->enviadaCrioterapia = paciente->enviadaCrioterapia;
-    strcpy(copia->dataConsulta, paciente->dataConsulta);
-    
-    copia->lesoes = lesoes;
+     
+    copia->vetorLesoes = vetorLesoes;
 
     return copia;
 
+}
+int ObtemNumLesoesPaciente(tPaciente* paciente){
+
+    return paciente->numLesoes;
+}
+
+void incrementaNumLesoesPaciente(tPaciente* paciente){
+    paciente->numLesoes++;
+}
+
+int JaTemPacientesLista(tPaciente** lista, tPaciente*paciente,int tam){
+    
+    for(int i=0; i<tam;i++){
+        if(paciente == lista[i])
+            return 1;
+    }
+    return 0;
 }

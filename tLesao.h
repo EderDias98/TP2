@@ -21,8 +21,9 @@ void leLesao(tLesao* lesao);
 
 // na clinica o tamanho começa com zero
 
-tLesao** adcionaLesao(tLesao** vetor, tLesao *lesao, int tam);
-void CadastraLesaoClinica(tLesao** vetor, tLesao*lesao,int tam);
+void adcionaLesao(tLesao** vetor, tLesao *lesao, int tam);
+void adcionaLesoes(tLesoes ** vetor, tLesoes *lesoes, int tam);
+void CadastraLesao(tLesao** vetor, tLesao*lesao,int tam);
 
 void adcionaLesoes(tLesoes ** vetor, tLesoes *lesoes, int tam);
 void IncrementaTamLesoes(tLesoes* lesoes);
@@ -57,10 +58,16 @@ int ObtemEnviarCirurgia(tLesao *lesao);
 int ObtemEnviarCrioterapia(tLesao *lesao);
 
 tLesao* ObtemLesao(tLesao** vetor, int index);
+tLesao* obtemLesao(tLesoes* lesoes, int index);
 
-int QtdEnvidasCirurgia(tLesoes* lesoes);
 
-int QtdEnvidasCrioterapia(tLesoes* lesoes);
+int QtdEnvidasCirurgia(tLesoes** vetor, int tam);
+
+int QtdEnvidasCrioterapia(tLesoes** vetor, int tam);
+   
 
 char* EnviadaOnde(tLesao* lesao);
+int calculaNumLesao(tLesoes** vetor , int numLesoes);
+
+tLesoes *obtemLesoes(tLesoes** vetor, int index);
 #endif

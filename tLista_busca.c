@@ -8,7 +8,7 @@ struct lista{
 
 
 
-tLista* criaListaDeBusca(tPaciente** lista, int tamLista){
+tLista* criaListaDeBusca(tPaciente** lista, int numPacientesLista){
     
     tLista* novaLista = (tLista*) calloc(1,sizeof(tLista));
 
@@ -17,7 +17,7 @@ tLista* criaListaDeBusca(tPaciente** lista, int tamLista){
         exit(EXIT_FAILURE);
     }
     novaLista->vetor = lista;
-    novaLista->tam = tamLista;
+    novaLista->tam = numPacientesLista;
 
     return lista;
 }
