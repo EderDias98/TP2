@@ -50,13 +50,28 @@ int obtemNumConsultas(tClinica* clinica);
 
 tSecretario** obtemVetorSecretarios(tClinica* clinica);
 
-tSecretario** obtemVetorMedicos(tClinica* clinica);
+tMedico** obtemVetorMedicos(tClinica* clinica);
 
-tSecretario** obtemVetorConsultas(tClinica* clinica);
+tConsulta** obtemVetorConsultas(tClinica* clinica);
+
+void LeBinLesoes(tClinica* clinica, const char* path);
+void EscreveBinLesoes(tClinica* clinica, const char* path);
+
+void LeBinLesaoVetor(tLesao** vetor,FILE * arquivo, int tam);
+void EscreveBinLesaoVetor(tLesao** vetor, FILE* arquivo, int tam);
 
 
+void LeBinPacientes(tClinica* clinica, const char* path);
+void EscreveBinPacientes(tClinica* clinica, const char* path);
 
- 
+void LeBinConsultas(tClinica* clinica, const char* path);
+void EscreveBinConsultas(tClinica* clinica, const char* path);
 
+void LeBinMedicos(tClinica* clinica, const char* path);
+void EscreveBinMedicos(tClinica* clinica, const char* path);
+
+
+void LeBinSecretarios(tClinica* clinica,char *path);
+void EscreveBinsecretarios(tClinica* clinica,char *path);
 
 #endif

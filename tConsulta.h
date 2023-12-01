@@ -22,4 +22,6 @@ void DefiniEncaminhamentoConsulta(tConsulta* consulta, tEncaminhamento* encaminh
 
 char* obtemDataConsulta(tConsulta* consulta);
 
+int obtemTamTConsulta();
+
 #endif

@@ -64,6 +64,8 @@ tLesao* obtemLesao(tLesoes* lesoes, int index);
 int QtdEnvidasCirurgia(tLesoes** vetor, int tam);
 
 int QtdEnvidasCrioterapia(tLesoes** vetor, int tam);
+int ObtemIndexPacienteLesoes(tLesoes* lesoes);
+
    
 
 char* EnviadaOnde(tLesao* lesao);
@@ -72,4 +74,6 @@ int calculaNumLesao(tLesoes** vetor , int numLesoes);
 tLesoes *obtemLesoes(tLesoes** vetor, int index);
 void DefineLesoesBin(tLesoes* lesoes, int indexPaciente, int tam);
 
+int obtemTamTLesao();
+int obtemTamTLesoes();
 #endif

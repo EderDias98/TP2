@@ -32,6 +32,12 @@ struct lesoes{
     int tam;
 };
 
+int obtemTamTLesao(){
+    return sizeof(tLesao);
+}
+int obtemTamTLesoes(){
+    return sizeof(tLesoes);
+}
 void DefineLesoesBin(tLesoes* lesoes, int indexPaciente, int tam){
     lesoes->indexPaciente = indexPaciente;
     lesoes->tam = tam;
@@ -65,6 +71,9 @@ int ObtemEnviarCrioterapia(tLesao *lesao) {
     return lesao->enviarCrioterapia;
 }
 
+int ObtemIndexPacienteLesoes(tLesoes* lesoes){
+    return lesoes->indexPaciente;
+}
 
 tLesao* criaLesao() {
     tLesao* lesao = (tLesao*) calloc(1,sizeof(tLesao));

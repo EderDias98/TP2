@@ -4,12 +4,17 @@
 
 #define NUM_DIAGONOSTICOS 7
 
-typedef struct tRelatorio tRelatorio;
+
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "tClinica.h"
+
+
+typedef struct diagnostico tDiagnostico;
+typedef struct relatorio tRelatorio;
+
 tRelatorio *criaRelatorio();
 
 

@@ -1,15 +1,15 @@
 #include "tRelatorio.h"
 
 
-typedef struct {
+struct diagnostico {
     char nomeDiagnostico[20];
     int qtd;
     
-}tDiagnostico;
+};
 
 
 
-struct tRelatorio{
+struct relatorio{
     int numPacientes; //Número total de pacientes que possui pelo menos um atendimento
     float mediaIdade;
     float DesvioPadraoIdade;//Média e desvio padrão da idade dos pacientes Utilizando somente a parte inteira

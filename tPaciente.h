@@ -5,8 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "tLesao.h"
-#include "tConsulta.h"
-#include "tClinica.h"
+
 
 typedef struct paciente tPaciente;
 
@@ -24,7 +23,7 @@ int CompletaDadosPaciente(tPaciente *paciente);
 void DefiniLesoesPaciente(tPaciente *paciente, tLesoes *lesoes);
 
 tPaciente **BuscarPacientes(tPaciente **pacientes, int tamPacientes, char *nome, char *data, char *diagnostico, int *tamLista);
-int comparar_nomes(void *a, void *b);
+int comparar_nomes(const void *a, const void *b);
 
 int CalculaIdade(char *data);
 char *SimOuNao(int afirmacao);

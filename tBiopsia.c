@@ -62,9 +62,9 @@ void imprimeNaTelaBiopsia(void *dado){
     printf("SOLICITACAO DE BIOPSIA PARA AS LESOES:\n");
 
     for(int i=0; i<ObtemTamLesoes(biopsia->lesoes);i++){
-        tLesao *lesaoAtual = ObtemLesao(ObtemVetorLesoes(biopsia->lesoes),i);
+        tLesao *lesaoAtual = obtemLesao(biopsia->lesoes,i);
         if(ObtemEnviarCirurgia(lesaoAtual) == 1){
-            printf("%s - %s - %s - %sMM\n", ObtemRotulo(lesaoAtual), ObtemDiagnosticoClinico(lesaoAtual), ObtemRegiaoCorpo(lesaoAtual),
+            printf("%s - %s - %s - %dMM\n", ObtemRotulo(lesaoAtual), ObtemDiagnosticoClinico(lesaoAtual), ObtemRegiaoCorpo(lesaoAtual),
              ObtemTamanho(lesaoAtual));
         }
     }
@@ -103,9 +103,9 @@ void imprimeEmArquivoBiopsia(void *dado, char *path){
     fprintf(arquivo, "SOLICITACAO DE BIOPSIA PARA AS LESOES:\n");
 
     for (int i = 0; i < ObtemTamLesoes(biopsia->lesoes); i++) {
-        tLesao *lesaoAtual = ObtemLesao(biopsia->lesoes, i);
+        tLesao *lesaoAtual = obtemLesao(biopsia->lesoes, i);
         if (ObtemEnviarCirurgia(lesaoAtual) == 1) {
-            fprintf(arquivo, "%s - %s - %s - %sMM\n", ObtemRotulo(lesaoAtual), ObtemDiagnosticoClinico(lesaoAtual),
+            fprintf(arquivo, "%s - %s - %s - %dMM\n", ObtemRotulo(lesaoAtual), ObtemDiagnosticoClinico(lesaoAtual),
                     ObtemRegiaoCorpo(lesaoAtual), ObtemTamanho(lesaoAtual));
         }
     }
@@ -119,7 +119,7 @@ void imprimeEmArquivoBiopsia(void *dado, char *path){
 
 int EhPossivelBiopsia(tBiopsia * biopsia){
     for (int i = 0; i < ObtemTamLesoes(biopsia->lesoes); i++) {
-        tLesao *lesaoAtual = ObtemLesao(biopsia->lesoes, i);
+        tLesao *lesaoAtual = obtemLesao(biopsia->lesoes, i);
         if (ObtemEnviarCirurgia(lesaoAtual) == 1) {
             return 1;
         }

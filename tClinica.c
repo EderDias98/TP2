@@ -1,5 +1,6 @@
 #include "tClinica.h"
 
+
 struct clinica {
     char* nome;
     tSecretario** secretarios;
@@ -19,15 +20,34 @@ struct clinica {
 tSecretario** obtemVetorSecretarios(tClinica* clinica){
     return clinica->secretarios;
 }
-tSecretario** obtemVetorMedicos(tClinica* clinica){
+tMedico** obtemVetorMedicos(tClinica* clinica){
     return clinica->medicos;
 }
-tSecretario** obtemVetorConsultas(tClinica* clinica){
+tConsulta** obtemVetorConsultas(tClinica* clinica){
     return clinica->consultas;
 }
 
+// Le os documentos binarios
+void EscreveBinsecretarios(tClinica* clinica,char *path){
+    
+    FILE* arquivo = fopen(path, "ab");
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo binario para escrita\n");
+        exit(-1);
+    }
 
+    // Escrever o número de secretários no início do arquivo
+    fwrite(&(clinica->numSecretarios), sizeof(int), 1, arquivo);
 
+    // Loop para escrever cada secretário no arquivo
+    for (int i = 0; i < clinica->numSecretarios; i++) {
+        // Escrever os dados do secretário no arquivo
+        fwrite(clinica->secretarios[i], obtemTamTSecretario(), 1, arquivo);
+    }
+
+    // Fechar o arquivo
+    fclose(arquivo);
+}
 void LeBinSecretarios(tClinica* clinica,char *path){
     tSecretario** vetor = clinica->secretarios;
     int tam=0;
@@ -52,7 +72,27 @@ void LeBinSecretarios(tClinica* clinica,char *path){
         clinica->secretarios[i] = (tSecretario*) malloc(sizeof(obtemTamTSecretario()));
 
         // Ler os dados do secretário do arquivo
-        fread(clinica->secretarios[i], sizeof(obtemTamTSecretario()), 1, arquivo);
+        fread(clinica->secretarios[i], obtemTamTSecretario(), 1, arquivo);
+    }
+
+    // Fechar o arquivo
+    fclose(arquivo);
+}
+
+void EscreveBinMedicos(tClinica* clinica, const char* path) {
+    FILE* arquivo = fopen(path, "ab");
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo binário para escrita\n");
+        exit(-1);
+    }
+
+    // Escrever o número de médicos no início do arquivo
+    fwrite(&(clinica->numMedicos), sizeof(int), 1, arquivo);
+
+    // Loop para escrever cada médico no arquivo
+    for (int i = 0; i < clinica->numMedicos; i++) {
+        // Escrever os dados do médico no arquivo
+        fwrite(clinica->medicos[i], obtemTamTMedico(), 1, arquivo);
     }
 
     // Fechar o arquivo
@@ -84,7 +124,26 @@ void LeBinMedicos(tClinica* clinica, const char* path) {
         clinica->medicos[i] = (tMedico*)malloc(obtemTamTMedico());
 
         // Ler os dados do médico do arquivo
-        fread(clinica->medicos[i], sizeof(obtemTamTMedico()), 1, arquivo);
+        fread(clinica->medicos[i], obtemTamTMedico(), 1, arquivo);
+    }
+
+    // Fechar o arquivo
+    fclose(arquivo);
+}
+void EscreveBinConsultas(tClinica* clinica, const char* path) {
+    FILE* arquivo = fopen(path, "ab");
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo binário para escrita\n");
+        exit(-1);
+    }
+
+    // Escrever o número de consultas no início do arquivo
+    fwrite(&(clinica->numConsultas), sizeof(int), 1, arquivo);
+
+    // Loop para escrever cada consulta no arquivo
+    for (int i = 0; i < clinica->numConsultas; i++) {
+        // Escrever os dados da consulta no arquivo
+        fwrite(clinica->consultas[i], obtemTamTConsulta(), 1, arquivo);
     }
 
     // Fechar o arquivo
@@ -116,7 +175,27 @@ void LeBinConsultas(tClinica* clinica, const char* path) {
         clinica->consultas[i] = (tConsulta*)malloc(obtemTamTConsulta());
 
         // Ler os dados da consulta do arquivo
-        fread(clinica->consultas[i], sizeof(obtemTamTConsulta()), 1, arquivo);
+        fread(clinica->consultas[i], obtemTamTConsulta(), 1, arquivo);
+    }
+
+    // Fechar o arquivo
+    fclose(arquivo);
+}
+
+void EscreveBinPacientes(tClinica* clinica, const char* path) {
+    FILE* arquivo = fopen(path, "wb");
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo binário para escrita\n");
+        exit(-1);
+    }
+
+    // Escrever o número de pacientes no início do arquivo
+    fwrite(&(clinica->numPacientes), sizeof(int), 1, arquivo);
+
+    // Loop para escrever cada paciente no arquivo
+    for (int i = 0; i < clinica->numPacientes; i++) {
+        // Escrever os dados do paciente no arquivo
+        fwrite(clinica->pacientes[i], obtemTamTPaciente(), 1, arquivo);
     }
 
     // Fechar o arquivo
@@ -149,12 +228,23 @@ void LeBinPacientes(tClinica* clinica, const char* path) {
         clinica->pacientes[i] = (tPaciente*)malloc(obtemTamTPaciente());
 
         // Ler os dados do paciente do arquivo
-        fread(clinica->pacientes[i], sizeof(obtemTamTPaciente()), 1, arquivo);
+        fread(clinica->pacientes[i], obtemTamTPaciente(), 1, arquivo);
     }
 
     // Fechar o arquivo
     fclose(arquivo);
 }
+void EscreveBinLesaoVetor(tLesao** vetor, FILE* arquivo, int tam) {
+    // Escrever o número de lesões no arquivo
+    fwrite(&tam, sizeof(int), 1, arquivo);
+
+    // Loop para escrever cada lesão no arquivo
+    for (int i = 0; i < tam; i++) {
+        // Escrever os dados da lesão no arquivo
+        fwrite(vetor[i], obtemTamTLesao(), 1, arquivo);
+    }
+}
+
 void LeBinLesaoVetor(tLesao** vetor,FILE * arquivo, int tam) {
 
 
@@ -174,7 +264,36 @@ void LeBinLesaoVetor(tLesao** vetor,FILE * arquivo, int tam) {
         vetor[i] = (tLesao*)malloc(obtemTamTLesao());
 
         // Ler os dados da lesão do arquivo
-        fread(vetor[i], sizeof(obtemTamTLesao()), 1, arquivo);
+        fread(vetor[i], obtemTamTLesao(), 1, arquivo);
+    }
+
+    // Fechar o arquivo
+    fclose(arquivo);
+}
+
+
+void EscreveBinLesoes(tClinica* clinica, const char* path) {
+    FILE* arquivo = fopen(path, "wb");
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo binário para escrita\n");
+        exit(-1);
+    }
+
+    // Escrever o número de conjuntos de lesões no início do arquivo
+    fwrite(&(clinica->tamVetorLesoes), sizeof(int), 1, arquivo);
+
+    // Loop para escrever cada conjunto de lesões no arquivo
+    for (int i = 0; i < clinica->tamVetorLesoes; i++) {
+        // Escrever o tamanho do vetor de lesões
+        int tam = ObtemTamLesoes(clinica->vetorLesoes[i]);
+        fwrite(&tam, sizeof(int), 1, arquivo);
+
+        // Escrever o índice do paciente
+        int indexPaciente = ObtemIndexPacienteLesoes(clinica->vetorLesoes[i]);
+        fwrite(&indexPaciente, sizeof(int), 1, arquivo);
+
+        // Escrever as lesões do vetor
+        EscreveBinLesaoVetor(ObtemVetorLesoes(clinica->vetorLesoes[i]), arquivo, tam);
     }
 
     // Fechar o arquivo
@@ -199,18 +318,18 @@ void LeBinLesoes(tClinica* clinica, const char* path) {
         exit(-1);
     }
 // definir tamanho de vetorlesoes
-    clinica->vetorLesoes = tam;
+    clinica->tamVetorLesoes = tam;
 
     // Loop para ler cada conjunto de lesões do arquivo
     for (int i = 0; i < tam; i++) {
         // Alocar memória para o conjunto de lesões atual
         clinica->vetorLesoes[i] = (tLesoes*)malloc(obtemTamTLesoes());
         int tam=0,indexPaciente=0;
-        fread(tam, sizeof(int), 1, arquivo);
-        fread(indexPaciente, sizeof(int), 1, arquivo);
+        fread(&tam, sizeof(int), 1, arquivo);
+        fread(&indexPaciente, sizeof(int), 1, arquivo);
         DefineLesoesBin(clinica->vetorLesoes[i],indexPaciente,tam);
         // Ler os dados do conjunto de lesões do arquivo
-        LeBinLesaoVetor(clinica->vetorLesoes,arquivo,tam);
+        LeBinLesaoVetor(ObtemVetorLesoes(clinica->vetorLesoes[i]),arquivo,tam);
     }
 
     // Fechar o arquivo
@@ -379,8 +498,10 @@ void ImprimiSubMenu(){
 // acrescentar taVetorLesoes antes
 
 void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico){
-    tPaciente* paciente = clinica->pacientes[indexPaciente];
-    tMedico* medico = clinica->medicos[indexMedico];
+    tPaciente* paciente =NULL;
+    paciente = clinica->pacientes[indexPaciente];
+    tMedico* medico = NULL;
+    medico =clinica->medicos[indexMedico];
 
     printf("#################### CONSULTA MEDICA #######################\n");
     printf("CPF DO PACIENTE: %s\n", ObtemCpfPaciente(paciente));

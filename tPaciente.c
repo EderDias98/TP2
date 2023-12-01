@@ -20,6 +20,7 @@ struct paciente{
     int numLesoes;
     
 };
+
 int obtemTamTPaciente(){
     return sizeof(tPaciente);
 }
@@ -177,8 +178,10 @@ void DefiniLesoesPaciente(tPaciente* paciente, tLesoes* lesoes){
 
 
 
-int comparar_nomes( void *a, void *b) {
-    return strcmp(((tPaciente *)b)->nomeCompleto, ((tPaciente *)a)->nomeCompleto);
+int comparar_nomes( const void *a, const void *b) {
+    tPaciente *paciente_a = (tPaciente *)a;
+    tPaciente *paciente_b = (tPaciente *)b;
+    return strcmp(paciente_b->nomeCompleto, (paciente_a->nomeCompleto));
 }
 
 tPaciente* ObtemPaciente(tPaciente** pacientes,int index){
