@@ -427,11 +427,12 @@ int CadastraSecretarioClinica(tClinica* clinica){
 
     tSecretario* secretario = CriaSecretario();
     leSecretario(secretario);
-    if(EhCadastradoSecretario(clinica->secretarios,secretario,clinica->numSecretarios != -1)){
+    if(EhCadastradoSecretario(clinica->secretarios,secretario,clinica->numSecretarios) == -1){
         clinica->numSecretarios++;
         adcionaSecretario(clinica->secretarios,secretario,clinica->numSecretarios);
         return 1;
     }
+    printf("CPF JA EXISTENTE. OPERACAO NAO PERMITIDA.\n");
     return 0;
 }
 

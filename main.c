@@ -4,15 +4,6 @@
 #include "tRelatorio.h"
 #define TAM_CAMINHO 300
 
-void MostrarLogin()
-{
-    printf("######################## ACESSO MINI-SADE ######################\n");
-    printf("DIGITE SEU LOGIN:\n");
-    printf("DIGITE SUA SENHA:\n");
-    printf("###############################################################\n");
-    return;
-}
-
 void MostrarMenu(Nivel acesso)
 {
     switch (acesso)
@@ -69,34 +60,33 @@ int ArquivoBinarioExiste(char *path, char *nome, char *pathBin)
 {
 
     strcat(pathBin, path);
-    strcat(pathBin,nome);
+    strcat(pathBin, nome);
 
     FILE *arquivo = fopen(pathBin, "rb");
 
     if (arquivo == NULL)
     {
         printf("O arquivo %s ainda nao existe\n", nome);
+
         return 0;
     }
-    
+
     fclose(arquivo);
     return 1;
 }
-
-
 
 void ConfigurarArquivosBinarios(char *path, int *sec, int *med, int *pac, int *cons, int *les, int *fil, tClinica *clinica)
 {
     char pathBin[200] = {'\0'};
     int tamVetor;
-    if (ArquivoBinarioExiste(path, "/secretarios.bin",pathBin) == 0)
+    if (ArquivoBinarioExiste(path, "/secretarios.bin", pathBin) == 0)
     {
 
         FILE *arquivo = fopen(pathBin, "wb");
 
         if (arquivo == NULL)
         {
-            printf("Erro ao criar o secretarios.bin\n");
+            printf("Erro ao criar o secretarios.bin %s\n", pathBin);
             exit(-1);
         }
         fclose(arquivo);
@@ -104,13 +94,13 @@ void ConfigurarArquivosBinarios(char *path, int *sec, int *med, int *pac, int *c
     else
     {
         *sec = 1;
-   
     }
-    memset(pathBin,sizeof(char),200);
-    if (ArquivoBinarioExiste(path, "/medicos.bin",pathBin) == 0)
+    memset(pathBin, '\0', sizeof(pathBin));
+
+    if (ArquivoBinarioExiste(path, "/medicos.bin", pathBin) == 0)
     {
 
-        FILE *arquivo = fopen("medicos.bin", "wb");
+        FILE *arquivo = fopen(pathBin, "wb");
 
         if (arquivo == NULL)
         {
@@ -123,13 +113,14 @@ void ConfigurarArquivosBinarios(char *path, int *sec, int *med, int *pac, int *c
     else
     {
         *med = 1;
-
     }
 
-    if (ArquivoBinarioExiste(path, "/pacientes.bin",pathBin) == 0)
+    memset(pathBin, '\0', sizeof(pathBin));
+
+    if (ArquivoBinarioExiste(path, "/pacientes.bin", pathBin) == 0)
     {
 
-        FILE *arquivo = fopen("/pacientes.bin", "wb");
+        FILE *arquivo = fopen(pathBin, "wb");
 
         if (arquivo == NULL)
         {
@@ -141,13 +132,14 @@ void ConfigurarArquivosBinarios(char *path, int *sec, int *med, int *pac, int *c
     else
     {
         *pac = 1;
-
     }
+
+    memset(pathBin, '\0', sizeof(pathBin));
 
     if (ArquivoBinarioExiste(path, "/consultas.bin", pathBin) == 0)
     {
 
-        FILE *arquivo = fopen("consultas.bin", "wb");
+        FILE *arquivo = fopen(pathBin, "wb");
 
         if (arquivo == NULL)
         {
@@ -159,13 +151,14 @@ void ConfigurarArquivosBinarios(char *path, int *sec, int *med, int *pac, int *c
     else
     {
         *cons = 1;
-        
     }
+
+    memset(pathBin, '\0', sizeof(pathBin));
 
     if (ArquivoBinarioExiste(path, "/lesoes.bin", pathBin) == 0)
     {
 
-        FILE *arquivo = fopen("lesoes.bin", "wb");
+        FILE *arquivo = fopen(pathBin, "wb");
 
         if (arquivo == NULL)
         {
@@ -177,14 +170,14 @@ void ConfigurarArquivosBinarios(char *path, int *sec, int *med, int *pac, int *c
     else
     {
         *les = 1;
-    
-
     }
 
-    if (ArquivoBinarioExiste(path, "/fila_impressao",pathBin) == 0)
+    memset(pathBin, '\0', sizeof(pathBin));
+
+    if (ArquivoBinarioExiste(path, "/fila_impressao", pathBin) == 0)
     {
 
-        FILE *arquivo = fopen("fila_impressao.bin", "wb");
+        FILE *arquivo = fopen(pathBin, "wb");
 
         if (arquivo == NULL)
         {
@@ -213,56 +206,58 @@ int main(int argc, int *argv[])
     printf("################################################\n");
 
     char pathBancoDados[TAM_CAMINHO];
-    scanf("%s", pathBancoDados);
+    scanf("%[^\n]%*c", pathBancoDados);
 
     // se o binário existir é porque já existe um banco de dados para a
     // entidade se não vc ira cria-lo dentro do diretório informado
     tClinica *clinica = criaClinica();
     InicializaClinicaVetores(clinica);
-    int  sec = 0, med = 0, pac = 0, cons = 0, les = 0, fil = 0;
+    int sec = 0, med = 0, pac = 0, cons = 0, les = 0, fil = 0;
     char pathSec[200] = {'\0'};
-    char pathMed[200]= {'\0'};
-    char pathPac[200]= {'\0'};
-    char pathCons[200]= {'\0'};
-    char pathLes[200]= {'\0'};
-    char pathFil[200]= {'\0'};
-    strcat(pathSec,pathBancoDados);
-    strcat(pathMed,pathBancoDados);
-    strcat(pathPac,pathBancoDados);
-    strcat(pathCons,pathBancoDados);
-    strcat(pathLes,pathBancoDados);
-    strcat(pathFil,pathBancoDados);
-    
-    strcat(pathSec,"/secretarios.bin");
-    strcat(pathMed,"/medicos.bin");
-    strcat(pathPac,"/pacientes.bin");
-    strcat(pathCons,"/consultas.bin");
-    strcat(pathLes,"/lesoes.bin");
-    strcat(pathFil,"fila_impressao.bin");
+    char pathMed[200] = {'\0'};
+    char pathPac[200] = {'\0'};
+    char pathCons[200] = {'\0'};
+    char pathLes[200] = {'\0'};
+    char pathFil[200] = {'\0'};
+    strcat(pathSec, pathBancoDados);
+    strcat(pathMed, pathBancoDados);
+    strcat(pathPac, pathBancoDados);
+    strcat(pathCons, pathBancoDados);
+    strcat(pathLes, pathBancoDados);
+    strcat(pathFil, pathBancoDados);
 
+    strcat(pathSec, "/secretarios.bin");
+    strcat(pathMed, "/medicos.bin");
+    strcat(pathPac, "/pacientes.bin");
+    strcat(pathCons, "/consultas.bin");
+    strcat(pathLes, "/lesoes.bin");
+    strcat(pathFil, "fila_impressao.bin");
 
     ConfigurarArquivosBinarios(pathBancoDados, &sec, &med, &pac, &cons, &les, &fil, clinica);
 
-    if(sec == 1){   
-        LeBinSecretarios(clinica,pathSec);
+    if (sec == 1)
+    {
+        LeBinSecretarios(clinica, pathSec);
     }
-    if(med==1){
-        LeBinMedicos(clinica,pathMed);
+    if (med == 1)
+    {
+        LeBinMedicos(clinica, pathMed);
     }
-    if(pac==1){
-        LeBinPacientes(clinica,pathPac);
+    if (pac == 1)
+    {
+        LeBinPacientes(clinica, pathPac);
     }
-    if(cons == 1){
-        LeBinConsultas(clinica,pathCons);
+    if (cons == 1)
+    {
+        LeBinConsultas(clinica, pathCons);
     }
-    if(les==1){ 
-        LeBinLesoes(clinica,pathLes);
+    if (les == 1)
+    {
+        LeBinLesoes(clinica, pathLes);
     }
-    if(fil==1){
-
+    if (fil == 1)
+    {
     }
-
-
 
     int sair = 0;
     Nivel acesso;
@@ -270,12 +265,16 @@ int main(int argc, int *argv[])
     int indexSecretario = 0;
     while (1)
     {
-        MostrarLogin();
         char senha[21];
         char usuario[21];
-        scanf("%20[^\n]%*c", senha);
+        printf("######################## ACESSO MINI-SADE ######################\n");
+        printf("DIGITE SEU LOGIN:");
         scanf("%20[^\n]%*c", usuario);
-        // definir essa função depois
+        printf("\nDIGITE SUA SENHA:");
+        scanf("%20[^\n]%*c", senha);
+        printf("\n###############################################################\n");
+
+          // definir essa função depois
 
         Login resultado = comfirmarLogin(clinica, senha, usuario, &acesso, &indexMedico, &indexSecretario);
         switch (resultado)
@@ -291,7 +290,7 @@ int main(int argc, int *argv[])
             break;
         }
 
-        if (sair)
+        if (sair || acesso == ADMIN)
             break;
     }
 
@@ -329,11 +328,11 @@ direcionar para a tela de cadastro de usuário que terá o nível de acesso ADMI
                 printf("###############################################################");
             }
 
-            /* code */
+            scanf("%*c%*c");
             break;
         case 2:
             printf("#################### CADASTRO MEDICO #######################\n");
-            if (CadastraSecretarioClinica(clinica))
+            if (CadastraMedicoClinica(clinica))
             {
                 printf("CADASTRO REALIZADO COM SUCESSO. PRESSIONE QUALQUER TECLA PARA\n");
                 printf("VOLTAR PARA O MENU INICIAL\n");
@@ -343,7 +342,7 @@ direcionar para a tela de cadastro de usuário que terá o nível de acesso ADMI
             break;
         case 3:
             printf("#################### CADASTRO PACIENTE #######################\n");
-            if (CadastraSecretarioClinica(clinica))
+            if (CadastraPacienteClinica(clinica))
             {
                 printf("CADASTRO REALIZADO COM SUCESSO. PRESSIONE QUALQUER TECLA PARA\n");
                 printf("VOLTAR PARA O MENU INICIAL\n");
@@ -387,13 +386,13 @@ direcionar para a tela de cadastro de usuário que terá o nível de acesso ADMI
             printf("\nDIAGNOSTICO: ");
             char diagnostico[30];
             scanf("%29[^n]%*c", diagnostico);
-  
+
             int numPacientesLista = 0;
             int numConsultas = obtemNumConsultas(clinica);
-            tConsulta** vetorConsulta = obtemVetorConsultas(clinica);
+            tConsulta **vetorConsulta = obtemVetorConsultas(clinica);
             tPaciente **lista = BuscaPacientes(vetorConsulta, numConsultas,
-                                                nome, data, diagnostico, &numPacientesLista);
-            if ( lista== NULL)
+                                               nome, data, diagnostico, &numPacientesLista);
+            if (lista == NULL)
             {
 
                 printf("#################### BUSCAR PACIENTES #######################\n");
@@ -488,13 +487,13 @@ direcionar para a tela de cadastro de usuário que terá o nível de acesso ADMI
             break;
         }
 
-        return 0;
+        
     }
     // quarda os dados nos arquivos binarios;
-    EscreveBinsecretarios(clinica,pathSec);
-    EscreveBinMedicos(clinica,pathMed);
-    EscreveBinConsultas(clinica,pathCons);
-    EscreveBinPacientes(clinica,pathPac);
-    EscreveBinLesoes(clinica,pathLes);
-
+    EscreveBinsecretarios(clinica, pathSec);
+    EscreveBinMedicos(clinica, pathMed);
+    EscreveBinConsultas(clinica, pathCons);
+    EscreveBinPacientes(clinica, pathPac);
+    EscreveBinLesoes(clinica, pathLes);
+    return 1;
 }
