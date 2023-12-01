@@ -34,7 +34,7 @@ int ObtemTamLesoes(tLesoes* lesoes);
 
 char * ObtemDiagnostico(tLesao* lesao);
 
-char *ObtemlesaoVetor(tLesoes* lesoes, int index);
+
 
 char * ObtemRotulo(tLesao * lesao);
 
@@ -57,7 +57,6 @@ int ObtemEnviarCirurgia(tLesao *lesao);
 // Função para obter se a lesão deve ser enviada para crioterapia
 int ObtemEnviarCrioterapia(tLesao *lesao);
 
-tLesao* ObtemLesao(tLesao** vetor, int index);
 tLesao* obtemLesao(tLesoes* lesoes, int index);
 
 
@@ -76,4 +75,5 @@ void DefineLesoesBin(tLesoes* lesoes, int indexPaciente, int tam);
 
 int obtemTamTLesao();
 int obtemTamTLesoes();
+int NaoTemLesaoCirurgia(tLesoes* lesoes);
 #endif

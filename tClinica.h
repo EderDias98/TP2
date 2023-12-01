@@ -74,4 +74,5 @@ void EscreveBinMedicos(tClinica* clinica, const char* path);
 void LeBinSecretarios(tClinica* clinica,char *path);
 void EscreveBinsecretarios(tClinica* clinica,char *path);
 
+
 #endif

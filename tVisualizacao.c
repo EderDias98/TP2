@@ -10,9 +10,9 @@
 void imprimeEmTelaBusca(void *dado){
     tPaciente* paciente = (tPaciente*) dado;
     printf("NOME: %s\n", ObtemNomePaciente(paciente));
-    printf("DATA DE NASCIMENTO: %s (32 ANOS)",ObtemDataPaciente(paciente),CalculaIdade(ObtemDataPaciente(paciente)));
-    printf("GENERO: %\n", ObtemGeneroPaciente(paciente) );
-    printf("TELEFONE: %d\n", ObtemTelefonePaciente(paciente));
+    printf("DATA DE NASCIMENTO: %s (%d ANOS)",ObtemDataPaciente(paciente),CalculaIdade(ObtemDataPaciente(paciente)));
+    printf("GENERO: %s\n", ObtemGeneroPaciente(paciente) );
+    printf("TELEFONE: %s\n", ObtemTelefonePaciente(paciente));
     printf("DIABETES: %s\n", SimOuNao(ObtemDiabetesPacientes(paciente)));
     printf("FUMANTE: %s\n", SimOuNao(ObtemFumantePaciente(paciente)));
     printf("ALERGIA A MEDICAMENTO: %s\n", SimOuNao(ObtemAlergiaPaciente(paciente)));
@@ -65,7 +65,7 @@ void imprimeEmArquivoBusca(void *dado, char *path){
      fprintf(arquivo, "NOME: %s\n", ObtemNomePaciente(paciente));
     fprintf(arquivo, "DATA DE NASCIMENTO: %s (%d ANOS)\n", ObtemDataPaciente(paciente), CalculaIdade(ObtemDataPaciente(paciente)));
     fprintf(arquivo, "GENERO: %s\n", ObtemGeneroPaciente(paciente));
-    fprintf(arquivo, "TELEFONE: %d\n", ObtemTelefonePaciente(paciente));
+    fprintf(arquivo, "TELEFONE: %s\n", ObtemTelefonePaciente(paciente));
     fprintf(arquivo, "DIABETES: %s\n", SimOuNao(ObtemDiabetesPacientes(paciente)));
     fprintf(arquivo, "FUMANTE: %s\n", SimOuNao(ObtemFumantePaciente(paciente)));
     fprintf(arquivo, "ALERGIA A MEDICAMENTO: %s\n", SimOuNao(ObtemAlergiaPaciente(paciente)));

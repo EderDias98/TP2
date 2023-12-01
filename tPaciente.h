@@ -22,7 +22,7 @@ int CompletaDadosPaciente(tPaciente *paciente);
 
 void DefiniLesoesPaciente(tPaciente *paciente, tLesoes *lesoes);
 
-tPaciente **BuscarPacientes(tPaciente **pacientes, int tamPacientes, char *nome, char *data, char *diagnostico, int *tamLista);
+
 int comparar_nomes(const void *a, const void *b);
 
 int CalculaIdade(char *data);

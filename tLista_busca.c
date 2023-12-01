@@ -19,7 +19,7 @@ tLista* criaListaDeBusca(tPaciente** lista, int numPacientesLista){
     novaLista->vetor = lista;
     novaLista->tam = numPacientesLista;
 
-    return lista;
+    return novaLista;
 }
 
 /**

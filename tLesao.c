@@ -103,7 +103,7 @@ void leLesao(tLesao* lesao){
     scanf("%10[^\n]%*c", lesao->regiaoCorpo);
 
     printf("TAMANHO:\n");
-    scanf("%d%*c", lesao->tamanho);
+    scanf("%d%*c", &lesao->tamanho);
 
     printf("ENVIAR PARA CIRURGIA:\n");
     scanf("%d%*c", &lesao->enviarCirurgia);
@@ -146,7 +146,6 @@ void adcionaLesoes(tLesoes ** vetor, tLesoes *lesoes, int tam) {
     //Inserir Paciente
     vetor[tam-1] = lesoes;
 
-    return vetor;
 }
 tLesoes* CriaLesoes(){
     tLesoes* lesoes = (tLesoes*) calloc(1,sizeof(tLesoes));
@@ -234,4 +233,13 @@ int calculaNumLesao(tLesoes** vetor , int numLesoes){
 
 tLesoes *obtemLesoes(tLesoes** vetor, int index){
     return vetor[index];
+}
+
+int NaoTemLesaoCirurgia(tLesoes* lesoes){
+    for( int i=0; i<lesoes->tam;i++){
+        if(lesoes->vetor[i]->enviarCirurgia==1){
+            return 0;
+        }
+    }
+    return 1;
 }

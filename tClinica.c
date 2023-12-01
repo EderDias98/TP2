@@ -2,7 +2,7 @@
 
 
 struct clinica {
-    char* nome;
+ 
     tSecretario** secretarios;
     int numSecretarios;
     tMedico** medicos;
@@ -57,7 +57,8 @@ void LeBinSecretarios(tClinica* clinica,char *path){
         exit(-1);
     }
     fread(&tam,sizeof(int),1,arquivo);
-    realloc(vetor,sizeof(tSecretario*)*tam);
+    
+     vetor =(tSecretario**)realloc(vetor,sizeof(tSecretario*)*tam);
     
     if (clinica->secretarios == NULL) {
         printf("Erro ao realocar memória para secretários\n");
@@ -516,7 +517,7 @@ void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico){
     //cada paciente tera uma consulta e sua data ta na sua struct
    
     // Os documentos e lesoes serao adcionados de acordo 
-    tConsulta* consulta= criaConsulta(paciente,medico,dataConsulta,obtemNomeMedico(medico), ObtemNomePaciente(paciente));
+    tConsulta* consulta= criaConsulta(paciente,medico,dataConsulta,ObtemNomeMedico(medico), ObtemNomePaciente(paciente));
     tLesoes* lesoes =NULL;
     while (1)
     {
@@ -529,7 +530,7 @@ void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico){
         case 1:
             if(cont==1){
                 
-                lesoes= criaLesoes();
+                lesoes= CriaLesoes();
                 //compartilham o ponteiro para struct lesoes
                 tLesoes** lesoesPaciente = ObtemVetorLesoesPaciente(paciente);
                 incrementaNumLesoesPaciente(paciente);
@@ -590,8 +591,8 @@ void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico){
 
             //criar receita;
             tReceita *receita = criaReceita(ObtemNomePaciente(paciente),
-            tUso,nomeMedicamento,tipoMedicamento,instrucoes,quantidade,obtemNomeMedico(medico) ,
-            ObtemCrm(paciente) ,dataConsulta);
+            tUso,nomeMedicamento,tipoMedicamento,instrucoes,quantidade,ObtemNomeMedico(medico) ,
+            ObtemCrm(medico) ,dataConsulta);
 
             DefiniReceitaConsulta(consulta,receita);
             printf("RECEITA ENVIADA PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER TECLA PARA\n");
@@ -609,10 +610,10 @@ void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico){
                 continue;;
             }
 
-            tBiopsia* biobsia = Criabiobsia(ObtemNomePaciente(paciente),ObtemCpfPaciente(paciente),
+            tBiopsia* biobsia = criaBiopsia(ObtemNomePaciente(paciente),ObtemCpfPaciente(paciente),
             lesoes,ObtemNomeMedico(medico),ObtemCrm(medico),dataConsulta);
 
-            DefinirBiopsiaConsulta(consulta, biobsia);
+            DefiniBiopsiaConsulta(consulta, biobsia);
 
             printf("#################### CONSULTA MEDICA #######################\n");
             printf("SOLICITACAO DE BIOPSIA ENVIADA PARA FILA DE IMPRESSAO. PRESSIONE\n");

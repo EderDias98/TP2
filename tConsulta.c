@@ -73,7 +73,7 @@ char* obtemDataConsulta(tConsulta* consulta){
 }
 
 
-tPaciente** BuscaPacientes(tConsulta** vetorConsulta,int tamPacientes,int tamConsultas,char *nome,char *data,char *diagnostico,
+tPaciente** BuscaPacientes(tConsulta** vetorConsulta,int tamConsultas,char *nome,char *data,char *diagnostico,
 int* tamLista){
     tPaciente** lista = (tPaciente**) calloc(1, sizeof(tPaciente*));
 
@@ -129,7 +129,7 @@ int* tamLista){
     
 // nome e data
     if(nome[0]!='\0'  && data[0] != '\0' && diagnostico[0] == '0'){
-        for(int i=0; i < tamPacientes;i++){
+        for(int i=0; i < tamConsultas;i++){
             tPaciente* pacienteAtual = vetorConsulta[i]->paciente;
             if(ObtemNomePaciente(pacienteAtual) ==0 &&
             obtemDataConsulta(vetorConsulta[i]) ==0 &&
@@ -169,7 +169,7 @@ int* tamLista){
             tPaciente* pacienteAtual = vetorConsulta[i]->paciente;
 
             for(int j=0; j< ObtemTamLesoes(lesoes);j++){
-                if(strcmp(diagnostico, ObtemDiagnostico(ObtemlesaoVetor(lesoes,j)))==0 &&
+                if(strcmp(diagnostico, ObtemDiagnostico(obtemLesao(lesoes,j)))==0 &&
                 obtemDataConsulta(vetorConsulta[i]) ==0 &&
                 !JaTemPacientesLista(lista,pacienteAtual,*tamLista)){
                     
@@ -183,13 +183,13 @@ int* tamLista){
 
  // data paciente e lesao
     if(nome[0] !='\0'  && data[0] != '\0' && diagnostico[0] != '0'){
-        for(int i=0; i < tamPacientes;i++){
+        for(int i=0; i < tamConsultas;i++){
                   
             lesoes = vetorConsulta[i]->lesoes;
             tPaciente* pacienteAtual = vetorConsulta[i]->paciente;
 
             for(int j=0; j< ObtemTamLesoes(lesoes);j++){
-                if(strcmp(diagnostico, ObtemDiagnostico(ObtemlesaoVetor(lesoes,j)))==0 &&
+                if(strcmp(diagnostico, ObtemDiagnostico(obtemLesao(lesoes,j)))==0 &&
                 obtemDataConsulta(vetorConsulta[i]) ==0 &&
                 strcmp(nome,ObtemNomePaciente(pacienteAtual))==0 &&
                  !JaTemPacientesLista(lista,pacienteAtual,*tamLista)){

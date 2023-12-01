@@ -65,28 +65,34 @@ void MostrarMenu(Nivel acesso)
 // ● lesoes.bin
 // ● fila_impressao.bin
 
-FILE *ArquivoBinarioExiste(char *path, char *nome)
+int ArquivoBinarioExiste(char *path, char *nome, char *pathBin)
 {
 
-    strcat(path, nome);
-    FILE *arquivo = fopen("path", "rb");
+    strcat(pathBin, path);
+    strcat(pathBin,nome);
+
+    FILE *arquivo = fopen(pathBin, "rb");
 
     if (arquivo == NULL)
     {
-        printf("Erro ao abrir o arquivo %s\n", nome);
-        exit(-1);
+        printf("O arquivo %s ainda nao existe\n", nome);
+        return 0;
     }
-    return arquivo;
+    
+    fclose(arquivo);
+    return 1;
 }
-int sec = 0, med = 0, pac = 0, cons = 0, les = 0, fil = 0;
+
+
+
 void ConfigurarArquivosBinarios(char *path, int *sec, int *med, int *pac, int *cons, int *les, int *fil, tClinica *clinica)
 {
-
+    char pathBin[200] = {'\0'};
     int tamVetor;
-    if (ArquivoBinarioExiste(path, "/secretarios.bin") == NULL)
+    if (ArquivoBinarioExiste(path, "/secretarios.bin",pathBin) == 0)
     {
 
-        FILE *arquivo = fopen("secretarios.bin", "wb");
+        FILE *arquivo = fopen(pathBin, "wb");
 
         if (arquivo == NULL)
         {
@@ -100,8 +106,8 @@ void ConfigurarArquivosBinarios(char *path, int *sec, int *med, int *pac, int *c
         *sec = 1;
    
     }
-
-    if (ArquivoBinarioExiste(path, "/medicos.bin") == NULL)
+    memset(pathBin,sizeof(char),200);
+    if (ArquivoBinarioExiste(path, "/medicos.bin",pathBin) == 0)
     {
 
         FILE *arquivo = fopen("medicos.bin", "wb");
@@ -120,7 +126,7 @@ void ConfigurarArquivosBinarios(char *path, int *sec, int *med, int *pac, int *c
 
     }
 
-    if (ArquivoBinarioExiste(path, "/pacientes.bin") == NULL)
+    if (ArquivoBinarioExiste(path, "/pacientes.bin",pathBin) == 0)
     {
 
         FILE *arquivo = fopen("/pacientes.bin", "wb");
@@ -138,7 +144,7 @@ void ConfigurarArquivosBinarios(char *path, int *sec, int *med, int *pac, int *c
 
     }
 
-    if (ArquivoBinarioExiste(path, "/consultas.bin") == NULL)
+    if (ArquivoBinarioExiste(path, "/consultas.bin", pathBin) == 0)
     {
 
         FILE *arquivo = fopen("consultas.bin", "wb");
@@ -156,7 +162,7 @@ void ConfigurarArquivosBinarios(char *path, int *sec, int *med, int *pac, int *c
         
     }
 
-    if (ArquivoBinarioExiste(path, "/lesoes.bin") == NULL)
+    if (ArquivoBinarioExiste(path, "/lesoes.bin", pathBin) == 0)
     {
 
         FILE *arquivo = fopen("lesoes.bin", "wb");
@@ -175,7 +181,7 @@ void ConfigurarArquivosBinarios(char *path, int *sec, int *med, int *pac, int *c
 
     }
 
-    if (ArquivoBinarioExiste(path, "/fila_impressao") == NULL)
+    if (ArquivoBinarioExiste(path, "/fila_impressao",pathBin) == 0)
     {
 
         FILE *arquivo = fopen("fila_impressao.bin", "wb");
@@ -198,7 +204,7 @@ void ConfigurarArquivosBinarios(char *path, int *sec, int *med, int *pac, int *c
 // ● consultas.bin
 // ● lesoes.bin
 // ● fila_impressao.bin
-
+// ~/TP2/bancoDeDados
 int main(int argc, int *argv[])
 {
 
@@ -381,13 +387,13 @@ direcionar para a tela de cadastro de usuário que terá o nível de acesso ADMI
             printf("\nDIAGNOSTICO: ");
             char diagnostico[30];
             scanf("%29[^n]%*c", diagnostico);
-            int numPacientes = ObtemTamPacientes(clinica);
-            tPaciente **pacientes = ObtemPacientes(clinica);
+  
             int numPacientesLista = 0;
             int numConsultas = obtemNumConsultas(clinica);
-            tPaciente **lista = BuscarPacientes(pacientes, numPacientes,
+            tConsulta** vetorConsulta = obtemVetorConsultas(clinica);
+            tPaciente **lista = BuscaPacientes(vetorConsulta, numConsultas,
                                                 nome, data, diagnostico, &numPacientesLista);
-            if (pacientes == NULL)
+            if ( lista== NULL)
             {
 
                 printf("#################### BUSCAR PACIENTES #######################\n");
@@ -398,7 +404,7 @@ direcionar para a tela de cadastro de usuário que terá o nível de acesso ADMI
                 continue;
             }
 
-            qsort(pacientes, numPacientes, sizeof(tPaciente *), comparar_nomes);
+            qsort(lista, numPacientesLista, sizeof(tPaciente *), comparar_nomes);
 
             tLista *listaBusca = criaListaDeBusca(lista, numPacientesLista);
 
@@ -421,7 +427,7 @@ direcionar para a tela de cadastro de usuário que terá o nível de acesso ADMI
                 scanf("%d%*c", &numPaciente);
                 printf("\n############################################################\n");
                 int opcaoB = 0;
-                tPaciente *paciente = ObtemPaciente(pacientes, numPaciente - 1);
+                tPaciente *paciente = ObtemPaciente(lista, numPaciente - 1);
                 imprimeEmTelaBusca(paciente);
                 scanf("%d%*c", &opcaoB);
                 if (opcao == 1)
