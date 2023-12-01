@@ -11,6 +11,10 @@ struct medico{
     char senha[21];        // Gênero (masculino, feminino, outros)
 };
 
+
+int obtemTamTMedico(){
+    return sizeof(tMedico);
+}
 // Função para inicializar um medico
 tMedico* criaMedico() {
     tMedico* medico = (tMedico*) calloc(1,sizeof(tMedico));

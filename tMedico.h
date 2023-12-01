@@ -7,7 +7,7 @@
 #include "tConstantes.h"
 
 typedef struct medico tMedico;
-
+int obtemTamTMedico();
 void liberaMedico(tMedico* medico);
 int EhCadastradoMedico(tMedico** vetor, tMedico *medico, int tam);
 void adcionaMedico(tMedico** vetor, tMedico *medico, int tam);

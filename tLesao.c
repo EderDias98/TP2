@@ -32,6 +32,10 @@ struct lesoes{
     int tam;
 };
 
+void DefineLesoesBin(tLesoes* lesoes, int indexPaciente, int tam){
+    lesoes->indexPaciente = indexPaciente;
+    lesoes->tam = tam;
+}
 
 char * ObtemRotulo(tLesao * lesao){
     return lesao->rotulo;

@@ -13,6 +13,10 @@ struct consulta{
     tEncaminhamento* encaminhamento;
 };
 
+int obtemTamTConsulta(){
+    return sizeof(tConsulta);
+}
+
 tConsulta* criaConsulta(tPaciente* paciente,tMedico* medico, char *data, char * nomeMedico, char * nomePaciente){
     tConsulta* consulta = (tConsulta*) calloc(1,sizeof(tConsulta));
     if (consulta == NULL) {

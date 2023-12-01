@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "tClinica.h"
 #include "tRelatorio.h"
 #define TAM_CAMINHO 300
@@ -57,6 +58,108 @@ void MostrarMenu(Nivel acesso)
 // EhOpcaoCorreta(Nivel acesso, int funcionalidade)
 // {
 // }
+// secretarios.bin
+// ● medicos.bin
+// ● pacientes.bin
+// ● consultas.bin
+// ● lesoes.bin
+// ● fila_impressao.bin
+
+FILE* ArquivoBinarioExiste(char* path, char *nome){
+   
+    strcat(path,nome);
+    FILE *arquivo = fopen("path", "rb");
+
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo %s\n", nome);
+        exit(-1);
+    }
+    return arquivo;
+}
+   int *sec=0,med=0,pac=0,cons=0,les=0,fil=0;
+void ConfigurarArquivosBinarios(char* path, char*sec, char* med, char* pac,char *cons, char*les, char*fil, tClinica*clinica){
+    
+    int tamVetor;
+    if(ArquivoBinarioExiste(path,"/secretarios.bin")==NULL){
+        
+        FILE *arquivo = fopen("secretarios.bin", "wb");
+
+        if (arquivo == NULL) {
+            printf("Erro ao criar o secretarios.bin\n");
+            return 1;
+        }
+    }else{
+        *sec=1;
+    
+    }
+
+    if(ArquivoBinarioExiste(path,"/medicos.bin")==NULL){
+        
+        FILE *arquivo = fopen("medicos.bin", "wb");
+
+        if (arquivo == NULL) {
+            printf("Erro ao criar o medicos.bin\n");
+            return 1;
+        }
+    }else{
+        *med=1;
+    }
+
+    if(ArquivoBinarioExiste(path,"/pacientes.bin")==NULL){
+        
+        FILE *arquivo = fopen("/pacientes.bin", "wb");
+
+        if (arquivo == NULL) {
+            printf("Erro ao criar o pacientes.bin\n");
+            return 1;
+        }
+    }else{
+        *pac =1;
+    }
+
+    if(ArquivoBinarioExiste(path,"/consultas.bin")==NULL){
+        
+        FILE *arquivo = fopen("consultas.bin", "wb");
+
+        if (arquivo == NULL) {
+            printf("Erro ao criar o consultas.bin\n");
+            return 1;
+        }
+    }else{
+        *cons =1;
+    }
+
+    if(ArquivoBinarioExiste(path,"/lesoes.bin")==NULL){
+        
+        FILE *arquivo = fopen("lesoes.bin", "wb");
+
+        if (arquivo == NULL) {
+            printf("Erro ao criar o lesoes.bin\n");
+            return 1;
+        }
+    }else{
+        *les =1;
+    }
+
+    if(ArquivoBinarioExiste(path,"/fila_impressao")==NULL){
+        
+        FILE *arquivo = fopen("fila_impressao.bin", "wb");
+
+        if (arquivo == NULL) {
+            printf("Erro ao criar o fila_impressao.bin\n");
+            return 1;
+        }
+    }else{
+        *fil =1;
+    }
+
+}
+// secretarios.bin
+// ● medicos.bin
+// ● pacientes.bin
+// ● consultas.bin
+// ● lesoes.bin
+// ● fila_impressao.bin
 
 int main(int argc, int *argv[])
 {
@@ -71,9 +174,15 @@ int main(int argc, int *argv[])
     // se o binário existir é porque já existe um banco de dados para a
     // entidade se não vc ira cria-lo dentro do diretório informado
     tClinica *clinica = criaClinica();
+    InicializaClinicaVetores(clinica);
+    int *sec=0,med=0,pac=0,cons=0,les=0,fil=0;
+    ConfigurarArquivosBinarios(pathBancoDados,&sec,&med,&pac,&cons,&les,&fil, clinica);
+
+
     int sair = 0;
     Nivel acesso;
     int indexMedico = 0;
+    int indexSecretario=0;
     while (1)
     {
         MostrarLogin();
@@ -83,7 +192,7 @@ int main(int argc, int *argv[])
         scanf("%20[^\n]%*c", usuario);
         // definir essa função depois
 
-        Login resultado = comfirmarLogin(clinica, senha, usuario, &acesso, &indexMedico);
+        Login resultado = comfirmarLogin(clinica, senha, usuario, &acesso, &indexMedico,&indexSecretario);
         switch (resultado)
         {
         case CORRETO:
@@ -287,7 +396,7 @@ direcionar para a tela de cadastro de usuário que terá o nível de acesso ADMI
             }
             break;
         case 8:
-            /* code */
+            return 1;
             break;
 
         default:

@@ -30,7 +30,7 @@ int CadastraSecretarioClinica(tClinica* clinica);
 
 int CadastraMedicoClinica(tClinica* clinica);
 
-Login comfirmarLogin(tClinica* clinica,char* senha,char* usuario,Nivel *acesso,int *indexMedico);
+Login comfirmarLogin(tClinica* clinica,char* senha,char* usuario,Nivel *acesso, int *indexMedico, int *indexSecretario);
 
 int EhCadastradoCLinica(tClinica* clinica, char *cpf);
 
@@ -47,6 +47,13 @@ int ObtemTamVetorLesoes(tClinica* clinica);
 tLesoes** ObtemVetor(tClinica* clinica);
 
 int obtemNumConsultas(tClinica* clinica);
+
+tSecretario** obtemVetorSecretarios(tClinica* clinica);
+
+tSecretario** obtemVetorMedicos(tClinica* clinica);
+
+tSecretario** obtemVetorConsultas(tClinica* clinica);
+
 
 
  

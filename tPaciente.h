@@ -55,4 +55,6 @@ int ObtemNumLesoesPaciente(tPaciente* paciente);
 void incrementaNumLesoesPaciente(tPaciente* paciente);
 
 int JaTemPacientesLista(tPaciente** lista, tPaciente*paciente,int tam);
+
+int obtemTamTPaciente();
 #endif

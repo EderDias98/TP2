@@ -17,7 +17,10 @@ void adcionaSecretario(tSecretario** vetor, tSecretario *secretario, int tam);
 void leSecretario(tSecretario* secretario);
 
 tSecretario* CriaSecretario();
-Login loginSecretario(tSecretario** vetor, char *senha, char *usuario, int tam, Nivel *acesso);
+Login loginSecretario(tSecretario** vetor, char *senha, char *usuario, int tam, int *indexSecretario);
 Nivel ObtemNivelAcessoSecretario(tSecretario * secretario);
+tSecretario* obtemSecretario(tSecretario** vetor, int index);
 
+
+int obtemTamTSecretario();
 #endif

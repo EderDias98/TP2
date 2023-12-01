@@ -20,6 +20,9 @@ struct paciente{
     int numLesoes;
     
 };
+int obtemTamTPaciente(){
+    return sizeof(tPaciente);
+}
 
 // Função para inicializar um paciente
 tPaciente* criaPaciente() {

@@ -70,4 +70,6 @@ char* EnviadaOnde(tLesao* lesao);
 int calculaNumLesao(tLesoes** vetor , int numLesoes);
 
 tLesoes *obtemLesoes(tLesoes** vetor, int index);
+void DefineLesoesBin(tLesoes* lesoes, int indexPaciente, int tam);
+
 #endif

@@ -11,6 +11,10 @@ struct secretario {
     char nivelAcesso[10];
 };
 
+
+int obtemTamTSecretario(){
+    return sizeof(tSecretario);
+}
 tSecretario* CriaSecretario() {
     tSecretario* secretario = (tSecretario*) calloc(1,sizeof(tSecretario));
     if (secretario == NULL) {
@@ -20,6 +24,9 @@ tSecretario* CriaSecretario() {
     return secretario;
 }
 
+tSecretario* obtemSecretario(tSecretario** vetor, int index){
+    return vetor[index];
+}
 
 
 // Função para liberar a memória alocada para um secretario
@@ -92,7 +99,7 @@ int EhCadastradoSecretario(tSecretario** vetor, tSecretario *secretario, int tam
     return -1;
 }
 
-Login loginSecretario(tSecretario** vetor, char *senha, char *usuario, int tam, Nivel *acesso){
+Login loginSecretario(tSecretario** vetor, char *senha, char *usuario, int tam, int *indexSecretario){
     int senhaCorreta =0;
     int usuarioCorreto =0;
     int mesmaConta=0;
@@ -119,7 +126,7 @@ Login loginSecretario(tSecretario** vetor, char *senha, char *usuario, int tam, 
     }
 
     if(i==j){
-        *acesso = ObtemNivelAcessoSecretario(vetor[i]);
+        *indexSecretario = i;
         return CORRETO;
     }
 

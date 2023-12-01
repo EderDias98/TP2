@@ -16,6 +16,208 @@ struct clinica {
     // Outros campos conforme necessário
 };
 
+tSecretario** obtemVetorSecretarios(tClinica* clinica){
+    return clinica->secretarios;
+}
+tSecretario** obtemVetorMedicos(tClinica* clinica){
+    return clinica->medicos;
+}
+tSecretario** obtemVetorConsultas(tClinica* clinica){
+    return clinica->consultas;
+}
+
+
+
+void LeBinSecretarios(tClinica* clinica,char *path){
+    tSecretario** vetor = clinica->secretarios;
+    int tam=0;
+    FILE *arquivo = fopen(path,"rb");
+    if(arquivo ==NULL){
+        printf("Erro ao abrir o arquivo binario\n");
+        exit(-1);
+    }
+    fread(&tam,sizeof(int),1,arquivo);
+    realloc(vetor,sizeof(tSecretario*)*tam);
+    
+    if (clinica->secretarios == NULL) {
+        printf("Erro ao realocar memória para secretários\n");
+        exit(-1);
+    }
+
+    clinica->numSecretarios = tam;
+
+    // Loop para ler cada secretário do arquivo
+    for (int i = 0; i < tam; i++) {
+        // Alocar memória para o secretário atual
+        clinica->secretarios[i] = (tSecretario*) malloc(sizeof(obtemTamTSecretario()));
+
+        // Ler os dados do secretário do arquivo
+        fread(clinica->secretarios[i], sizeof(obtemTamTSecretario()), 1, arquivo);
+    }
+
+    // Fechar o arquivo
+    fclose(arquivo);
+}
+void LeBinMedicos(tClinica* clinica, const char* path) {
+    FILE* arquivo = fopen(path, "rb");
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo binário\n");
+        exit(-1);
+    }
+
+    int tam;
+    fread(&tam, sizeof(int), 1, arquivo);
+
+    // Realocar o vetor de médicos na clínica
+    clinica->medicos = realloc(clinica->medicos, sizeof(tMedico*) * tam);
+
+    if (clinica->medicos == NULL) {
+        printf("Erro ao realocar memória para médicos\n");
+        exit(-1);
+    }
+
+    clinica->numMedicos = tam;
+
+    // Loop para ler cada médico do arquivo
+    for (int i = 0; i < tam; i++) {
+        // Alocar memória para o médico atual
+        clinica->medicos[i] = (tMedico*)malloc(obtemTamTMedico());
+
+        // Ler os dados do médico do arquivo
+        fread(clinica->medicos[i], sizeof(obtemTamTMedico()), 1, arquivo);
+    }
+
+    // Fechar o arquivo
+    fclose(arquivo);
+}
+void LeBinConsultas(tClinica* clinica, const char* path) {
+    FILE* arquivo = fopen(path, "rb");
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo binário\n");
+        exit(-1);
+    }
+
+    int tam;
+    fread(&tam, sizeof(int), 1, arquivo);
+
+    // Realocar o vetor de consultas na clínica
+    clinica->consultas = realloc(clinica->consultas, sizeof(tConsulta*) * tam);
+
+    if (clinica->consultas == NULL) {
+        printf("Erro ao realocar memória para consultas\n");
+        exit(-1);
+    }
+
+    clinica->numConsultas = tam;
+
+    // Loop para ler cada consulta do arquivo
+    for (int i = 0; i < tam; i++) {
+        // Alocar memória para a consulta atual
+        clinica->consultas[i] = (tConsulta*)malloc(obtemTamTConsulta());
+
+        // Ler os dados da consulta do arquivo
+        fread(clinica->consultas[i], sizeof(obtemTamTConsulta()), 1, arquivo);
+    }
+
+    // Fechar o arquivo
+    fclose(arquivo);
+}
+
+void LeBinPacientes(tClinica* clinica, const char* path) {
+    FILE* arquivo = fopen(path, "rb");
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo binário\n");
+        exit(-1);
+    }
+
+    int tam;
+    fread(&tam, sizeof(int), 1, arquivo);
+
+    // Realocar o vetor de pacientes na clínica
+    clinica->pacientes = realloc(clinica->pacientes, sizeof(tPaciente*) * tam);
+
+    if (clinica->pacientes == NULL) {
+        printf("Erro ao realocar memória para pacientes\n");
+        exit(-1);
+    }
+
+    clinica->numPacientes = tam;
+
+    // Loop para ler cada paciente do arquivo
+    for (int i = 0; i < tam; i++) {
+        // Alocar memória para o paciente atual
+        clinica->pacientes[i] = (tPaciente*)malloc(obtemTamTPaciente());
+
+        // Ler os dados do paciente do arquivo
+        fread(clinica->pacientes[i], sizeof(obtemTamTPaciente()), 1, arquivo);
+    }
+
+    // Fechar o arquivo
+    fclose(arquivo);
+}
+void LeBinLesaoVetor(tLesao** vetor,FILE * arquivo, int tam) {
+
+
+
+    // Realocar o vetor de lesões na estrutura tLesoes
+    vetor =(tLesao**) malloc(sizeof(tLesao*) * tam);
+
+    if (vetor == NULL) {
+        printf("Erro ao realocar memória para lesões\n");
+        exit(-1);
+    }
+
+
+    // Loop para ler cada lesão do arquivo
+    for (int i = 0; i < tam; i++) {
+        // Alocar memória para a lesão atual
+        vetor[i] = (tLesao*)malloc(obtemTamTLesao());
+
+        // Ler os dados da lesão do arquivo
+        fread(vetor[i], sizeof(obtemTamTLesao()), 1, arquivo);
+    }
+
+    // Fechar o arquivo
+    fclose(arquivo);
+}
+
+void LeBinLesoes(tClinica* clinica, const char* path) {
+    FILE* arquivo = fopen(path, "rb");
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo binário\n");
+        exit(-1);
+    }
+
+    int tam;
+    fread(&tam, sizeof(int), 1, arquivo);
+
+    // Realocar o vetor de lesões na clínica
+    clinica->vetorLesoes = realloc(clinica->vetorLesoes, sizeof(tLesoes*) * tam);
+
+    if (clinica->vetorLesoes == NULL) {
+        printf("Erro ao realocar memória para lesões\n");
+        exit(-1);
+    }
+// definir tamanho de vetorlesoes
+    clinica->vetorLesoes = tam;
+
+    // Loop para ler cada conjunto de lesões do arquivo
+    for (int i = 0; i < tam; i++) {
+        // Alocar memória para o conjunto de lesões atual
+        clinica->vetorLesoes[i] = (tLesoes*)malloc(obtemTamTLesoes());
+        int tam=0,indexPaciente=0;
+        fread(tam, sizeof(int), 1, arquivo);
+        fread(indexPaciente, sizeof(int), 1, arquivo);
+        DefineLesoesBin(clinica->vetorLesoes[i],indexPaciente,tam);
+        // Ler os dados do conjunto de lesões do arquivo
+        LeBinLesaoVetor(clinica->vetorLesoes,arquivo,tam);
+    }
+
+    // Fechar o arquivo
+    fclose(arquivo);
+}
+
+
 // Função para inicializar um clinica
 tClinica* criaClinica() {
     tClinica* clinica = (tClinica*) calloc(1,sizeof(tClinica));
@@ -125,17 +327,17 @@ int CadastraMedicoClinica(tClinica* clinica){
 }
 
 
-Login comfirmarLogin(tClinica* clinica,char* senha,char* usuario,Nivel *acesso, int *indexMedico){
+Login comfirmarLogin(tClinica* clinica,char* senha,char* usuario,Nivel *acesso, int *indexMedico, int *indexSecretario){
     //porcurar login ou senha em medicos seja e retornar login
     Login medico;
     medico  = loginMedico(clinica->medicos,senha,usuario, clinica->numMedicos,indexMedico);
+
+    Login secretario = loginSecretario(clinica->secretarios, senha , usuario, clinica->numSecretarios, indexSecretario);
     if(medico == CORRETO){
         *acesso = MEDI;
         return CORRETO;
-    }
-    Login secretario = loginSecretario(clinica->secretarios, senha , usuario, clinica->numSecretarios, acesso);
-
-    if(secretario == CORRETO){
+    }else if(secretario == CORRETO){
+        *acesso = ObtemNivelAcessoSecretario(obtemSecretario(clinica->secretarios,*indexSecretario));
         return CORRETO;
     }
 
