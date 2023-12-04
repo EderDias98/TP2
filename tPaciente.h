@@ -12,6 +12,7 @@ void adcionaData(tPaciente*paciente, char *data);
 void liberaPaciente(tPaciente *paciente);
 
 tPaciente *criaPaciente();
+void DeslocaPaciente(tPaciente* paciente);
 char* obtemDataPaciente(tPaciente* paciente, int index);
 void lePaciente(tPaciente *paciente);
 
@@ -28,7 +29,7 @@ int comparar_nomes(const void *a, const void *b);
 int CalculaIdade(char *data);
 char *SimOuNao(int afirmacao);
 
-tPaciente *copiaPaciente(tPaciente* paciente, tLesoes **vetorLesoes);
+tPaciente* copiaPaciente(tPaciente* paciente);
 
 tLesoes **ObtemVetorLesoesPaciente(tPaciente *paciente);
 tPaciente *ObtemPaciente(tPaciente **pacientes, int index);

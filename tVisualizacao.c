@@ -5,6 +5,20 @@
  * de acordo com o especificado na descrição do trabalho.
  */
 
+struct tVisualizacao{
+    tPaciente* paciente;
+};
+
+tVisualizacao* criaVisualizacao(tPaciente* paciente){
+    tVisualizacao* visualizacao = (tVisualizacao*) calloc(1, sizeof(tVisualizacao));
+    if(visualizacao==NULL){
+        printf("Erra ao alocar ponteiro para tVisualizacao\n");
+        exit(EXIT_FAILURE);
+    }
+    visualizacao->paciente = copiaPaciente(paciente);
+    return visualizacao;
+}
+
 
 
 void imprimeEmTelaBusca(void *dado){
@@ -94,3 +108,15 @@ void imprimeEmArquivoBusca(void *dado, char *path){
     }
 }
 
+void DeslocaVisualizacao(void * dado){
+    tPaciente* paciente = (tPaciente*)dado;
+    tLesoes** vetorLesoes = ObtemVetorLesoesPaciente(paciente);
+    if(paciente){
+        for(int i=0; i< obtemNumLesoes(paciente);i++){
+            
+            deslocaLesoes(obtemLesoes(vetorLesoes,i));
+        }
+        free(vetorLesoes);
+        free(paciente);
+    }
+}

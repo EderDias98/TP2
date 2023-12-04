@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include "tClinica.h"
 #include "tRelatorio.h"
+#include "tFila.h"
+#include "tLista_busca.h"
 #define TAM_CAMINHO 300
 
 void MostrarMenu(Nivel acesso)
@@ -298,6 +300,7 @@ direcionar para a tela de cadastro de usuário que terá o nível de acesso ADMI
 
     int funcionalidade = 0;
     int sairL=0;
+    tFila* fila = criaFila();
     while (1)
     {
         MostrarMenu(acesso);
@@ -353,7 +356,7 @@ direcionar para a tela de cadastro de usuário que terá o nível de acesso ADMI
             if (indexPaciente != -1)
             {
 
-                ConsultaMedica(clinica, indexPaciente, indexMedico);
+                ConsultaMedica(clinica, indexPaciente, indexMedico, fila);
             }
             else
             {
@@ -400,10 +403,17 @@ direcionar para a tela de cadastro de usuário que terá o nível de acesso ADMI
             tLista *listaBusca = criaListaDeBusca(lista, numPacientesLista);
 
             int opcao = 0;
+
             imprimeEmTelaLista(listaBusca);
+
+            printf("\nSELECIONE UMA OPÇÃO:\n");
+            printf("(1) ENVIAR LISTA PARA IMPRESSAO\n");
+            printf("(2) VISUALIZAR PACIENTE\n");
+            printf("############################################################");
             scanf("%d%*c", &opcao);
             if (opcao == 1)
             {
+                insereDocumentoFila(fila,listaBusca,imprimeNaTelaLista,imprimeEmArquivoLista,desalocaLista);
                 printf(" #################### BUSCAR PACIENTES #######################\n");
                 printf("LISTA ENVIADA PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER TECLA PARA\n");
                 printf("RETORNAR AO MENU PRINCIPAL\n");
@@ -423,6 +433,8 @@ direcionar para a tela de cadastro de usuário que terá o nível de acesso ADMI
                 scanf("%d%*c", &opcaoB);
                 if (opcao == 1)
                 {
+                    tPaciente* copiaPaciente = copiaPaciente(paciente);
+                    insereDocumentoFila(fila,copiaPaciente,imprimeEmTelaBusca,imprimeEmArquivoBusca, DeslocaVisualizacao);
                     printf(" #################### BUSCAR PACIENTES #######################\n");
                     printf("DADOS ENVIADO PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER TECLA PARA\n");
                     printf("RETORNAR AO MENU PRINCIPAL\n");

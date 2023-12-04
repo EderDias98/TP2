@@ -231,9 +231,18 @@ int CalculaIdade(char * data){
 
 }
 
+void DeslocaPaciente(tPaciente* paciente){
+    if(paciente){
+        for(int i=0; i< paciente->numLesoes;i++){
+        }
+        free(paciente->vetorLesoes);
+        free(paciente->datas);
+        free(paciente);
+    }
 
+}
 
-tPaciente* copiaPaciente(tPaciente* paciente, tLesoes **vetorLesoes){
+tPaciente* copiaPaciente(tPaciente* paciente){
     tPaciente* copia  = criaPaciente();
     
     if (copia == NULL) {
@@ -256,7 +265,8 @@ tPaciente* copiaPaciente(tPaciente* paciente, tLesoes **vetorLesoes){
     copia->enviadaCirurgia = paciente->enviadaCirurgia;
     copia->enviadaCrioterapia = paciente->enviadaCrioterapia;
      
-
+    // CopiaLesoes
+    paciente->vetorLesoes = copiaVetorLesoes(paciente->vetorLesoes, paciente->numLesoes);
     return copia;
 
 }

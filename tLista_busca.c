@@ -37,7 +37,9 @@ void desalocaLista(void *dado){
  * Função que recebe um ponteiro genérico (que deve conter uma receita) e imprime os dados na tela
  * de acordo com o especificado na descrição do trabalho.
  */
-void imprimeEmTelaLista(void *dado){
+void imprimeNaTelaLista(void *dado){
+    printf("#################### BUSCAR PACIENTES #######################\n");
+    printf("PACIENTES ENCONTRADOS:\n");
     tLista *lista = (tLista*) dado;
     for(int i=0; i<lista->tam;i++){
         printf("%d - %s (%s)\n", i+1, ObtemNomePaciente(lista->vetor[i]), ObtemCpfPaciente(lista->vetor[i]));

@@ -7,8 +7,23 @@
 
 typedef struct lesao tLesao;
 typedef struct lesoes tLesoes;
+
+
 tLesao* criaLesao();
 
+
+void deslocaLesao(tLesao*lesao);
+
+
+void deslocaLesoes(tLesoes* lesoes);
+
+tLesoes** copiaVetorLesoes(tLesoes** vetor, int tam);
+
+
+tLesoes* CopiaLesoes(tLesoes* lesoes);
+
+
+tLesao* copiaLesao(tLesao* lesao);
 
 
 // Função para liberar a memória alocada para um lesao

@@ -32,6 +32,57 @@ struct lesoes{
     int tam;
 };
 
+
+void deslocaLesao(tLesao*lesao){
+    if(lesao)
+        free(lesao);
+}
+
+void deslocaLesoes(tLesoes* lesoes){
+    if(lesoes){
+        for(int i=0; i<lesoes->tam;i++){
+            deslocaLesao(lesoes->vetor[i]);
+        }
+        free(lesoes->vetor);
+        free(lesoes);
+    }
+}
+
+tLesoes** copiaVetorLesoes(tLesoes** vetor, int tam){
+    tLesoes** vetorLesoes = (tLesoes**) calloc(1,sizeof(tLesoes*)*tam);
+    if( vetorLesoes ==NULL){
+        printf("Erro ao alocar tLesoes**\n");
+        exit(EXIT_FAILURE);
+    }
+    for(int i=0; i<tam;i++){
+        vetorLesoes[i] = CopiaLesoes(vetor[i]);
+    }
+    return vetorLesoes;
+}
+
+
+tLesoes* CopiaLesoes(tLesoes* lesoes){
+    tLesoes* CopiaLesoes =CriaLesoes();
+    for(int i=0; i<lesoes->tam;i++){
+        CopiaLesoes->vetor[i]= CopiaLesao(lesoes->vetor[i]);
+    }
+    CopiaLesoes->tam = lesoes->tam;
+    CopiaLesoes->indexPaciente = lesoes->indexPaciente;
+    return CopiaLesoes;
+}
+
+tLesao* copiaLesao(tLesao* lesao){
+    tLesao* copiaLesao = criaLesao();
+    strcpy(copiaLesao->diagnosticoClinico, lesao->diagnosticoClinico);
+    strcpy(copiaLesao->enviarCirurgia, lesao->enviarCirurgia);
+    strcpy(copiaLesao->enviarCrioterapia, lesao->enviarCrioterapia);
+    strcpy(copiaLesao->regiaoCorpo, lesao->regiaoCorpo);
+    strcpy(copiaLesao->rotulo, lesao->rotulo);
+    strcpy(copiaLesao->tamanho, lesao->tamanho);
+    return copiaLesao;
+}
+
+
 int obtemTamTLesao(){
     return sizeof(tLesao);
 }

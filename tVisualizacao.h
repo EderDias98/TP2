@@ -3,7 +3,7 @@
 #include "tPaciente.h"
 #include "tConsulta.h"
 
-typedef struct busca tBusca;
+typedef struct tVisualizacao tVisualizacao;
 
 
 
@@ -25,5 +25,5 @@ void imprimeEmTelaBusca(void *dado);
 void imprimeEmArquivoBusca(void *dado, char *path);
 
 
-
+void DeslocaVisualizacao(void * dado);
 #endif

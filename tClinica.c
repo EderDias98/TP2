@@ -526,7 +526,7 @@ void ImprimiSubMenu(){
 
 // acrescentar taVetorLesoes antes
 
-void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico){
+void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico, tFila* fila){
     tPaciente* paciente =NULL;
     paciente = clinica->pacientes[indexPaciente];
     tMedico* medico = NULL;
@@ -619,6 +619,8 @@ void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico){
             tUso,nomeMedicamento,tipoMedicamento,instrucoes,quantidade,ObtemNomeMedico(medico) ,
             ObtemCrm(medico) ,dataConsulta);
 
+            insereDocumentoFila(fila, receita,imprimeNaTelaReceita, imprimeEmArquivoReceita,desalocaReceita);
+
             DefiniReceitaConsulta(consulta,receita);
             printf("RECEITA ENVIADA PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER TECLA PARA\n");
             printf("RETORNAR AO MENU ANTERIOR");
@@ -632,11 +634,15 @@ void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico){
                 printf("NAO E POSSIVEL SOLICITAR BIOPSIA SEM LESAO CIRURGICA. PRESSIONE\n");
                 printf("QUALQUER TECLA PARA RETORNAR AO MENU ANTERIOR\n");
                 scanf("%*c");
-                continue;;
+                continue;
             }
 
             tBiopsia* biobsia = criaBiopsia(ObtemNomePaciente(paciente),ObtemCpfPaciente(paciente),
             lesoes,ObtemNomeMedico(medico),ObtemCrm(medico),dataConsulta);
+
+            insereDocumentoFila(fila, biobsia, imprimeNaTelaBiopsia, imprimeEmArquivoBiopsia, desalocaBiopsia);
+
+
 
             DefiniBiopsiaConsulta(consulta, biobsia);
 
@@ -658,6 +664,8 @@ void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico){
             tEncaminhamento* encaminhamento = criaEncaminhamento(ObtemNomePaciente(paciente),ObtemCpfPaciente(paciente)
             ,ObtemNomeMedico(medico),ObtemCrm(medico),dataConsulta,especialidade,motivo);
             DefiniEncaminhamentoConsulta(consulta,encaminhamento);
+
+            insereDocumentoFila(fila,encaminhamento,imprimeNaTelaEncaminhamento, imprimeNaTelaEncaminhamento,desalocaEncaminhamento);
 
             printf("\nENCAMINHAMENTO ENVIADO PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER\n");  
             printf("QUALQUER TECLA PARA RETORNAR AO MENU ANTERIOR\n");

@@ -18,7 +18,7 @@ void desalocaLista(void *dado);
  * Função que recebe um ponteiro genérico (que deve conter uma receita) e imprime os dados na tela
  * de acordo com o especificado na descrição do trabalho.
  */
-void imprimeEmTelaLista(void *dado);
+void imprimeNaTelaLista(void *dado);
 
 /**
  * Função que recebe um ponteiro genérico (que deve conter uma receita) e imprime os dados no arquivo
