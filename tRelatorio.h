@@ -34,7 +34,7 @@ void desalocaRelatorio(void *dado);
 void imprimeNaTelaRelatorio(void *dado);
 void imprimeEmArquivoRelatorio(void *dado, char *path);
 
-void trocar(tDiagnostico *a,tDiagnostico *b);
+void trocar(tDiagnostico **vetor,int j);
 
 void bubbleSort(tDiagnostico **arr, int n,  func_ptr_compara comparar);
 #endif

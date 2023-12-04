@@ -1,5 +1,5 @@
 #include "tRelatorio.h"
-
+#include <stdlib.h>
 struct diagnostico
 {
     char nomeDiagnostico[25];
@@ -168,6 +168,7 @@ tRelatorio *CriaRelatorio(tClinica *clinica)
     relatorio->numDiagnosticos = NUM_DIAGONOSTICOS;
     ContaNumDiagnostico(vetorLesoes,vetorDiagnostico, relatorio->numDiagnosticos, numLesoes);
     bubbleSort(vetorDiagnostico, relatorio->numDiagnosticos,compararDiagnostico);
+    // qsort(vetorDiagnostico,relatorio->numDiagnosticos,sizeof(tDiagnostico*), compararDiagnostico);
 }
 
 tDiagnostico *CriaDiagnostico(char *nome)
@@ -208,7 +209,7 @@ int compararDiagnostico(const void *a, const void *b)
     // Comparação decrescente pela quantidade (qtd)
     const tDiagnostico* dA = (const tDiagnostico*)a;
     const tDiagnostico* dB =  (const tDiagnostico*)b;
-    int diferenca = dB->qtd - dB->qtd;
+    int diferenca = dB->qtd - dA->qtd;
 
     // Em caso de empate, use a ordem alfabética do nomeDiagnostico
     if (diferenca == 0)
@@ -218,17 +219,17 @@ int compararDiagnostico(const void *a, const void *b)
 
     return diferenca;
 }
-void trocar(tDiagnostico *a,tDiagnostico *b) {
-    tDiagnostico temp = *a;
-    *a = *b;
-    *b = temp;
+void trocar(tDiagnostico **vetor,int j) {
+    tDiagnostico *temp = vetor[j];
+    vetor[j] = vetor[j+1];
+    vetor[j+1] = temp;
 }
 void bubbleSort(tDiagnostico **arr, int n,  func_ptr_compara comparar) {
     for (int i = 0; i < n - 1; i++) {
         for (int j = 0; j < n - i - 1; j++) {
             if (comparar(arr[j], arr[j + 1]) > 0) {
                 // Trocar os elementos se estiverem fora de ordem
-                trocar(arr[j], arr[j + 1]);
+                trocar(arr,j);
             }
         }
     }
