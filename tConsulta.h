@@ -23,7 +23,6 @@ void DefiniEncaminhamentoConsulta(tConsulta* consulta, tEncaminhamento* encaminh
 char* obtemDataConsulta(tConsulta* consulta);
 
 int obtemTamTConsulta();
-tPaciente** BuscaPacientes(tConsulta** vetorConsulta,int tamConsultas,char *nome,char *data,char *diagnostico,
-int* tamLista);
+
 char * ObtemCpfConsulta(tConsulta* consulta);
 #endif

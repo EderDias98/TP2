@@ -57,4 +57,7 @@ int JaTemPacientesLista(tPaciente** lista, tPaciente*paciente,int tam);
 
 int obtemTamTPaciente();
 int obtemNumLesoes(tPaciente* paciente);
+
+tPaciente** BuscaPacientes(tPaciente** vetorPacientes,int tamPacientes,char *nome,char *data,char *diagnostico,
+int* tamLista);
 #endif
