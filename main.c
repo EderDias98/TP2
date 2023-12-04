@@ -273,25 +273,17 @@ int main(int argc, int *argv[])
         printf("\nDIGITE SUA SENHA:");
         scanf("%20[^\n]%*c", senha);
         printf("\n###############################################################\n");
-
+        converterParaMaiuscula(senha);
+        converterParaMaiuscula(usuario);
           // definir essa função depois
 
         Login resultado = comfirmarLogin(clinica, senha, usuario, &acesso, &indexMedico, &indexSecretario);
-        switch (resultado)
-        {
-        case CORRETO:
-            sair = 1;
+        if(resultado == CORRETO || acesso==ADMIN){
             break;
-        case INCORRETO:
+        }else{
             printf(" SENHA INCORRETA OU USUARIO INEXISTENTE\n");
-            break;
-
-        default:
-            break;
         }
-
-        if (sair || acesso == ADMIN)
-            break;
+   
     }
 
     /*O login e senha deve ser comparado com as credências do secretário ou médico já
@@ -305,7 +297,7 @@ direcionar para a tela de cadastro de usuário que terá o nível de acesso ADMI
     // definir o tipo de acesso do usuario
 
     int funcionalidade = 0;
-
+    int sairL=0;
     while (1)
     {
         MostrarMenu(acesso);
@@ -338,7 +330,7 @@ direcionar para a tela de cadastro de usuário que terá o nível de acesso ADMI
                 printf("VOLTAR PARA O MENU INICIAL\n");
                 printf("###############################################################");
             }
-
+            scanf("%*c%*c");
             break;
         case 3:
             printf("#################### CADASTRO PACIENTE #######################\n");
@@ -348,7 +340,7 @@ direcionar para a tela de cadastro de usuário que terá o nível de acesso ADMI
                 printf("VOLTAR PARA O MENU INICIAL\n");
                 printf("###############################################################");
             }
-
+            scanf("%*c%*c");
             break;
         case 4:
             printf("#################### CONSULTA MEDICA #######################");
@@ -381,10 +373,10 @@ direcionar para a tela de cadastro de usuário que terá o nível de acesso ADMI
             char nome[100] = {'\0'};
             scanf("%99[^n]%*c", nome);
             printf("\nDATA DA CONSULTA: ");
-            char data[11];
+            char data[11] = {'\0'};
             scanf("%10[^n]%*c", data);
             printf("\nDIAGNOSTICO: ");
-            char diagnostico[30];
+            char diagnostico[30]= {'\0'};
             scanf("%29[^n]%*c", diagnostico);
 
             int numPacientesLista = 0;
@@ -480,13 +472,15 @@ direcionar para a tela de cadastro de usuário que terá o nível de acesso ADMI
             }
             break;
         case 8:
-            return 1;
+            sairL=1;
             break;
 
         default:
             break;
         }
 
+        if(sairL)
+            break;
         
     }
     // quarda os dados nos arquivos binarios;

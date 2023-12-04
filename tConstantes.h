@@ -1,6 +1,7 @@
 #ifndef T_CONSTANTES_H
 #define T_CONSTANTES_H
-
+#include <stdio.h>
+#include <ctype.h>
 typedef enum
 {
     ADMIN,
@@ -14,4 +15,5 @@ typedef enum
     INCORRETO,
 } Login;
 
+void converterParaMaiuscula(char *str);
 #endif

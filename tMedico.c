@@ -37,32 +37,40 @@ void liberaMedico(tMedico* medico) {
 void leMedico(tMedico* medico){
     printf("NOME COMPLETO:\n");
     scanf("%100[^\n]%*c", medico->nomeCompleto);
+    converterParaMaiuscula(medico->nomeCompleto);
 
     printf("CPF: \n");
     scanf("%14[^\n]%*c", medico->cpf);
+    converterParaMaiuscula(medico->cpf);
 
     printf("DATA DE NASCIMENTO:\n");
     scanf("%10[^\n]%*c", medico->dataNascimento);
+    converterParaMaiuscula(medico->dataNascimento);
 
     printf(" TELEFONE:\n");
     scanf("%14[^\n]%*c", medico->telefone);
+    converterParaMaiuscula(medico->telefone);
 
     printf("GENERO:\n");
     scanf("%9[^\n]%*c", medico->genero);
+    converterParaMaiuscula(medico->genero);
 
     printf("CRM:\n");
     scanf("%12[^\n]%*c", medico->crm);
-    
+    converterParaMaiuscula(medico->crm);
+
     printf("NOME DE USUARIO:\n");
     scanf("%20[^\n]%*c", medico->nomeUsuario);
+    converterParaMaiuscula(medico->nomeUsuario);
 
     printf("SENHA:\n");
     scanf("%20[^\n]%*c", medico->senha);
+    converterParaMaiuscula(medico->senha);
 }
 
 // na clinica o tamanho começa com zero
 
-void adcionaMedico(tMedico** vetor, tMedico *medico, int tam) {
+tMedico** adcionaMedico(tMedico** vetor, tMedico *medico, int tam) {
     
 
     // Realocar o vetor de pacientes para acomodar o novo tamanho
@@ -76,6 +84,7 @@ void adcionaMedico(tMedico** vetor, tMedico *medico, int tam) {
 
     //Inserir Paciente
     vetor[tam-1] = medico;
+    return vetor;
 }
 
 
@@ -95,17 +104,18 @@ Login loginMedico(tMedico** vetor, char *senha, char * usuario, int tam,int *ind
     int mesmaConta=0;
     int i,j;
     for(i=0; i< tam; i++){
-        if(strcmp(vetor[i]->senha,senha)){
+        if(strcmp(vetor[i]->senha,senha)==0){
             senhaCorreta =1;
             break;
         }
     }
+
     if(!senhaCorreta){
         return INCORRETO;
     }
 
     for(j=0; j< tam; j++){
-        if(strcmp(vetor[j]->nomeUsuario,usuario)){
+        if(strcmp(vetor[j]->nomeUsuario,usuario)==0){
             usuarioCorreto =1;
             break;
         }

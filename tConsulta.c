@@ -16,7 +16,9 @@ struct consulta{
 int obtemTamTConsulta(){
     return sizeof(tConsulta);
 }
-
+tLesoes* obtemLesoesConsulta(tConsulta* consulta){
+    return consulta->lesoes;
+}
 tConsulta* criaConsulta(tPaciente* paciente,tMedico* medico, char *data, char * nomeMedico, char * nomePaciente){
     tConsulta* consulta = (tConsulta*) calloc(1,sizeof(tConsulta));
     if (consulta == NULL) {
@@ -31,7 +33,7 @@ tConsulta* criaConsulta(tPaciente* paciente,tMedico* medico, char *data, char * 
     return consulta;
 }
 
-void adcionaConsulta(tConsulta** vetor, tConsulta *consulta, int tam) {
+tConsulta** adcionaConsulta(tConsulta** vetor, tConsulta *consulta, int tam) {
     
 
     // Realocar o vetor de pacientes para acomodar o novo tamanho
@@ -45,7 +47,7 @@ void adcionaConsulta(tConsulta** vetor, tConsulta *consulta, int tam) {
 
     //Inserir Paciente
     vetor[tam-1] = consulta;
-
+    return vetor;
 }
 
 void liberaConsulta(tConsulta* consulta) {
@@ -71,14 +73,16 @@ void DefiniEncaminhamentoConsulta(tConsulta* consulta, tEncaminhamento* encaminh
 char* obtemDataConsulta(tConsulta* consulta){
     return consulta->dataConsulta;
 }
+char * ObtemCpfConsulta(tConsulta* consulta){
+    return ObtemCpfPaciente(consulta->paciente);
+}
 
-
-tPaciente** BuscaPacientes(tConsulta** vetorConsulta,int tamConsultas,char *nome,char *data,char *diagnostico,
+tPaciente** BuscaPacientes(tPaciente** vetorPacientes,int tamPacientes,char *nome,char *data,char *diagnostico,
 int* tamLista){
     tPaciente** lista = (tPaciente**) calloc(1, sizeof(tPaciente*));
 
 
-    tLesoes * lesoes = NULL;
+    tLesoes ** vetorLesoes = NULL;
  
     if(lista == NULL){
         printf("Erro ao alocar memória para a lista.\n");
@@ -88,8 +92,8 @@ int* tamLista){
 
 //nome
     if(nome[0]!='\0'  && data[0] == '\0' && diagnostico[0] == '0'){
-        for(int i=0; i < tamConsultas;i++){
-            tPaciente* pacienteAtual = vetorConsulta[i]->paciente;
+        for(int i=0; i < tamPacientes;i++){
+            tPaciente* pacienteAtual =vetorPacientes[i];
             if(strcmp(nome,ObtemNomePaciente(pacienteAtual))==0 &&
             !JaTemPacientesLista(lista,pacienteAtual,*tamLista)){
                 peloMenosUmPaciente =1;
@@ -100,9 +104,9 @@ int* tamLista){
     }
 //data
     if(nome[0]=='\0'  && data[0] != '\0' && diagnostico[0] == '0'){
-        for(int i=0; i < tamConsultas;i++){
-            tPaciente* pacienteAtual = vetorConsulta[i]->paciente;
-            if(strcmp(nome,obtemDataConsulta(vetorConsulta[i]))==0 &&
+        for(int i=0; i < tamPacientes;i++){
+            tPaciente* pacienteAtual = vetorPacientes[i];
+            if(strcmp(nome,obtemDataConsulta(vetorPacientes[i]))==0 &&
             !JaTemPacientesLista(lista,pacienteAtual,*tamLista)){
                 peloMenosUmPaciente =1;
                 (*tamLista)++;
@@ -112,8 +116,8 @@ int* tamLista){
     }
 //lesao
     if(nome[0]=='\0'  && data[0] == '\0' && diagnostico[0] != '0'){
-        for(int i=0; i < tamConsultas;i++){
-            lesoes = vetorConsulta[i]->lesoes;
+        for(int i=0; i < tamPacientes;i++){
+            lesoes = vetorPacientes[i]->lesoes;
             tPaciente* pacienteAtual = vetorConsulta[i]->paciente;
             for(int j=0; j< ObtemTamLesoes(lesoes);j++){
                 if(strcmp(diagnostico, ObtemDiagnostico(obtemLesao(lesoes,j)))==0

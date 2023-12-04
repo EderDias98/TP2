@@ -114,7 +114,7 @@ void leLesao(tLesao* lesao){
 
 // na clinica o tamanho começa com zero
 
- void adcionaLesao(tLesao** vetor, tLesao *lesao, int tam) {
+ tLesao** adcionaLesao(tLesao** vetor, tLesao *lesao, int tam) {
     
 
     // Realocar o vetor de pacientes para acomodar o novo tamanho
@@ -128,10 +128,10 @@ void leLesao(tLesao* lesao){
 
     //Inserir Paciente
     vetor[tam-1] = lesao;
-
+    return vetor;
 }
 
-void adcionaLesoes(tLesoes ** vetor, tLesoes *lesoes, int tam) {
+tLesoes** adcionaLesoes(tLesoes ** vetor, tLesoes *lesoes, int tam) {
     
 
     // Realocar o vetor de pacientes para acomodar o novo tamanho
@@ -145,7 +145,7 @@ void adcionaLesoes(tLesoes ** vetor, tLesoes *lesoes, int tam) {
 
     //Inserir Paciente
     vetor[tam-1] = lesoes;
-
+    return vetor;
 }
 tLesoes* CriaLesoes(){
     tLesoes* lesoes = (tLesoes*) calloc(1,sizeof(tLesoes));
@@ -161,12 +161,12 @@ tLesoes* CriaLesoes(){
     }
     return lesoes;
 }
-void CadastraLesao(tLesao** vetor, tLesao*lesao,int tam){
+void CadastraLesao(tLesoes* lesoes, tLesao*lesao,int tam){
 
     static int i = 1;
     sprintf(lesao->rotulo, "L%d", i);
     i++;
-    adcionaLesao(vetor,lesao,tam);
+    lesoes->vetor  = adcionaLesao(lesoes->vetor,lesao,tam);
 };
 
 void IncrementaTamLesoes(tLesoes* lesoes){
@@ -243,3 +243,4 @@ int NaoTemLesaoCirurgia(tLesoes* lesoes){
     }
     return 1;
 }
+

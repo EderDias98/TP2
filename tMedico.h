@@ -10,7 +10,7 @@ typedef struct medico tMedico;
 int obtemTamTMedico();
 void liberaMedico(tMedico* medico);
 int EhCadastradoMedico(tMedico** vetor, tMedico *medico, int tam);
-void adcionaMedico(tMedico** vetor, tMedico *medico, int tam);
+tMedico** adcionaMedico(tMedico** vetor, tMedico *medico, int tam);
 void leMedico(tMedico* medico);
 tMedico* criaMedico();
 Login loginMedico(tMedico** vetor, char *senha, char *usuario, int tam,int *indexMedico);

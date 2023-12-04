@@ -5,17 +5,17 @@
 #include <stdlib.h>
 #include <string.h>
 #include "tLesao.h"
-
+#include "tConstantes.h"
 
 typedef struct paciente tPaciente;
-
+void adcionaData(tPaciente*paciente, char *data);
 void liberaPaciente(tPaciente *paciente);
 
 tPaciente *criaPaciente();
-
+char* obtemDataPaciente(tPaciente* paciente, int index);
 void lePaciente(tPaciente *paciente);
 
-void adcionaPaciente(tPaciente **vetor, tPaciente *paciente, int tam);
+tPaciente** adcionaPaciente(tPaciente **vetor, tPaciente *paciente, int tam);
 int EhCadastradoPaciente(tPaciente **vetor, char *cpf, int tam);
 
 int CompletaDadosPaciente(tPaciente *paciente);
@@ -56,4 +56,5 @@ void incrementaNumLesoesPaciente(tPaciente* paciente);
 int JaTemPacientesLista(tPaciente** lista, tPaciente*paciente,int tam);
 
 int obtemTamTPaciente();
+int obtemNumLesoes(tPaciente* paciente);
 #endif

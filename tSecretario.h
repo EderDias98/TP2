@@ -12,7 +12,7 @@ void liberaSecretario(tSecretario* secretario);
 
 int EhCadastradoSecretario(tSecretario** vetor, tSecretario *secretario, int tam);
 
-void adcionaSecretario(tSecretario** vetor, tSecretario *secretario, int tam);
+tSecretario** adcionaSecretario(tSecretario** vetor, tSecretario *secretario, int tam);
 
 void leSecretario(tSecretario* secretario);
 

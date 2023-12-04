@@ -21,11 +21,11 @@ void leLesao(tLesao* lesao);
 
 // na clinica o tamanho começa com zero
 
-void adcionaLesao(tLesao** vetor, tLesao *lesao, int tam);
-void adcionaLesoes(tLesoes ** vetor, tLesoes *lesoes, int tam);
-void CadastraLesao(tLesao** vetor, tLesao*lesao,int tam);
+tLesao** adcionaLesao(tLesao** vetor, tLesao *lesao, int tam);
+tLesoes** adcionaLesoes(tLesoes ** vetor, tLesoes *lesoes, int tam);
+void CadastraLesao(tLesoes* lesoes, tLesao*lesao,int tam);
 
-void adcionaLesoes(tLesoes ** vetor, tLesoes *lesoes, int tam);
+
 void IncrementaTamLesoes(tLesoes* lesoes);
 
 tLesao ** ObtemVetorLesoes(tLesoes* lesoes);

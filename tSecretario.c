@@ -41,28 +41,35 @@ void liberaSecretario(tSecretario* secretario) {
 void leSecretario(tSecretario* secretario){
     printf("NOME COMPLETO:\n");
     scanf("%100[^\n]%*c", secretario->nomeCompleto);
+    converterParaMaiuscula(secretario->nomeCompleto);
 
     printf("CPF: \n");
     scanf("%14[^\n]%*c", secretario->cpf);
+    converterParaMaiuscula(secretario->cpf);
 
     printf("DATA DE NASCIMENTO:\n");
     scanf("%10[^\n]%*c", secretario->dataNascimento);
+    converterParaMaiuscula(secretario->dataNascimento);
 
     printf(" TELEFONE:\n");
     scanf("%14[^\n]%*c", secretario->telefone);
+    converterParaMaiuscula(secretario->telefone);
 
     printf("GENERO:\n");
     scanf("%9[^\n]%*c", secretario->genero);
-    
+    converterParaMaiuscula(secretario->genero);
+
     printf("NOME DE USUARIO:\n");
     scanf("%20[^\n]%*c", secretario->nomeUsuario);
+    converterParaMaiuscula(secretario->nomeUsuario);
 
     printf("SENHA:\n");
     scanf("%20[^\n]%*c", secretario->senha);
+    converterParaMaiuscula(secretario->senha);
 
     printf("NIVEL DE ACESSO:\n");
     scanf("%9[^\n]%*c", secretario->nivelAcesso);
-
+    converterParaMaiuscula(secretario->nivelAcesso);
 }
 
 // na clinica o tamanho começa com zero
@@ -70,7 +77,7 @@ void leSecretario(tSecretario* secretario){
 
     //incrementar numero de pacientes antes da funçao
 
-void adcionaSecretario(tSecretario** vetor, tSecretario *secretario, int tam) {
+tSecretario** adcionaSecretario(tSecretario** vetor, tSecretario *secretario, int tam) {
     
 
 
@@ -86,7 +93,7 @@ void adcionaSecretario(tSecretario** vetor, tSecretario *secretario, int tam) {
     //Inserir Paciente
     vetor[tam-1] = secretario;
 
-
+    return vetor;
 }
 
 int EhCadastradoSecretario(tSecretario** vetor, tSecretario *secretario, int tam){
@@ -105,7 +112,7 @@ Login loginSecretario(tSecretario** vetor, char *senha, char *usuario, int tam, 
     int mesmaConta=0;
     int i,j;
     for(i=0; i< tam; i++){
-        if(strcmp(vetor[i]->senha,senha)){
+        if(strcmp(vetor[i]->senha,senha)==0){
             senhaCorreta =1;
             break;
         }
@@ -115,7 +122,7 @@ Login loginSecretario(tSecretario** vetor, char *senha, char *usuario, int tam, 
     }
 
     for(j=0; j< tam; j++){
-        if(strcmp(vetor[j]->nomeUsuario,usuario)){
+        if(strcmp(vetor[j]->nomeUsuario,usuario)==0){
             usuarioCorreto =1;
             break;
         }

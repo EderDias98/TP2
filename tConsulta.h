@@ -10,8 +10,8 @@
 
 typedef struct consulta tConsulta;
 tConsulta* criaConsulta(tPaciente* paciente,tMedico* medico, char *data, char * nomeMedico,char * nomePaciente);
-void adcionaConsulta(tConsulta** vetor, tConsulta *consulta, int tam);
-
+tConsulta** adcionaConsulta(tConsulta** vetor, tConsulta *consulta, int tam);
+tLesoes* obtemLesoesConsulta(tConsulta* consulta);
 void liberaConsulta(tConsulta* consulta);
 
 void DefiniLesoesConsulta(tConsulta* consulta,tLesoes * lesoes);
@@ -25,4 +25,5 @@ char* obtemDataConsulta(tConsulta* consulta);
 int obtemTamTConsulta();
 tPaciente** BuscaPacientes(tConsulta** vetorConsulta,int tamConsultas,char *nome,char *data,char *diagnostico,
 int* tamLista);
+char * ObtemCpfConsulta(tConsulta* consulta);
 #endif

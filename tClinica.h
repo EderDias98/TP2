@@ -16,7 +16,8 @@ tClinica* criaClinica();
 
 void InicializaClinicaVetores(tClinica* clinica);
 
-
+int obtemTamVetorConsultas(tClinica* clinica);
+ 
 // Função para destruir uma instância da clínica
 void liberaClinica(tClinica* clinica);
 

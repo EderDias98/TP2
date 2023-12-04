@@ -1,7 +1,7 @@
 #ifndef T_VISUALIZACAO_H
 #define T_VISUALIZACAO_H
 #include "tPaciente.h"
-
+#include "tConsulta.h"
 
 typedef struct busca tBusca;
 
