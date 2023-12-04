@@ -20,8 +20,16 @@ struct paciente{
     char** datas;
     int numDatas;
     int numLesoes;
+    int atendido;
     
 };
+
+int obtemEhAtendido(tPaciente* paciente){
+    return paciente->atendido; 
+}
+void AtendePaciente(tPaciente* paciente){
+    paciente->atendido =1;
+}
 
 void adcionaData(tPaciente*paciente, char *data){
     paciente->numDatas++;
@@ -171,28 +179,26 @@ char * ObtemDataPaciente(tPaciente* paciente){
     return resp;
  }
 
-int CompletaDadosPaciente(tPaciente* paciente){
+void CompletaDadosPaciente(tPaciente* paciente){
     printf("POSSUI DIABETES: ");
     scanf("%d%*c", &paciente->diabetes);
-    printf("%d\n", paciente->diabetes);
+
     
     printf("FUMANTE: ");
     scanf("%d%*c", &paciente->fumante);
-    printf("%d", paciente->fumante);
+   
     
     printf("ALEGIA A MEDICAMENTO: ");
     scanf("%d%*c", &paciente->alergiaMedicamento);
-    printf("%d", paciente->alergiaMedicamento);
+ 
 
     printf("HISTORICO DE CANCER: ");
     scanf("%d%*c", &paciente->historicoCancer);
-    printf("%d", paciente->historicoCancer);
+    
 
     printf("TIPO DE PELE: ");
     scanf("%4[^\n]%*c", paciente->tipoPele);
-    printf("%s", paciente->tipoPele);
 
-    return 1;
 
 }
 
@@ -304,7 +310,7 @@ int* tamLista){
     int peloMenosUmPaciente =0;
 
 //nome
-    if(nome[0]!='\0'  && data[0] == '\0' && diagnostico[0] == '0'){
+    if(nome[0]!='\0'  && data[0] == '\0' && diagnostico[0] == '\0'){
         for(int i=0; i < tamPacientes;i++){
             tPaciente* pacienteAtual =vetorPacientes[i];
             if(strcmp(nome,ObtemNomePaciente(pacienteAtual))==0 &&
@@ -316,7 +322,7 @@ int* tamLista){
         }
     }
 //data
-    if(nome[0]=='\0'  && data[0] != '\0' && diagnostico[0] == '0'){
+    if(nome[0]=='\0'  && data[0] != '\0' && diagnostico[0] == '\0'){
         for(int i=0; i < tamPacientes;i++){
             tPaciente* pacienteAtual = vetorPacientes[i];
             for(int j=0; j<pacienteAtual->numDatas;j++){
@@ -331,14 +337,14 @@ int* tamLista){
         }
     }
 //lesao
-    if(nome[0]=='\0'  && data[0] == '\0' && diagnostico[0] != '0'){
+    if(nome[0]=='\0'  && data[0] == '\0' && diagnostico[0] != '\0'){
         for(int i=0; i < tamPacientes;i++){
             
             tPaciente* pacienteAtual = vetorPacientes[i];
             vetorLesoes = pacienteAtual->vetorLesoes;
             for(int j=0; j<obtemNumLesoes(pacienteAtual);j++){
                 
-                tLesao* lesoesAtual = obtemLesoes(vetorLesoes,j);
+                tLesoes* lesoesAtual = obtemLesoes(vetorLesoes,j);
                 
                 for(int k=0; k<ObtemTamLesoes(lesoesAtual);k++){
                     
@@ -359,7 +365,7 @@ int* tamLista){
 
     
 // nome e data
-    if(nome[0]!='\0'  && data[0] != '\0' && diagnostico[0] == '0'){
+    if(nome[0]!='\0'  && data[0] != '\0' && diagnostico[0] == '\0'){
         for(int i=0; i < tamPacientes;i++){
             tPaciente* pacienteAtual = vetorPacientes[i];
             for(int k=0; k<pacienteAtual->numDatas;k++){
@@ -375,13 +381,13 @@ int* tamLista){
         }
     }
 //nome e diagnostico
-    if(nome[0]!='\0'  && data[0] == '\0' && diagnostico[0] != '0'){
+    if(nome[0]!='\0'  && data[0] == '\0' && diagnostico[0] != '\0'){
         for(int i=0; i < tamPacientes;i++){
             tPaciente* pacienteAtual = vetorPacientes[i];
             vetorLesoes = pacienteAtual->vetorLesoes;
             for(int j=0; j<obtemNumLesoes(pacienteAtual);j++){
-                tLesao* lesoesAtual = obtemLesoes(vetorLesoes,j);
-                for(int k=0; k<ObtemTamLesoes(lesoesAtual),k++){
+                tLesoes* lesoesAtual = obtemLesoes(vetorLesoes,j);
+                for(int k=0; k<ObtemTamLesoes(lesoesAtual);k++){
                     tLesao* lesaoAtual = obtemLesao(lesoesAtual,k);
                     if(strcmp(diagnostico, ObtemDiagnostico(lesaoAtual))==0
                     && strcmp(ObtemNomePaciente(pacienteAtual),nome)==0 &&
@@ -397,8 +403,8 @@ int* tamLista){
 
     //data e diagnostico
 
-    if(nome[0] =='\0'  && data[0] != '\0' && diagnostico[0] != '0'){
-        int data=0,diagnostico =0;
+    if(nome[0] =='\0'  && data[0] != '\0' && diagnostico[0] != '\0'){
+        int dataS=0,diagnosticoS =0;
         //se paciente tem  a data
         for(int i=0; i < tamPacientes;i++){
             tPaciente* pacienteAtual = vetorPacientes[i];
@@ -406,16 +412,16 @@ int* tamLista){
             
             for(int j=0; j<pacienteAtual->numDatas;j++){
                 if(strcmp(data,obtemDataPaciente(pacienteAtual,j)) ==0 ){
-                   data=1;
+                   dataS=1;
                 }
             }
         //se paciente tem lesao
             for(int j=0; j<obtemNumLesoes(pacienteAtual);j++){
-                tLesao* lesoesAtual = obtemLesoes(vetorLesoes,j);
+                tLesoes* lesoesAtual = obtemLesoes(vetorLesoes,j);
                 for(int k=0; k<ObtemTamLesoes(lesoesAtual);k++){
                     tLesao* lesaoAtual = obtemLesao(lesoesAtual,k);
                     if(strcmp(diagnostico, ObtemDiagnostico(lesaoAtual))==0){
-                        diagnostico =1;
+                        diagnosticoS=1;
                     }
                 }
             }
@@ -424,15 +430,15 @@ int* tamLista){
                 (*tamLista)++;
                 adcionaPaciente(lista, pacienteAtual,*tamLista);
             }
-            nome = 0;
-            diagnostico =0;
+            dataS = 0;
+            diagnosticoS =0;
         }
         
     }
 
  // data nome e lesao
-    if(nome[0] !='\0'  && data[0] != '\0' && diagnostico[0] != '0'){
-        int data=0,diagnostico =0,nome ;
+    if(nome[0] !='\0'  && data[0] != '\0' && diagnostico[0] != '\0'){
+        int dataS=0,diagnosticoS =0,nomeS=0 ;
         //se paciente tem  a data
         for(int i=0; i < tamPacientes;i++){
             tPaciente* pacienteAtual = vetorPacientes[i];
@@ -440,23 +446,23 @@ int* tamLista){
             
             for(int j=0; j<pacienteAtual->numDatas;j++){
                 if(strcmp(data,obtemDataPaciente(pacienteAtual,j)) ==0 ){
-                   data=1;
+                   dataS=1;
                 }
             }
         //se paciente tem nome
         for(int i=0; i < tamPacientes;i++){
             tPaciente* pacienteAtual =vetorPacientes[i];
             if(strcmp(nome,ObtemNomePaciente(pacienteAtual))==0){
-                nome =1;
+                nomeS =1;
             }
         }
         //se paciente tem lesao
             for(int j=0; j<obtemNumLesoes(pacienteAtual);j++){
-                tLesao* lesoesAtual = obtemLesoes(vetorLesoes,j);
+                tLesoes* lesoesAtual = obtemLesoes(vetorLesoes,j);
                 for(int k=0; k<ObtemTamLesoes(lesoesAtual);k++){
                     tLesao* lesaoAtual = obtemLesao(lesoesAtual,k);
                     if(strcmp(diagnostico, ObtemDiagnostico(lesaoAtual))==0){
-                        diagnostico =1;
+                        diagnosticoS =1;
                     }
                 }
             }
@@ -465,9 +471,9 @@ int* tamLista){
                 (*tamLista)++;
                 adcionaPaciente(lista, pacienteAtual,*tamLista);
             }
-            data =0;
-            nome=0;
-            diagnostico =0;
+            dataS =0;
+            nomeS=0;
+            diagnosticoS =0;
         }
     }
 

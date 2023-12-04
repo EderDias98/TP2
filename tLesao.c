@@ -64,7 +64,7 @@ tLesoes** copiaVetorLesoes(tLesoes** vetor, int tam){
 tLesoes* CopiaLesoes(tLesoes* lesoes){
     tLesoes* CopiaLesoes =CriaLesoes();
     for(int i=0; i<lesoes->tam;i++){
-        CopiaLesoes->vetor[i]= CopiaLesao(lesoes->vetor[i]);
+        CopiaLesoes->vetor[i]= copiaLesao(lesoes->vetor[i]);
     }
     CopiaLesoes->tam = lesoes->tam;
     CopiaLesoes->indexPaciente = lesoes->indexPaciente;
@@ -74,11 +74,11 @@ tLesoes* CopiaLesoes(tLesoes* lesoes){
 tLesao* copiaLesao(tLesao* lesao){
     tLesao* copiaLesao = criaLesao();
     strcpy(copiaLesao->diagnosticoClinico, lesao->diagnosticoClinico);
-    strcpy(copiaLesao->enviarCirurgia, lesao->enviarCirurgia);
-    strcpy(copiaLesao->enviarCrioterapia, lesao->enviarCrioterapia);
+    copiaLesao->enviarCirurgia = lesao->enviarCirurgia;
+    copiaLesao->enviarCrioterapia = lesao->enviarCrioterapia;
     strcpy(copiaLesao->regiaoCorpo, lesao->regiaoCorpo);
     strcpy(copiaLesao->rotulo, lesao->rotulo);
-    strcpy(copiaLesao->tamanho, lesao->tamanho);
+    copiaLesao->tamanho = lesao->tamanho;
     return copiaLesao;
 }
 

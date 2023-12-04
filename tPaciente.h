@@ -8,6 +8,8 @@
 #include "tConstantes.h"
 
 typedef struct paciente tPaciente;
+int obtemEhAtendido(tPaciente* paciente);
+void AtendePaciente(tPaciente* paciente);
 void adcionaData(tPaciente*paciente, char *data);
 void liberaPaciente(tPaciente *paciente);
 
@@ -19,7 +21,7 @@ void lePaciente(tPaciente *paciente);
 tPaciente** adcionaPaciente(tPaciente **vetor, tPaciente *paciente, int tam);
 int EhCadastradoPaciente(tPaciente **vetor, char *cpf, int tam);
 
-int CompletaDadosPaciente(tPaciente *paciente);
+void CompletaDadosPaciente(tPaciente *paciente);
 
 void DefiniLesoesPaciente(tPaciente *paciente, tLesoes *lesoes);
 

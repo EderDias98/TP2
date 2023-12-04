@@ -7,9 +7,10 @@
 #include "tEncaminhamento.h"
 #include "tMedico.h"
 #include "tPaciente.h"
+#include "tFila.h"
 
 typedef struct consulta tConsulta;
-tConsulta* criaConsulta(tPaciente* paciente,tMedico* medico, char *data, char * nomeMedico,char * nomePaciente);
+tConsulta* criaConsulta( char *data, char * nomeMedico,char * nomePaciente);
 tConsulta** adcionaConsulta(tConsulta** vetor, tConsulta *consulta, int tam);
 tLesoes* obtemLesoesConsulta(tConsulta* consulta);
 void liberaConsulta(tConsulta* consulta);
@@ -24,5 +25,4 @@ char* obtemDataConsulta(tConsulta* consulta);
 
 int obtemTamTConsulta();
 
-char * ObtemCpfConsulta(tConsulta* consulta);
 #endif

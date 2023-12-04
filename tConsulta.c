@@ -1,8 +1,7 @@
 #include "tConsulta.h"
 
 struct consulta{
-    tPaciente* paciente;
-    tMedico* medico;
+
     char nomePaciente[100];
     char dataConsulta[11];
     char nomeMedico[100];
@@ -19,14 +18,14 @@ int obtemTamTConsulta(){
 tLesoes* obtemLesoesConsulta(tConsulta* consulta){
     return consulta->lesoes;
 }
-tConsulta* criaConsulta(tPaciente* paciente,tMedico* medico, char *data, char * nomeMedico, char * nomePaciente){
+tConsulta* criaConsulta(char *data, char * nomeMedico, char * nomePaciente){
     tConsulta* consulta = (tConsulta*) calloc(1,sizeof(tConsulta));
     if (consulta == NULL) {
         printf("Erro ao alocar memória para o consulta.\n");
         exit(EXIT_FAILURE);
     }
-    consulta->paciente = paciente;
-    consulta->medico = medico;
+
+   
     strcpy(consulta->dataConsulta,data);
     strcpy(consulta->nomeMedico, nomeMedico);
     strcpy(consulta->nomePaciente,nomePaciente);
@@ -72,8 +71,5 @@ void DefiniEncaminhamentoConsulta(tConsulta* consulta, tEncaminhamento* encaminh
 }
 char* obtemDataConsulta(tConsulta* consulta){
     return consulta->dataConsulta;
-}
-char * ObtemCpfConsulta(tConsulta* consulta){
-    return ObtemCpfPaciente(consulta->paciente);
 }
 

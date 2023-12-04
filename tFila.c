@@ -20,6 +20,8 @@ tFila *criaFila(){
         exit(EXIT_FAILURE);
     }
 
+    fila->vetorDoc = (tDocumento**) calloc(1,sizeof(tDocumento*));
+
     return fila;
 }
 
@@ -47,6 +49,7 @@ void insereDocumentoFila(tFila *f, void *dado, func_ptr_imprimeNaTela imprimeNaT
 func_ptr_imprimeEmArquivo ImprimeEmArquivo,func_ptr_desaloca desaloca){
     tDocumento * doc = criaDocumento(dado, imprimeNaTela, ImprimeEmArquivo,desaloca);
     f->tam++;
+    f->vetorDoc = realloc(f->vetorDoc,sizeof(tDocumento*)*f->tam);
     f->vetorDoc[f->tam-1] = doc;
 }
 

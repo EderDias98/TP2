@@ -15,9 +15,11 @@
 typedef struct diagnostico tDiagnostico;
 typedef struct relatorio tRelatorio;
 
+typedef int (*func_ptr_compara)(const void *a,const void*b);
+
 tRelatorio *criaRelatorio();
 
-
+int calculaPacientesAtendidos(tPaciente **pacientes, int numPacientes);
 void ContaNumDiagnostico(tLesoes **vetor, tDiagnostico **vetorD, int numDiagnostico, int numLesoes);
 int compararDiagnostico(const void *a, const void *b);
 tDiagnostico** CriaVetorDiagnostico();
@@ -31,4 +33,8 @@ void calculaEstatisticasIdade(tPaciente **pacientes, int numPacientes, float *me
 void desalocaRelatorio(void *dado);
 void imprimeNaTelaRelatorio(void *dado);
 void imprimeEmArquivoRelatorio(void *dado, char *path);
+
+void trocar(tDiagnostico *a,tDiagnostico *b);
+
+void bubbleSort(tDiagnostico **arr, int n,  func_ptr_compara comparar);
 #endif

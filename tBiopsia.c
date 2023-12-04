@@ -28,7 +28,7 @@ char *nomeMedico, char *CRM, char *dataStr){
     // Copia os dados fornecidos para a estrutura
     strncpy(biopsia->nomePaciente, nomePaciente, sizeof(biopsia->nomePaciente) - 1);
     strncpy(biopsia->cpfPaciente, cpfPaciente, sizeof(biopsia->cpfPaciente) - 1);
-    biopsia->lesoes = lesoes; // Supondo que lesoes seja uma estrutura válida
+    biopsia->lesoes = CopiaLesoes(lesoes); // Supondo que lesoes seja uma estrutura válida
     strncpy(biopsia->nomeMedico, nomeMedico, sizeof(biopsia->nomeMedico) - 1);
     strncpy(biopsia->CRM, CRM, sizeof(biopsia->CRM) - 1);
     strncpy(biopsia->data, dataStr, sizeof(biopsia->data) - 1);
@@ -43,8 +43,14 @@ char *nomeMedico, char *CRM, char *dataStr){
  */
 void desalocaBiopsia(void *dado){
     tBiopsia* biopsia = (tBiopsia*) dado;
-    if(biopsia)
+    if(biopsia){
+        if(biopsia->lesoes){
+            deslocaLesoes(biopsia->lesoes);
+        }
+
         free(biopsia);
+
+    }
 }
 
 /**

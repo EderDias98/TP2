@@ -2,13 +2,14 @@
 
 struct diagnostico
 {
-    char nomeDiagnostico[20];
+    char nomeDiagnostico[25];
     int qtd;
 };
 
 struct relatorio
 {
-    int numPacientes; // Número total de pacientes que possui pelo menos um atendimento
+    int numPacientes; 
+    int numPacientesAtendidos;// Número total de pacientes que possui pelo menos um atendimento
     float mediaIdade;
     float DesvioPadraoIdade; // Média e desvio padrão da idade dos pacientes Utilizando somente a parte inteira
     float distribuicaoFeminino;
@@ -24,7 +25,15 @@ struct relatorio
     tDiagnostico **diagnosticos;
     int numDiagnosticos;
 };
-
+int calculaPacientesAtendidos(tPaciente **pacientes, int numPacientes){
+    int soma=0;
+    for(int i=0; i<numPacientes;i++){
+        if(obtemEhAtendido(ObtemPaciente(pacientes,i))){
+            soma++;
+        }
+    }
+    return soma;
+}
 void calculaEstatisticasIdade(tPaciente **pacientes, int numPacientes, float *media, float *desvioPadrao)
 {
     // Cálculo da média
@@ -137,9 +146,12 @@ tRelatorio *CriaRelatorio(tClinica *clinica)
         printf("Erro ao alocar memória para a relatorio\n");
         exit(EXIT_FAILURE);
     }
+
+
     tPaciente **vetorPaciente = ObtemPacientes(clinica);
     int numLesoes = ObtemTamVetorLesoes(clinica);
     relatorio->numPacientes = ObtemTamPacientes(clinica);
+    relatorio->numPacientesAtendidos = calculaPacientesAtendidos(vetorPaciente,relatorio->numPacientes);
     calculaEstatisticasIdade(vetorPaciente, relatorio->numPacientes, &relatorio->mediaIdade, &relatorio->DesvioPadraoIdade);
 
     calcularDistribuicaoGenero(vetorPaciente, relatorio->numPacientes, &relatorio->distribuicaoMasculino,
@@ -155,7 +167,7 @@ tRelatorio *CriaRelatorio(tClinica *clinica)
     tDiagnostico **vetorDiagnostico = CriaVetorDiagnostico();
     relatorio->numDiagnosticos = NUM_DIAGONOSTICOS;
     ContaNumDiagnostico(vetorLesoes,vetorDiagnostico, relatorio->numDiagnosticos, numLesoes);
-    qsort(vetorDiagnostico, relatorio->numDiagnosticos, sizeof(tDiagnostico *), compararDiagnostico);
+    bubbleSort(vetorDiagnostico, relatorio->numDiagnosticos,compararDiagnostico);
 }
 
 tDiagnostico *CriaDiagnostico(char *nome)
@@ -175,7 +187,7 @@ tDiagnostico *CriaDiagnostico(char *nome)
 
 tDiagnostico **CriaVetorDiagnostico()
 {
-    tDiagnostico **vetor = (tDiagnostico **)calloc(7, sizeof(tDiagnostico *));
+    tDiagnostico **vetor = (tDiagnostico **)calloc(NUM_DIAGONOSTICOS, sizeof(tDiagnostico *));
     if (vetor == NULL)
     {
         printf("Erro ao alocar memória para o vetor de diagnosticos\n");
@@ -183,26 +195,43 @@ tDiagnostico **CriaVetorDiagnostico()
     }
     vetor[0] = CriaDiagnostico("CARCINOMA BASOCELULAR");
     vetor[1] = CriaDiagnostico("ESPINOCELULAR");
-    vetor[2] = CriaDiagnostico(" MELANOMA");
+    vetor[2] = CriaDiagnostico("MELANOMA");
     vetor[3] = CriaDiagnostico("CERATOSE ACTINICA");
-    vetor[4] = CriaDiagnostico(" NEVO");
+    vetor[4] = CriaDiagnostico("NEVO");
     vetor[5] = CriaDiagnostico("CERATOSE SEBORREICA ");
-    vetor[6] = CriaDiagnostico(" OUTROS");
+    vetor[6] = CriaDiagnostico("OUTROS");
     return vetor;
 }
 
 int compararDiagnostico(const void *a, const void *b)
 {
     // Comparação decrescente pela quantidade (qtd)
-    int diferenca = ((tDiagnostico *)b)->qtd - ((tDiagnostico *)a)->qtd;
+    const tDiagnostico* dA = (const tDiagnostico*)a;
+    const tDiagnostico* dB =  (const tDiagnostico*)b;
+    int diferenca = dB->qtd - dB->qtd;
 
     // Em caso de empate, use a ordem alfabética do nomeDiagnostico
     if (diferenca == 0)
     {
-        return strcmp(((tDiagnostico *)a)->nomeDiagnostico, ((tDiagnostico *)b)->nomeDiagnostico);
+        return strcmp(dA->nomeDiagnostico, dB->nomeDiagnostico);
     }
 
     return diferenca;
+}
+void trocar(tDiagnostico *a,tDiagnostico *b) {
+    tDiagnostico temp = *a;
+    *a = *b;
+    *b = temp;
+}
+void bubbleSort(tDiagnostico **arr, int n,  func_ptr_compara comparar) {
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            if (comparar(arr[j], arr[j + 1]) > 0) {
+                // Trocar os elementos se estiverem fora de ordem
+                trocar(arr[j], arr[j + 1]);
+            }
+        }
+    }
 }
 
 void ContaNumDiagnostico(tLesoes **vetor, tDiagnostico **vetorD, int numDiagnostico, int numLesoes)
@@ -222,7 +251,7 @@ void ContaNumDiagnostico(tLesoes **vetor, tDiagnostico **vetorD, int numDiagnost
             for (int k = 0; k < NUM_DIAGONOSTICOS; k++)
             {
                 tDiagnostico *diagnosticoAtual = vetorD[k];
-                if (strcmp(nomeDiagnostico, diagnosticoAtual->nomeDiagnostico))
+                if (strcmp(nomeDiagnostico, diagnosticoAtual->nomeDiagnostico)==0)
                 {
                     diagnosticoAtual->qtd++;
                 }

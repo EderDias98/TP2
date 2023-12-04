@@ -365,7 +365,7 @@ direcionar para a tela de cadastro de usuário que terá o nível de acesso ADMI
                 printf("PACIENTE SEM CADASTRO\n");
                 printf("PRESSIONE QUALQUER TECLA PARA VOLTAR PARA O MENU INICIAL");
                 printf("############################################################");
-                scanf("%*c");
+                scanf("%*c%*c");
                 continue;
             }
             break;
@@ -374,18 +374,19 @@ direcionar para a tela de cadastro de usuário que terá o nível de acesso ADMI
             printf("#################### BUSCAR PACIENTES #######################\n");
             printf("NOME DO PACIENTE: ");
             char nome[100] = {'\0'};
-            scanf("%99[^n]%*c", nome);
+            scanf("%99[^\n]%*c", nome);
             printf("\nDATA DA CONSULTA: ");
             char data[11] = {'\0'};
-            scanf("%10[^n]%*c", data);
+            scanf("%10[^\n]%*c", data);
             printf("\nDIAGNOSTICO: ");
             char diagnostico[30]= {'\0'};
-            scanf("%29[^n]%*c", diagnostico);
+            scanf("%29[^\n]%*c", diagnostico);
 
             int numPacientesLista = 0;
-            int numConsultas = obtemNumConsultas(clinica);
-            tConsulta **vetorConsulta = obtemVetorConsultas(clinica);
-            tPaciente **lista = BuscaPacientes(vetorConsulta, numConsultas,
+            int numPacientes = obtemNumPacientes(clinica);
+
+            tPaciente **vetorPaciente = obtemVetorPacientes(clinica);
+            tPaciente **lista = BuscaPacientes(vetorPaciente, numPacientes,
                                                nome, data, diagnostico, &numPacientesLista);
             if (lista == NULL)
             {
@@ -394,7 +395,7 @@ direcionar para a tela de cadastro de usuário que terá o nível de acesso ADMI
                 printf("NENHUM PACIENTE FOI ENCONTRADO. PRESSIONE QUALQUER TECLA PARA\n");
                 printf("RETORNAR AO MENU ANTERIOR");
                 printf("############################################################");
-                scanf("%*c");
+                scanf("%*c%*c");
                 continue;
             }
 
@@ -404,7 +405,7 @@ direcionar para a tela de cadastro de usuário que terá o nível de acesso ADMI
 
             int opcao = 0;
 
-            imprimeEmTelaLista(listaBusca);
+            imprimeNaTelaLista(listaBusca);
 
             printf("\nSELECIONE UMA OPÇÃO:\n");
             printf("(1) ENVIAR LISTA PARA IMPRESSAO\n");
@@ -418,7 +419,7 @@ direcionar para a tela de cadastro de usuário que terá o nível de acesso ADMI
                 printf("LISTA ENVIADA PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER TECLA PARA\n");
                 printf("RETORNAR AO MENU PRINCIPAL\n");
                 printf("############################################################");
-                scanf("%*c");
+                scanf("%*c%*c");
             }
             else if (opcao == 2)
             {
@@ -433,18 +434,15 @@ direcionar para a tela de cadastro de usuário que terá o nível de acesso ADMI
                 scanf("%d%*c", &opcaoB);
                 if (opcao == 1)
                 {
-                    tPaciente* copiaPaciente = copiaPaciente(paciente);
-                    insereDocumentoFila(fila,copiaPaciente,imprimeEmTelaBusca,imprimeEmArquivoBusca, DeslocaVisualizacao);
+                    tPaciente* copiaPacienteV = copiaPaciente(paciente);
+                    insereDocumentoFila(fila,copiaPacienteV,imprimeEmTelaBusca,imprimeEmArquivoBusca, DeslocaVisualizacao);
                     printf(" #################### BUSCAR PACIENTES #######################\n");
                     printf("DADOS ENVIADO PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER TECLA PARA\n");
                     printf("RETORNAR AO MENU PRINCIPAL\n");
                     printf("############################################################");
-                    scanf("%*c");
+                    scanf("%*c%*c");
                 }
-                else if (opcao == 2)
-                {
-                    continue;
-                }
+
             }
 
             break;
@@ -459,12 +457,9 @@ direcionar para a tela de cadastro de usuário que terá o nível de acesso ADMI
                 printf("RELATÓRIO ENVIADO PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER TECLA PARA\n");
                 printf("RETORNAR AO MENU PRINCIPAL\n");
                 printf("############################################################");
-                scanf("%*c");
+                scanf("%*c%*c");
             }
-            else if (opcaoA == 2)
-            {
-                continue;
-            }
+
 
             break;
         case 7:
@@ -477,10 +472,6 @@ direcionar para a tela de cadastro de usuário que terá o nível de acesso ADMI
             {
                 // le arquivo binario fila de impressao
                 //  e executar ela;
-            }
-            else if (opcao == 2)
-            {
-                continue;
             }
             break;
         case 8:

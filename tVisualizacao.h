@@ -8,7 +8,7 @@ typedef struct tVisualizacao tVisualizacao;
 
 
 
-
+tVisualizacao* criaVisualizacao(tPaciente* paciente);
 /**
  * Função que recebe um ponteiro genérico (que deve conter uma receita) e imprime os dados na tela
  * de acordo com o especificado na descrição do trabalho.

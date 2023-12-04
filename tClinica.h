@@ -15,11 +15,11 @@ typedef struct clinica tClinica;
 
 tClinica* criaClinica();
 
-
+tPaciente** obtemVetorPacientes(tClinica* clinica);
 void InicializaClinicaVetores(tClinica* clinica);
 
 int obtemTamVetorConsultas(tClinica* clinica);
- 
+ int obtemNumPacientes(tClinica* clinica);
 // Função para destruir uma instância da clínica
 void liberaClinica(tClinica* clinica);
 
