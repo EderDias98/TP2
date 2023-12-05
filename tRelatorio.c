@@ -295,8 +295,8 @@ void imprimeNaTelaRelatorio(void *dado)
     printf("TAMANHO MEDIO DAS LESOES: %.0fMM\n", relatorio->tamMedioLesoes);
     printf("NUMERO TOTAL DE LESOES: %.0f\n", relatorio->numLesoes);
     printf("NUMERO TOTAL DE CIRURGIAS: %.0f\n", relatorio->numCirurgias);
-    printf("NUMERO TOTAL DE CRIOTERAPIA: %.0f\n", relatorio->numCrioterapias);
-    printf("DISTRIBUICAO POR DIAGNOSTICO:\n");
+    printf("NUMERO TOTAL DE CRIOTERAPIA: %.0f\n\n", relatorio->numCrioterapias);
+    // printf("DISTRIBUICAO POR DIAGNOSTICO:\n");
     // for (int i = 0; i < relatorio->numDiagnosticos; i++)
     // {
     //     tDiagnostico *diagnosticoAtual = relatorio->diagnosticos[i];
@@ -341,8 +341,8 @@ void imprimeEmArquivoRelatorio(void *dado, char *path)
     fprintf(arquivo, "TAMANHO MEDIO DAS LESOES: %.0fMM\n", relatorio->tamMedioLesoes);
     fprintf(arquivo, "NUMERO TOTAL DE LESOES: %.0f\n", relatorio->numLesoes);
     fprintf(arquivo, "NUMERO TOTAL DE CIRURGIAS: %.0f\n", relatorio->numCirurgias);
-    fprintf(arquivo, "NUMERO TOTAL DE CRIOTERAPIA: %.0f\n", relatorio->numCrioterapias);
-    fprintf(arquivo, "DISTRIBUICAO POR DIAGNOSTICO:\n");
+    fprintf(arquivo, "NUMERO TOTAL DE CRIOTERAPIA: %.0f\n\n", relatorio->numCrioterapias);
+    // fprintf(arquivo, "DISTRIBUICAO POR DIAGNOSTICO:\n");
 
     // for (int i = 0; i < relatorio->numDiagnosticos; i++)
     // {

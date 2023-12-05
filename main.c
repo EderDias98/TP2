@@ -473,12 +473,9 @@ int main(int argc, int *argv[])
             if (opcaoA == 1)
             {   
                 insereDocumentoFila(fila,relatorio,imprimeNaTelaRelatorio, imprimeEmArquivoRelatorio,desalocaRelatorio);
-                printf(" #################### BUSCAR PACIENTES #######################\n");
-                fprintf(arquivoSaida," #################### BUSCAR PACIENTES #######################\n");
-                printf("RELATÓRIO ENVIADO PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER TECLA PARA\n");
-                fprintf(arquivoSaida,"RELATÓRIO ENVIADO PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER TECLA PARA\n");
-                printf("RETORNAR AO MENU PRINCIPAL\n");
-                fprintf(arquivoSaida,"RETORNAR AO MENU PRINCIPAL\n");
+                printf("RELATORIO ENVIADO PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER TECLA PARA RETORNAR AO MENU ANTERIOR\n");
+                fprintf(arquivoSaida,"RELATORIO ENVIADO PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER TECLA PARA RETORNAR AO MENU ANTERIOR\n");
+            
                 printf("############################################################\n");
                 fprintf(arquivoSaida,"############################################################\n");
                 scanf("%*c%*c");
@@ -499,9 +496,18 @@ int main(int argc, int *argv[])
             int opcaoF=0;
             scanf("%d%*c", &opcaoF);
             if (opcaoF == 1)
-            {
+            {   
+                printf("################ FILA DE IMPRESSAO MEDICA ##################\n");
+                fprintf(arquivoSaida,"################ FILA DE IMPRESSAO MEDICA ##################\n");
+                printf("EXECUTANDO FILA DE IMPRESSAO:\n");
+                fprintf(arquivoSaida,"EXECUTANDO FILA DE IMPRESSAO:\n");
                 imprimeFila(fila,".");
             }
+            printf("PRESSIONE QUALQUER TECLA PARA VOLTAR PARA O MENU ANTERIOR\n");
+            fprintf(arquivoSaida,"PRESSIONE QUALQUER TECLA PARA VOLTAR PARA O MENU ANTERIOR\n");
+            printf("############################################################\n");
+            fprintf(arquivoSaida,"############################################################\n");
+            scanf("%*c%*c");
             break;
         case 8:
             sairL = 1;

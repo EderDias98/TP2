@@ -38,12 +38,11 @@ void desalocaLista(void *dado){
  * de acordo com o especificado na descrição do trabalho.
  */
 void imprimeNaTelaLista(void *dado){
-    printf("#################### BUSCAR PACIENTES #######################\n");
-    printf("PACIENTES ENCONTRADOS:\n");
     tLista *lista = (tLista*) dado;
     for(int i=0; i<lista->tam;i++){
         printf("%d - %s (%s)\n", i+1, ObtemNomePaciente(lista->vetor[i]), ObtemCpfPaciente(lista->vetor[i]));
     }
+    printf("\n");
 }
 
 /**

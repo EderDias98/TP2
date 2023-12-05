@@ -75,8 +75,8 @@ void imprimeNaTelaBiopsia(void *dado){
         }
     }
 
-    printf("%s (CRM-%s)\n", biopsia->nomeMedico, biopsia->CRM);
-    printf("%s (data da consulta)\n", biopsia->data);
+    printf("\n%s (%s)\n", biopsia->nomeMedico, biopsia->CRM);
+    printf("%s (data da consulta)\n\n", biopsia->data);
 }
 
 /**
@@ -116,8 +116,8 @@ void imprimeEmArquivoBiopsia(void *dado, char *path){
         }
     }
 
-    fprintf(arquivo, "%s (CRM-%s)\n", biopsia->nomeMedico, biopsia->CRM);
-    fprintf(arquivo, "%s (data da consulta)\n", biopsia->data);
+    fprintf(arquivo, "\n%s (%s)\n", biopsia->nomeMedico, biopsia->CRM);
+    fprintf(arquivo, "%s (data da consulta)\n\n", biopsia->data);
 
     // Fecha o arquivo
     fclose(arquivo);

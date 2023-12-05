@@ -56,10 +56,10 @@ void imprimeNaTelaEncaminhamento(void *dado){
     // Imprime os dados no formato especificado
     printf("PACIENTE: %s\n", encaminhamento->nomePaciente);
     printf("CPF: %s\n\n", encaminhamento->cpfPaciente);
-    printf("ESPECIALIDADE ENCAMINHADA: %s\n\n", encaminhamento->especialidade);
+    printf("ESPECIALIDADE ENCAMINHADA: %s\n", encaminhamento->especialidade);
     printf("MOTIVO: %s\n\n", encaminhamento->motivo);
-    printf("%s (CRM-%s)\n", encaminhamento->nomeMedico, encaminhamento->CRM);
-    printf("%s (data da consulta)\n", encaminhamento->dataStr);
+    printf("%s (%s)\n", encaminhamento->nomeMedico, encaminhamento->CRM);
+    printf("%s\n\n", encaminhamento->dataStr);
 }
 
 /**
@@ -88,10 +88,10 @@ void imprimeEmArquivoEncaminhamento(void *dado, char *path){
     // Imprime os dados no arquivo usando fprintf
     fprintf(arquivo, "PACIENTE: %s\n", encaminhamento->nomePaciente);
     fprintf(arquivo, "CPF: %s\n\n", encaminhamento->cpfPaciente);
-    fprintf(arquivo, "ESPECIALIDADE ENCAMINHADA: %s\n\n", encaminhamento->especialidade);
+    fprintf(arquivo, "ESPECIALIDADE ENCAMINHADA: %s\n", encaminhamento->especialidade);
     fprintf(arquivo, "MOTIVO: %s\n\n", encaminhamento->motivo);
-    fprintf(arquivo, "%s (CRM-%s)\n", encaminhamento->nomeMedico, encaminhamento->CRM);
-    fprintf(arquivo, "%s (data da consulta)\n", encaminhamento->dataStr);
+    fprintf(arquivo, "%s (%s)\n", encaminhamento->nomeMedico, encaminhamento->CRM);
+    fprintf(arquivo, "%s (data da consulta)\n\n", encaminhamento->dataStr);
 
     // Fecha o arquivo
     fclose(arquivo);
