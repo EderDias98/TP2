@@ -77,7 +77,12 @@ void imprimeNaTelaReceita(void *dado){
     printf("%s\n", receita->nomeMedicamento);
     printf("%d %s\n\n", receita->qntd, receita->tipoMedicamento);
     printf("%s\n\n", receita->instrucoes);
-    printf("%s (%s)\n", receita->nomeMedico, receita->CRM);
+    if(receita->nomeMedico[0]!='\0'){
+        printf("%s (CRM-%s)\n", receita->nomeMedico, receita->CRM);
+    }else{
+        printf("%s (%s)\n", receita->nomeMedico, receita->CRM);
+    }
+
     printf("%s\n\n", receita->dataStr);
 
 }
@@ -126,7 +131,12 @@ void imprimeEmArquivoReceita(void *dado, char *path){
     fprintf(arquivo, "%s\n", receita->nomeMedicamento);
     fprintf(arquivo, "%d %s\n\n", receita->qntd, receita->tipoMedicamento);
     fprintf(arquivo, "%s\n\n", receita->instrucoes);
-    fprintf(arquivo, "%s (%s)\n", receita->nomeMedico, receita->CRM);
+    if(receita->nomeMedico[0]!='\0'){
+        fprintf(arquivo,"%s (CRM-%s)\n", receita->nomeMedico, receita->CRM);
+    }else{
+        fprintf(arquivo,"%s (%s)\n", receita->nomeMedico, receita->CRM);
+    }
+
     fprintf(arquivo, "%s\n\n", receita->dataStr);
 
     // Fecha o arquivo
