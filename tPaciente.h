@@ -7,6 +7,7 @@
 #include "tLesao.h"
 #include "tConstantes.h"
 
+
 typedef struct paciente tPaciente;
 int obtemEhAtendido(tPaciente* paciente);
 void AtendePaciente(tPaciente* paciente);
@@ -18,7 +19,7 @@ void DeslocaPaciente(tPaciente* paciente);
 char* obtemDataPaciente(tPaciente* paciente, int index);
 void lePaciente(tPaciente *paciente);
 
-tPaciente** adcionaPaciente(tPaciente **vetor, tPaciente *paciente, int tam);
+
 int EhCadastradoPaciente(tPaciente **vetor, char *cpf, int tam);
 
 void CompletaDadosPaciente(tPaciente *paciente);
@@ -61,6 +62,6 @@ int JaTemPacientesLista(tPaciente** lista, tPaciente*paciente,int tam);
 int obtemTamTPaciente();
 int obtemNumLesoes(tPaciente* paciente);
 
-tPaciente** BuscaPacientes(tPaciente** vetorPacientes,int tamPacientes,char *nome,char *data,char *diagnostico,
-int* tamLista);
+tPaciente** BuscaPacientes(tPaciente** vetorPacientes,int tamPacientes,char *nome,int* tamLista);
+tPaciente** adcionaPacienteLista( tPaciente** vetor, tPaciente *paciente, int tam);
 #endif

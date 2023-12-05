@@ -36,9 +36,9 @@ void leLesao(tLesao* lesao);
 
 // na clinica o tamanho começa com zero
 
-tLesao** adcionaLesao(tLesao** vetor, tLesao *lesao, int tam);
-tLesoes** adcionaLesoes(tLesoes ** vetor, tLesoes *lesoes, int tam);
-void CadastraLesao(tLesoes* lesoes, tLesao*lesao,int tam);
+ void adcionaLesao(tLesoes*lesoes, tLesao *lesao);
+
+void CadastraLesao(tLesoes* lesoes, tLesao*lesao);
 
 
 void IncrementaTamLesoes(tLesoes* lesoes);

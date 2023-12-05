@@ -40,6 +40,8 @@ void MostrarMenu(Nivel acesso)
         printf("ESCOLHA UMA OPCAO:\n");
         printf("(4) REALIZAR CONSULTA\n");
         printf("(5) BUSCAR PACIENTES\n");
+        printf("(6) RELATORIO GERAL\n");
+        printf("(7) FILA DE IMPRESSAO\n");
         printf("(8) FINALIZAR O PROGRAMA\n");
         printf("###############################################################\n");
         break;
@@ -77,7 +79,7 @@ int ArquivoBinarioExiste(char *path, char *nome, char *pathBin)
     return 1;
 }
 
-void ConfigurarArquivosBinarios(char *path, int *sec, int *med, int *pac, int *cons, int *les, int *fil, tClinica *clinica)
+void ConfigurarArquivosBinarios(char *path, int *sec, int *med, int *pac, int *cons, int *les, tClinica *clinica)
 {
     char pathBin[200] = {'\0'};
     int tamVetor;
@@ -176,22 +178,7 @@ void ConfigurarArquivosBinarios(char *path, int *sec, int *med, int *pac, int *c
 
     memset(pathBin, '\0', sizeof(pathBin));
 
-    if (ArquivoBinarioExiste(path, "/fila_impressao", pathBin) == 0)
-    {
 
-        FILE *arquivo = fopen(pathBin, "wb");
-
-        if (arquivo == NULL)
-        {
-            printf("Erro ao criar o fila_impressao.bin\n");
-            exit(-1);
-        }
-        fclose(arquivo);
-    }
-    else
-    {
-        *fil = 1;
-    }
 }
 // secretarios.bin
 // ● medicos.bin
@@ -226,16 +213,16 @@ int main(int argc, int *argv[])
     strcat(pathPac, pathBancoDados);
     strcat(pathCons, pathBancoDados);
     strcat(pathLes, pathBancoDados);
-    strcat(pathFil, pathBancoDados);
+
 
     strcat(pathSec, "/secretarios.bin");
     strcat(pathMed, "/medicos.bin");
     strcat(pathPac, "/pacientes.bin");
     strcat(pathCons, "/consultas.bin");
     strcat(pathLes, "/lesoes.bin");
-    strcat(pathFil, "fila_impressao.bin");
 
-    ConfigurarArquivosBinarios(pathBancoDados, &sec, &med, &pac, &cons, &les, &fil, clinica);
+
+    ConfigurarArquivosBinarios(pathBancoDados, &sec, &med, &pac, &cons, &les, clinica);
 
     if (sec == 1)
     {
@@ -257,9 +244,7 @@ int main(int argc, int *argv[])
     {
         LeBinLesoes(clinica, pathLes);
     }
-    if (fil == 1)
-    {
-    }
+
 
     int sair = 0;
     Nivel acesso;
@@ -288,15 +273,7 @@ int main(int argc, int *argv[])
    
     }
 
-    /*O login e senha deve ser comparado com as credências do secretário ou médico já
-cadastrados no banco. Se o login falhar (ou seja, não existe o usuário ou a senha está
-incorreta), o programa deve exibir a mensagem SENHA INCORRETA OU USUARIO
-INEXISTENTE e repetir a tela de acesso. Se o login for bem-sucedido, o programa
-deve ir para o menu inicial que será descrito na sequência. Se este for o primeiro
-acesso ao sistema (ou seja, não existe nenhum usuário cadastrado), o sistema deve
-direcionar para a tela de cadastro de usuário que terá o nível de acesso ADMIN. */
 
-    // definir o tipo de acesso do usuario
 
     int funcionalidade = 0;
     int sairL=0;
@@ -353,9 +330,14 @@ direcionar para a tela de cadastro de usuário que terá o nível de acesso ADMI
             scanf("%14[^\n]%*c", cpf);
             int indexPaciente = EhCadastradoCLinica(clinica, cpf);
 
+            if( acesso==ADMIN){
+                indexMedico = -1;
+            }
+
+
             if (indexPaciente != -1)
             {
-
+                
                 ConsultaMedica(clinica, indexPaciente, indexMedico, fila);
             }
             else
@@ -375,19 +357,13 @@ direcionar para a tela de cadastro de usuário que terá o nível de acesso ADMI
             printf("NOME DO PACIENTE: ");
             char nome[100] = {'\0'};
             scanf("%99[^\n]%*c", nome);
-            printf("\nDATA DA CONSULTA: ");
-            char data[11] = {'\0'};
-            scanf("%10[^\n]%*c", data);
-            printf("\nDIAGNOSTICO: ");
-            char diagnostico[30]= {'\0'};
-            scanf("%29[^\n]%*c", diagnostico);
 
             int numPacientesLista = 0;
             int numPacientes = obtemNumPacientes(clinica);
 
             tPaciente **vetorPaciente = obtemVetorPacientes(clinica);
             tPaciente **lista = BuscaPacientes(vetorPaciente, numPacientes,
-                                               nome, data, diagnostico, &numPacientesLista);
+                                               nome, &numPacientesLista);
             if (lista == NULL)
             {
 
@@ -399,7 +375,6 @@ direcionar para a tela de cadastro de usuário que terá o nível de acesso ADMI
                 continue;
             }
 
-            qsort(lista, numPacientesLista, sizeof(tPaciente *), comparar_nomes);
 
             tLista *listaBusca = criaListaDeBusca(lista, numPacientesLista);
 
@@ -409,7 +384,7 @@ direcionar para a tela de cadastro de usuário que terá o nível de acesso ADMI
 
             printf("\nSELECIONE UMA OPÇÃO:\n");
             printf("(1) ENVIAR LISTA PARA IMPRESSAO\n");
-            printf("(2) VISUALIZAR PACIENTE\n");
+            printf("(2) RETORNAR AO MENU PRINCIPAL\n");
             printf("############################################################");
             scanf("%d%*c", &opcao);
             if (opcao == 1)
@@ -420,29 +395,6 @@ direcionar para a tela de cadastro de usuário que terá o nível de acesso ADMI
                 printf("RETORNAR AO MENU PRINCIPAL\n");
                 printf("############################################################");
                 scanf("%*c%*c");
-            }
-            else if (opcao == 2)
-            {
-                int numPaciente = 0;
-                printf(" #################### BUSCAR PACIENTES #######################\n");
-                printf("DIGITE O NUMERO DO PACIENTE: ");
-                scanf("%d%*c", &numPaciente);
-                printf("\n############################################################\n");
-                int opcaoB = 0;
-                tPaciente *paciente = ObtemPaciente(lista, numPaciente - 1);
-                imprimeEmTelaBusca(paciente);
-                scanf("%d%*c", &opcaoB);
-                if (opcao == 1)
-                {
-                    tPaciente* copiaPacienteV = copiaPaciente(paciente);
-                    insereDocumentoFila(fila,copiaPacienteV,imprimeEmTelaBusca,imprimeEmArquivoBusca, DeslocaVisualizacao);
-                    printf(" #################### BUSCAR PACIENTES #######################\n");
-                    printf("DADOS ENVIADO PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER TECLA PARA\n");
-                    printf("RETORNAR AO MENU PRINCIPAL\n");
-                    printf("############################################################");
-                    scanf("%*c%*c");
-                }
-
             }
 
             break;

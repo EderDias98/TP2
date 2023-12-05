@@ -5,7 +5,6 @@
 #include "tMedico.h"
 #include "tConsulta.h"
 #include "tLista_busca.h"
-#include "tVisualizacao.h"
 #include "tLesao.h"
 #include "tFila.h"
 #include "tEncaminhamento.h"
@@ -78,4 +77,10 @@ void LeBinSecretarios(tClinica* clinica,char *path);
 void EscreveBinsecretarios(tClinica* clinica,char *path);
 
 
+
+void adcionaPaciente( tClinica* clinica, tPaciente *paciente);
+void adcionaSecretario(tClinica* clinica, tSecretario *secretario);
+void adcionaMedico(tClinica* clinica, tMedico *medico);
+void adcionaConsulta(tClinica*clinica, tConsulta*consulta);
+void adcionaLesoes(tClinica* clinica, tLesoes *lesoes);
 #endif

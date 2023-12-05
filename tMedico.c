@@ -70,22 +70,7 @@ void leMedico(tMedico* medico){
 
 // na clinica o tamanho começa com zero
 
-tMedico** adcionaMedico(tMedico** vetor, tMedico *medico, int tam) {
-    
 
-    // Realocar o vetor de pacientes para acomodar o novo tamanho
-    vetor = (tMedico**)realloc(vetor, (tam) * sizeof(tMedico*));
-
-    // Verificar se a realocação foi bem-sucedida
-    if (vetor == NULL) {
-        printf("Erro ao realocar memória para o vetor de medicos.\n");
-        exit(EXIT_FAILURE);
-    }
-
-    //Inserir Paciente
-    vetor[tam-1] = medico;
-    return vetor;
-}
 
 
 int EhCadastradoMedico(tMedico** vetor, tMedico *medico, int tam){

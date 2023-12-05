@@ -11,7 +11,7 @@
 
 typedef struct consulta tConsulta;
 tConsulta* criaConsulta( char *data, char * nomeMedico,char * nomePaciente);
-tConsulta** adcionaConsulta(tConsulta** vetor, tConsulta *consulta, int tam);
+
 tLesoes* obtemLesoesConsulta(tConsulta* consulta);
 void liberaConsulta(tConsulta* consulta);
 

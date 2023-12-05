@@ -435,8 +435,7 @@ int CadastraPacienteClinica(tClinica *clinica){
     lePaciente(paciente);
     if(EhCadastradoPaciente(clinica->pacientes,ObtemCpfPaciente(paciente),clinica->numPacientes) == -1){
         //Incrementa numero de pacientes
-        clinica->numPacientes++;
-        clinica->pacientes =  adcionaPaciente(clinica->pacientes,paciente,clinica->numPacientes);
+        adcionaPaciente(clinica,paciente);
         return 1;
     }
     liberaPaciente(paciente);
@@ -451,8 +450,7 @@ int CadastraSecretarioClinica(tClinica* clinica){
     tSecretario* secretario = CriaSecretario();
     leSecretario(secretario);
     if(EhCadastradoSecretario(clinica->secretarios,secretario,clinica->numSecretarios) == -1){
-        clinica->numSecretarios++;
-        clinica->secretarios =  adcionaSecretario(clinica->secretarios,secretario,clinica->numSecretarios);
+        adcionaSecretario(clinica,secretario);
         return 1;
     }
     liberaSecretario(secretario);
@@ -466,8 +464,7 @@ int CadastraMedicoClinica(tClinica* clinica){
     leMedico(medico);
     
     if(EhCadastradoMedico(clinica->medicos, medico, clinica->numMedicos) == -1){
-        clinica->numMedicos++;
-        clinica->medicos = adcionaMedico(clinica->medicos, medico, clinica->numMedicos);
+        adcionaMedico(clinica,medico);
         return 1;
     }
     liberaMedico(medico);
@@ -518,17 +515,21 @@ void ImprimiSubMenu(){
 
 
 
-
 // acrescentar taVetorLesoes antes
 
 void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico, tFila* fila){
     tPaciente* paciente =NULL;
     paciente = clinica->pacientes[indexPaciente];
     tMedico* medico = NULL;
-    medico =clinica->medicos[indexMedico];
+    if(indexMedico !=-1){
+        medico =clinica->medicos[indexMedico];
+    }else{
+        medico = criaMedico();
+    }
+
     AtendePaciente(paciente);
     printf("#################### CONSULTA MEDICA #######################\n");
-    printf("CPF DO PACIENTE: %s\n", ObtemCpfPaciente(paciente));
+    printf("CPF DO PACIENTE: ---\n");
     printf("---\n");
     printf("- NOME: %s\n", ObtemNomePaciente(paciente));
     printf("- DATA DE NASCIMENTO: %s\n", ObtemDataPaciente(paciente));
@@ -537,7 +538,6 @@ void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico, tFila
     char dataConsulta[11]= {'\0'};
     scanf("%10[^\n]%*c",dataConsulta);    
     printf("%s\n", dataConsulta);
-    adcionaData(paciente,dataConsulta);
     //cada paciente tera uma consulta e sua data ta na sua struct
     CompletaDadosPaciente(paciente);
     // Os documentos e lesoes serao adcionados de acordo 
@@ -556,11 +556,8 @@ void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico, tFila
                 
                 lesoes= CriaLesoes();
                 //compartilham o ponteiro para struct lesoes
-               
-                clinica->tamVetorLesoes++;
-                clinica->vetorLesoes= adcionaLesoes(clinica->vetorLesoes,lesoes,clinica->tamVetorLesoes);
+                adcionaLesoes(clinica,lesoes);
                 //colocar a lesoes no paciente
-                DefiniLesoesPaciente(paciente,lesoes);
                 DefiniLesoesConsulta(consulta,lesoes);
    
             }
@@ -573,7 +570,7 @@ void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico, tFila
             leLesao(lesaoAtual);
 
             IncrementaTamLesoes(lesoes);
-            CadastraLesao(lesoes,lesaoAtual,ObtemTamLesoes(lesoes));
+            CadastraLesao(lesoes,lesaoAtual);
 
             printf("LESAO REGISTRADA COM SUCESSO. PRESSIONE QUALQUER TECLA PARA\n");
             printf("RETORNAR AO MENU ANTERIOR");
@@ -596,13 +593,16 @@ void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico, tFila
             printf("\nNOME DO MEDICAMENTO: ");
             char nomeMedicamento[50]= {'\0'};
             scanf("%49[^\n]%*c", nomeMedicamento);
-            printf("\nQUANTIDADE: ");
-            int quantidade;
-            scanf("%d%*c", &quantidade);
+
             printf("\nTIPO DE MEDICAMENTO: ");
             char tipoMedicamento[50]= {'\0'};
             scanf("%49[^\n]%*c", tipoMedicamento);
-            char instrucoes[300];
+            
+            printf("\nQUANTIDADE: ");
+            int quantidade;
+            scanf("%d%*c", &quantidade);
+            
+            char instrucoes[300];         
             printf("\nINSTRUÇÕES DE USO: ");
             scanf("%299[^\n]%*c", instrucoes);
 
@@ -638,7 +638,6 @@ void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico, tFila
             insereDocumentoFila(fila, biobsia, imprimeNaTelaBiopsia, imprimeEmArquivoBiopsia, desalocaBiopsia);
 
 
-
             DefiniBiopsiaConsulta(consulta, biobsia);
 
             printf("#################### CONSULTA MEDICA #######################\n");
@@ -658,6 +657,7 @@ void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico, tFila
 
             tEncaminhamento* encaminhamento = criaEncaminhamento(ObtemNomePaciente(paciente),ObtemCpfPaciente(paciente)
             ,ObtemNomeMedico(medico),ObtemCrm(medico),dataConsulta,especialidade,motivo);
+            
             DefiniEncaminhamentoConsulta(consulta,encaminhamento);
 
             insereDocumentoFila(fila,encaminhamento,imprimeNaTelaEncaminhamento, imprimeEmArquivoEncaminhamento,desalocaEncaminhamento);
@@ -681,8 +681,7 @@ void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico, tFila
             break;
         }
     }
-    clinica->numConsultas++;
-    clinica->consultas = adcionaConsulta(clinica->consultas,consulta,clinica->numConsultas);
+    adcionaConsulta(clinica,consulta);
 }
 
 tPaciente** ObtemPacientes(tClinica* clinica){
@@ -703,4 +702,97 @@ tLesoes** ObtemVetor(tClinica* clinica){
 
 int obtemNumConsultas(tClinica* clinica){
     return clinica->numConsultas;
+}
+
+
+void adcionaPaciente( tClinica* clinica, tPaciente *paciente)
+{
+    clinica->numPacientes++;
+    int tam = clinica->numPacientes;
+    // Realocar o vetor de pacientes para acomodar o novo tamanho
+    clinica->pacientes = (tPaciente **)realloc(clinica->pacientes, (tam) * sizeof(tPaciente *));
+
+
+    // Verificar se a realocação foi bem-sucedida
+    if (clinica->pacientes == NULL)
+    {
+        printf("Erro ao realocar memória para o vetor de pacientes.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    // Inserir Paciente
+    clinica->pacientes[tam-1] = paciente;
+
+}
+
+
+void adcionaSecretario(tClinica* clinica, tSecretario *secretario) {
+    
+    clinica->numSecretarios++;
+    int tam = clinica->numSecretarios;
+
+    // Realocar o vetor de pacientes para acomodar o novo tamanho
+    clinica->secretarios = (tSecretario**)realloc(clinica->secretarios, (tam) * sizeof(tSecretario*));
+
+    // Verificar se a realocação foi bem-sucedida
+    if (clinica->secretarios == NULL) {
+        printf("Erro ao realocar memória para o vetor de secretarios.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    //Inserir Paciente
+    clinica->secretarios[tam-1] = secretario;
+
+}
+
+void adcionaMedico(tClinica* clinica, tMedico *medico) {
+    
+    clinica->numMedicos++;
+    int tam = clinica->numMedicos;
+    // Realocar o vetor de pacientes para acomodar o novo tamanho
+    clinica->medicos = (tMedico**)realloc(clinica->medicos, (tam) * sizeof(tMedico*));
+
+    // Verificar se a realocação foi bem-sucedida
+    if (clinica->medicos == NULL) {
+        printf("Erro ao realocar memória para o vetor de medicos.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    //Inserir Paciente
+    clinica->medicos[tam-1] = medico;
+}
+
+void adcionaConsulta(tClinica*clinica, tConsulta*consulta) {
+    
+    clinica->numConsultas++;
+    int tam = clinica->numConsultas;
+    // Realocar o vetor de pacientes para acomodar o novo tamanho
+     clinica->consultas = (tConsulta**)realloc(clinica->consultas, (tam) * sizeof(tConsulta*));
+
+    // Verificar se a realocação foi bem-sucedida
+    if (clinica->consultas == NULL) {
+        printf("Erro ao realocar memória para o vetor de consultas.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    //Inserir Paciente
+    clinica->consultas[tam-1] = consulta;
+
+}
+
+void adcionaLesoes(tClinica* clinica, tLesoes *lesoes) {
+    
+    clinica->tamVetorLesoes++;
+    int tam = clinica->tamVetorLesoes++;
+    // Realocar o vetor de pacientes para acomodar o novo tamanho
+    clinica->vetorLesoes = (tLesoes**)realloc(clinica->vetorLesoes, (tam) * sizeof(tLesoes*));
+
+    // Verificar se a realocação foi bem-sucedida
+    if (clinica->vetorLesoes == NULL) {
+        printf("Erro ao realocar memória para o vetor de pacientes.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    //Inserir Paciente
+    clinica->vetorLesoes[tam-1] = lesoes;
 }

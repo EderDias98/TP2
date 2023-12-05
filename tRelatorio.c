@@ -8,7 +8,7 @@ struct diagnostico
 
 struct relatorio
 {
-    int numPacientes; 
+
     int numPacientesAtendidos;// Número total de pacientes que possui pelo menos um atendimento
     float mediaIdade;
     float DesvioPadraoIdade; // Média e desvio padrão da idade dos pacientes Utilizando somente a parte inteira
@@ -150,11 +150,11 @@ tRelatorio *CriaRelatorio(tClinica *clinica)
 
     tPaciente **vetorPaciente = ObtemPacientes(clinica);
     int numLesoes = ObtemTamVetorLesoes(clinica);
-    relatorio->numPacientes = ObtemTamPacientes(clinica);
-    relatorio->numPacientesAtendidos = calculaPacientesAtendidos(vetorPaciente,relatorio->numPacientes);
-    calculaEstatisticasIdade(vetorPaciente, relatorio->numPacientes, &relatorio->mediaIdade, &relatorio->DesvioPadraoIdade);
+    int numPacientes = ObtemTamPacientes(clinica);
+    relatorio->numPacientesAtendidos = calculaPacientesAtendidos(vetorPaciente,numPacientes);
+    calculaEstatisticasIdade(vetorPaciente, numPacientes, &relatorio->mediaIdade, &relatorio->DesvioPadraoIdade);
 
-    calcularDistribuicaoGenero(vetorPaciente, relatorio->numPacientes, &relatorio->distribuicaoMasculino,
+    calcularDistribuicaoGenero(vetorPaciente, numPacientes, &relatorio->distribuicaoMasculino,
                                &relatorio->distribuicaoFeminino, &relatorio->distribuicaoOutros);
 
     tLesoes **vetorLesoes = ObtemVetor(clinica);
@@ -164,10 +164,11 @@ tRelatorio *CriaRelatorio(tClinica *clinica)
                                      &relatorio->numCirurgias, &relatorio->numCrioterapias);
     relatorio->porcentagemCirurgias = relatorio->numCirurgias / (float)relatorio->numLesoes;
     relatorio->porcentagemCrioterapias = relatorio->numCrioterapias / (float)relatorio->numLesoes;
-    tDiagnostico **vetorDiagnostico = CriaVetorDiagnostico();
-    relatorio->numDiagnosticos = NUM_DIAGONOSTICOS;
-    ContaNumDiagnostico(vetorLesoes,vetorDiagnostico, relatorio->numDiagnosticos, numLesoes);
-    bubbleSort(vetorDiagnostico, relatorio->numDiagnosticos,compararDiagnostico);
+    
+    // tDiagnostico **vetorDiagnostico = CriaVetorDiagnostico();
+    // relatorio->numDiagnosticos = NUM_DIAGONOSTICOS;
+    // ContaNumDiagnostico(vetorLesoes,vetorDiagnostico, relatorio->numDiagnosticos, numLesoes);
+    // bubbleSort(vetorDiagnostico, relatorio->numDiagnosticos,compararDiagnostico);
     // qsort(vetorDiagnostico,relatorio->numDiagnosticos,sizeof(tDiagnostico*), compararDiagnostico);
 }
 
@@ -285,26 +286,26 @@ void desalocaRelatorio(void *dado)
 void imprimeNaTelaRelatorio(void *dado)
 {
     tRelatorio *relatorio = (tRelatorio *)dado;
-    printf("NUMERO TOTAL DE PACIENTES ATENDIDOS: %d\n", relatorio->numPacientes);
-    printf("IDADE MEDIA: %.0f +- %.0f\n", relatorio->mediaIdade, relatorio->DesvioPadraoIdade);
+    printf("NUMERO TOTAL DE PACIENTES ATENDIDOS: %d\n", relatorio->numPacientesAtendidos);
+    printf("IDADE MEDIA: %.0f\n", relatorio->mediaIdade);
     printf("DISTRIBUICAO POR GENERO:\n");
-    printf("- FEMININO: %.0f%%\n", relatorio->distribuicaoFeminino);
-    printf("- MASCULINO: %.0f%%\n", relatorio->distribuicaoMasculino);
-    printf("- OUTROS: %.0f%%\n", relatorio->distribuicaoOutros);
-    printf("TAMANHO MEDIO DAS LESOES: %.0f +- %.0f MM", relatorio->tamMedioLesoes, relatorio->DesvioPadraoLesoes);
+    printf("- FEMININO: %.0f\n", relatorio->distribuicaoFeminino);
+    printf("- MASCULINO: %.0f\n", relatorio->distribuicaoMasculino);
+    printf("- OUTROS: %.0f\n", relatorio->distribuicaoOutros);
+    printf("TAMANHO MEDIO DAS LESOES: %.0fMM\n", relatorio->tamMedioLesoes, relatorio->DesvioPadraoLesoes);
     printf("NUMERO TOTAL DE LESOES: %.0f\n", relatorio->numLesoes);
-    printf("NUMERO TOTAL DE CIRURGIAS: %.0f (%.0f%%)\n", relatorio->numCirurgias, relatorio->porcentagemCirurgias);
-    printf("NUMERO TOTAL DE CRIOTERAPIA: %.0f (%.0f%%)\n", relatorio->numCrioterapias, relatorio->porcentagemCrioterapias);
+    printf("NUMERO TOTAL DE CIRURGIAS: %.0f\n", relatorio->numCirurgias, relatorio->porcentagemCirurgias);
+    printf("NUMERO TOTAL DE CRIOTERAPIA: %.0f\n", relatorio->numCrioterapias, relatorio->porcentagemCrioterapias);
     printf("DISTRIBUICAO POR DIAGNOSTICO:\n");
-    for (int i = 0; i < relatorio->numDiagnosticos; i++)
-    {
-        tDiagnostico *diagnosticoAtual = relatorio->diagnosticos[i];
-        if (diagnosticoAtual->qtd)
-        {
-            printf("- %s: %d (%.0f%%)\n", diagnosticoAtual->nomeDiagnostico,
-                   diagnosticoAtual->qtd, diagnosticoAtual->qtd / (float)relatorio->numDiagnosticos);
-        }
-    }
+    // for (int i = 0; i < relatorio->numDiagnosticos; i++)
+    // {
+    //     tDiagnostico *diagnosticoAtual = relatorio->diagnosticos[i];
+    //     if (diagnosticoAtual->qtd)
+    //     {
+    //         printf("- %s: %d (%.0f%%)\n", diagnosticoAtual->nomeDiagnostico,
+    //                diagnosticoAtual->qtd, diagnosticoAtual->qtd / (float)relatorio->numDiagnosticos);
+    //     }
+    // }
 }
 
 /**
@@ -331,26 +332,26 @@ void imprimeEmArquivoRelatorio(void *dado, char *path)
         exit(-1);
     }
 
-    fprintf(arquivo, "NUMERO TOTAL DE PACIENTES ATENDIDOS: %d\n", relatorio->numPacientes);
-    fprintf(arquivo, "IDADE MEDIA: %.0f +- %.0f\n", relatorio->mediaIdade, relatorio->DesvioPadraoIdade);
+    fprintf(arquivo, "NUMERO TOTAL DE PACIENTES ATENDIDOS: %d\n", relatorio->numPacientesAtendidos);
+    fprintf(arquivo, "IDADE MEDIA: %.0f\n", relatorio->mediaIdade);
     fprintf(arquivo, "DISTRIBUICAO POR GENERO:\n");
-    fprintf(arquivo, "- FEMININO: %.0f%%\n", relatorio->distribuicaoFeminino);
-    fprintf(arquivo, "- MASCULINO: %.0f%%\n", relatorio->distribuicaoMasculino);
+    fprintf(arquivo, "- FEMININO: %.0f\n", relatorio->distribuicaoFeminino);
+    fprintf(arquivo, "- MASCULINO: %.0f\n", relatorio->distribuicaoMasculino);
     fprintf(arquivo, "- OUTROS: %.0f%%\n", relatorio->distribuicaoOutros);
-    fprintf(arquivo, "TAMANHO MEDIO DAS LESOES: %.0f +- %.0f MM\n", relatorio->tamMedioLesoes, relatorio->DesvioPadraoLesoes);
+    fprintf(arquivo, "TAMANHO MEDIO DAS LESOES: %.0fMM\n", relatorio->tamMedioLesoes);
     fprintf(arquivo, "NUMERO TOTAL DE LESOES: %.0f\n", relatorio->numLesoes);
-    fprintf(arquivo, "NUMERO TOTAL DE CIRURGIAS: %.0f (%.0f%%)\n", relatorio->numCirurgias, relatorio->porcentagemCirurgias);
-    fprintf(arquivo, "NUMERO TOTAL DE CRIOTERAPIA: %.0f (%.0f%%)\n", relatorio->numCrioterapias, relatorio->porcentagemCrioterapias);
+    fprintf(arquivo, "NUMERO TOTAL DE CIRURGIAS: %.0f\n", relatorio->numCirurgias);
+    fprintf(arquivo, "NUMERO TOTAL DE CRIOTERAPIA: %.0f\n", relatorio->numCrioterapias);
     fprintf(arquivo, "DISTRIBUICAO POR DIAGNOSTICO:\n");
 
-    for (int i = 0; i < relatorio->numDiagnosticos; i++)
-    {
-        tDiagnostico *diagnosticoAtual = relatorio->diagnosticos[i];
-        if (diagnosticoAtual->qtd)
-        {
-            fprintf(arquivo, "- %s: %d (%.0f%%)\n", diagnosticoAtual->nomeDiagnostico,
-                    diagnosticoAtual->qtd, diagnosticoAtual->qtd / (float)relatorio->numDiagnosticos);
-        }
-    }
+    // for (int i = 0; i < relatorio->numDiagnosticos; i++)
+    // {
+    //     tDiagnostico *diagnosticoAtual = relatorio->diagnosticos[i];
+    //     if (diagnosticoAtual->qtd)
+    //     {
+    //         fprintf(arquivo, "- %s: %d (%.0f%%)\n", diagnosticoAtual->nomeDiagnostico,
+    //                 diagnosticoAtual->qtd, diagnosticoAtual->qtd / (float)relatorio->numDiagnosticos);
+    //     }
+    // }
     fclose(arquivo);
 }

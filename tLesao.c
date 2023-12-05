@@ -165,39 +165,25 @@ void leLesao(tLesao* lesao){
 
 // na clinica o tamanho começa com zero
 
- tLesao** adcionaLesao(tLesao** vetor, tLesao *lesao, int tam) {
+ void adcionaLesao(tLesoes*lesoes, tLesao *lesao) {
     
-
+    lesoes->tam++;
+    int tam = lesoes->tam;
     // Realocar o vetor de pacientes para acomodar o novo tamanho
-     vetor = (tLesao**)realloc(vetor, (tam) * sizeof(tLesao*));
+    lesoes->vetor = (tLesao**)realloc(lesoes->vetor, (tam) * sizeof(tLesao*));
 
     // Verificar se a realocação foi bem-sucedida
-    if (vetor == NULL) {
+    if (lesoes->vetor == NULL) {
         printf("Erro ao realocar memória para o vetor de pacientes.\n");
         exit(EXIT_FAILURE);
     }
 
     //Inserir Paciente
-    vetor[tam-1] = lesao;
-    return vetor;
+    lesoes->vetor[tam-1] = lesao;
+
 }
 
-tLesoes** adcionaLesoes(tLesoes ** vetor, tLesoes *lesoes, int tam) {
-    
 
-    // Realocar o vetor de pacientes para acomodar o novo tamanho
-     vetor = (tLesoes**)realloc(vetor, (tam) * sizeof(tLesoes*));
-
-    // Verificar se a realocação foi bem-sucedida
-    if (vetor == NULL) {
-        printf("Erro ao realocar memória para o vetor de pacientes.\n");
-        exit(EXIT_FAILURE);
-    }
-
-    //Inserir Paciente
-    vetor[tam-1] = lesoes;
-    return vetor;
-}
 tLesoes* CriaLesoes(){
     tLesoes* lesoes = (tLesoes*) calloc(1,sizeof(tLesoes));
     if (lesoes == NULL) {
@@ -212,12 +198,12 @@ tLesoes* CriaLesoes(){
     }
     return lesoes;
 }
-void CadastraLesao(tLesoes* lesoes, tLesao*lesao,int tam){
+void CadastraLesao(tLesoes* lesoes, tLesao*lesao){
 
     static int i = 1;
     sprintf(lesao->rotulo, "L%d", i);
     i++;
-    lesoes->vetor  = adcionaLesao(lesoes->vetor,lesao,tam);
+    adcionaLesao(lesoes,lesao);
 };
 
 void IncrementaTamLesoes(tLesoes* lesoes){
