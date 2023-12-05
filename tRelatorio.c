@@ -292,10 +292,10 @@ void imprimeNaTelaRelatorio(void *dado)
     printf("- FEMININO: %.0f\n", relatorio->distribuicaoFeminino);
     printf("- MASCULINO: %.0f\n", relatorio->distribuicaoMasculino);
     printf("- OUTROS: %.0f\n", relatorio->distribuicaoOutros);
-    printf("TAMANHO MEDIO DAS LESOES: %.0fMM\n", relatorio->tamMedioLesoes, relatorio->DesvioPadraoLesoes);
+    printf("TAMANHO MEDIO DAS LESOES: %.0fMM\n", relatorio->tamMedioLesoes);
     printf("NUMERO TOTAL DE LESOES: %.0f\n", relatorio->numLesoes);
-    printf("NUMERO TOTAL DE CIRURGIAS: %.0f\n", relatorio->numCirurgias, relatorio->porcentagemCirurgias);
-    printf("NUMERO TOTAL DE CRIOTERAPIA: %.0f\n", relatorio->numCrioterapias, relatorio->porcentagemCrioterapias);
+    printf("NUMERO TOTAL DE CIRURGIAS: %.0f\n", relatorio->numCirurgias);
+    printf("NUMERO TOTAL DE CRIOTERAPIA: %.0f\n", relatorio->numCrioterapias);
     printf("DISTRIBUICAO POR DIAGNOSTICO:\n");
     // for (int i = 0; i < relatorio->numDiagnosticos; i++)
     // {

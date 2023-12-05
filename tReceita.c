@@ -71,14 +71,14 @@ void imprimeNaTelaReceita(void *dado){
     }
         // Imprime os dados da receita no formato especificado
     printf("RECEITUARIO\n");
-    printf("NOME: %s\n", receita->nomePaciente);
+    printf("NOME: %s\n\n", receita->nomePaciente);
     printf("USO %s\n\n", tipoUsoStr);
 
     printf("%s\n", receita->nomeMedicamento);
-    printf("%d %s\n", receita->qntd, receita->tipoMedicamento);
+    printf("%d %s\n\n", receita->qntd, receita->tipoMedicamento);
     printf("%s\n\n", receita->instrucoes);
-    printf("%s (CRM-%s)\n", receita->nomeMedico, receita->CRM);
-    printf("%s\n", receita->dataStr);
+    printf("%s (%s)\n", receita->nomeMedico, receita->CRM);
+    printf("%s\n\n", receita->dataStr);
 
 }
 
@@ -120,14 +120,14 @@ void imprimeEmArquivoReceita(void *dado, char *path){
 
     // Imprime os dados no arquivo
     fprintf(arquivo, "RECEITUARIO\n");
-    fprintf(arquivo, "NOME: %s\n", receita->nomePaciente);
+    fprintf(arquivo, "NOME: %s\n\n", receita->nomePaciente);
     fprintf(arquivo, "USO %s\n\n", tipoUsoStr);
 
     fprintf(arquivo, "%s\n", receita->nomeMedicamento);
-    fprintf(arquivo, "%d %s\n", receita->qntd, receita->tipoMedicamento);
+    fprintf(arquivo, "%d %s\n\n", receita->qntd, receita->tipoMedicamento);
     fprintf(arquivo, "%s\n\n", receita->instrucoes);
-    fprintf(arquivo, "%s (CRM-%s)\n", receita->nomeMedico, receita->CRM);
-    fprintf(arquivo, "%s\n", receita->dataStr);
+    fprintf(arquivo, "%s (%s)\n", receita->nomeMedico, receita->CRM);
+    fprintf(arquivo, "%s\n\n", receita->dataStr);
 
     // Fecha o arquivo
     fclose(arquivo);

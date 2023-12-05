@@ -38,7 +38,7 @@ int EhCadastradoCLinica(tClinica* clinica, char *cpf);
 
 
 
-void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico, tFila* fila);
+void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico, tFila* fila,FILE* arquivoSaida);
 void ImprimiSubMenu();
 tPaciente** ObtemPacientes(tClinica* clinica);
 

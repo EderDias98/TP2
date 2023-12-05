@@ -172,21 +172,26 @@ char *SimOuNao(int afirmacao)
     return resp;
 }
 
-void CompletaDadosPaciente(tPaciente *paciente)
+void CompletaDadosPaciente(tPaciente *paciente, FILE* arquivoSaida)
 {
     printf("POSSUI DIABETES: ");
+    fprintf(arquivoSaida,"POSSUI DIABETES: ");
     scanf("%d%*c", &paciente->diabetes);
 
     printf("FUMANTE: ");
+    fprintf(arquivoSaida,"FUMANTE: ");
     scanf("%d%*c", &paciente->fumante);
 
     printf("ALEGIA A MEDICAMENTO: ");
+    fprintf(arquivoSaida,"ALEGIA A MEDICAMENTO: ");
     scanf("%d%*c", &paciente->alergiaMedicamento);
 
     printf("HISTORICO DE CANCER: ");
+    fprintf(arquivoSaida,"HISTORICO DE CANCER: ");
     scanf("%d%*c", &paciente->historicoCancer);
 
     printf("TIPO DE PELE: ");
+    fprintf(arquivoSaida,"TIPO DE PELE: \n");
     scanf("%4[^\n]%*c", paciente->tipoPele);
 }
 

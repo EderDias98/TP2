@@ -517,7 +517,7 @@ void ImprimiSubMenu(){
 
 // acrescentar taVetorLesoes antes
 
-void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico, tFila* fila){
+void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico, tFila* fila,FILE* arquivoSaida){
     tPaciente* paciente =NULL;
     paciente = clinica->pacientes[indexPaciente];
     tMedico* medico = NULL;
@@ -529,17 +529,24 @@ void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico, tFila
 
     AtendePaciente(paciente);
     printf("#################### CONSULTA MEDICA #######################\n");
+    fprintf(arquivoSaida,"#################### CONSULTA MEDICA #######################\n");
     printf("CPF DO PACIENTE: ---\n");
+    fprintf(arquivoSaida,"CPF DO PACIENTE: ---\n");
     printf("---\n");
+    fprintf(arquivoSaida,"---\n");
     printf("- NOME: %s\n", ObtemNomePaciente(paciente));
+    fprintf(arquivoSaida,"- NOME: %s\n", ObtemNomePaciente(paciente));
     printf("- DATA DE NASCIMENTO: %s\n", ObtemDataPaciente(paciente));
+    fprintf(arquivoSaida,"- DATA DE NASCIMENTO: %s\n", ObtemDataPaciente(paciente));
     printf("---\n\n");
+    fprintf(arquivoSaida,"---\n\n");
     printf("DATA DA CONSULTA: ");
+    fprintf(arquivoSaida,"DATA DA CONSULTA: ");
     char dataConsulta[11]= {'\0'};
     scanf("%10[^\n]%*c",dataConsulta);    
     printf("%s\n", dataConsulta);
     //cada paciente tera uma consulta e sua data ta na sua struct
-    CompletaDadosPaciente(paciente);
+    CompletaDadosPaciente(paciente, arquivoSaida);
     // Os documentos e lesoes serao adcionados de acordo 
     tConsulta* consulta= criaConsulta(dataConsulta,ObtemNomeMedico(medico), ObtemNomePaciente(paciente));
     tLesoes* lesoes =NULL;
@@ -563,47 +570,58 @@ void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico, tFila
             }
             
             printf("#################### CONSULTA MEDICA #######################\n");
+            fprintf(arquivoSaida,"#################### CONSULTA MEDICA #######################\n");
             printf("CADASTRO DE LESAO:\n");
+            fprintf(arquivoSaida, "CADASTRO DE LESAO:\n");
 
-            
             tLesao * lesaoAtual = criaLesao();
             leLesao(lesaoAtual);
 
-            IncrementaTamLesoes(lesoes);
+
             CadastraLesao(lesoes,lesaoAtual);
 
             printf("LESAO REGISTRADA COM SUCESSO. PRESSIONE QUALQUER TECLA PARA\n");
+            fprintf(arquivoSaida, "LESAO REGISTRADA COM SUCESSO. PRESSIONE QUALQUER TECLA PARA\n");
             printf("RETORNAR AO MENU ANTERIOR");
+            fprintf(arquivoSaida, "RETORNAR AO MENU ANTERIOR");
             printf("############################################################");
+            fprintf(arquivoSaida,"############################################################" );
             scanf("%*c%*c");
             cont++;
             break;
         case 2:
             printf("#################### CONSULTA MEDICA #######################\n");
+            fprintf(arquivoSaida,"#################### CONSULTA MEDICA #######################\n" );
             printf("RECEITA MEDICA:\n");
+            fprintf(arquivoSaida,"RECEITA MEDICA:\n" );
             printf("TIPO DE USO: ");
+            fprintf(arquivoSaida, "TIPO DE USO: ");
             char uso[8]={'\0'};
             scanf("%7[^\n]%*c",uso);
             eTipoUso tUso;
-            if(strcmp(uso,"ORAL")){
+            if(strcmp(uso,"ORAL")==0){
                 tUso = ORAL;
-            }else if(strcmp(uso,"TOPICO")){
+            }else if(strcmp(uso,"TOPICO")==0){
                 tUso = TOPICO;
             }
             printf("\nNOME DO MEDICAMENTO: ");
+            fprintf(arquivoSaida,"\nNOME DO MEDICAMENTO: " );
             char nomeMedicamento[50]= {'\0'};
             scanf("%49[^\n]%*c", nomeMedicamento);
 
             printf("\nTIPO DE MEDICAMENTO: ");
+            fprintf(arquivoSaida,"\nTIPO DE MEDICAMENTO: " );
             char tipoMedicamento[50]= {'\0'};
             scanf("%49[^\n]%*c", tipoMedicamento);
             
             printf("\nQUANTIDADE: ");
+            fprintf(arquivoSaida,"\nQUANTIDADE: " );
             int quantidade;
             scanf("%d%*c", &quantidade);
             
             char instrucoes[300];         
             printf("\nINSTRUÇÕES DE USO: ");
+            fprintf(arquivoSaida,"\nINSTRUÇÕES DE USO: " );
             scanf("%299[^\n]%*c", instrucoes);
 
 
@@ -618,16 +636,22 @@ void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico, tFila
 
             DefiniReceitaConsulta(consulta,receita);
             printf("RECEITA ENVIADA PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER TECLA PARA\n");
+            fprintf(arquivoSaida,"RECEITA ENVIADA PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER TECLA PARA\n" );
             printf("RETORNAR AO MENU ANTERIOR");
-            printf("############################################################");
+            fprintf(arquivoSaida,"RETORNAR AO MENU ANTERIOR" );
+            printf("############################################################\n");
+            fprintf(arquivoSaida,"############################################################\n" );
             scanf("%*c%*c");
             break;
         case 3:
 
             if(NaoTemLesaoCirurgia(lesoes)){
                 printf("#################### CONSULTA MEDICA #######################\n");
+                fprintf(arquivoSaida,"#################### CONSULTA MEDICA #######################\n" );
                 printf("NAO E POSSIVEL SOLICITAR BIOPSIA SEM LESAO CIRURGICA. PRESSIONE\n");
+                fprintf(arquivoSaida,"NAO E POSSIVEL SOLICITAR BIOPSIA SEM LESAO CIRURGICA. PRESSIONE\n" );
                 printf("QUALQUER TECLA PARA RETORNAR AO MENU ANTERIOR\n");
+                fprintf(arquivoSaida, "QUALQUER TECLA PARA RETORNAR AO MENU ANTERIOR\n");
                 scanf("%*c");
                 continue;
             }
@@ -641,17 +665,24 @@ void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico, tFila
             DefiniBiopsiaConsulta(consulta, biobsia);
 
             printf("#################### CONSULTA MEDICA #######################\n");
+            fprintf(arquivoSaida,"#################### CONSULTA MEDICA #######################\n" );
             printf("SOLICITACAO DE BIOPSIA ENVIADA PARA FILA DE IMPRESSAO. PRESSIONE\n");
+            fprintf(arquivoSaida, "SOLICITACAO DE BIOPSIA ENVIADA PARA FILA DE IMPRESSAO. PRESSIONE\n");
             printf("QUALQUER TECLA PARA RETORNAR AO MENU ANTERIOR\n");
+            fprintf(arquivoSaida, "QUALQUER TECLA PARA RETORNAR AO MENU ANTERIOR\n");
             scanf("%*c%*c");
             break;
         case 4:
             printf("#################### CONSULTA MEDICA #######################\n");
+            fprintf(arquivoSaida,"#################### CONSULTA MEDICA #######################\n" );
             printf("ENCAMINHAMENTO:\n");
+            fprintf(arquivoSaida,"ENCAMINHAMENTO:\n" );
             printf("ESPECIALIDADE ENCAMINHADA: ");
+            fprintf(arquivoSaida,"ESPECIALIDADE ENCAMINHADA: " );
             char especialidade[51]= {'\0'};
             scanf("%50[^\n]%*c",especialidade);
             printf("\nMOTIVO: ");
+            fprintf(arquivoSaida,"\nMOTIVO: ");
             char motivo[301];
             scanf("%300[^\n]%*c",motivo);
 
@@ -662,8 +693,10 @@ void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico, tFila
 
             insereDocumentoFila(fila,encaminhamento,imprimeNaTelaEncaminhamento, imprimeEmArquivoEncaminhamento,desalocaEncaminhamento);
 
-            printf("\nENCAMINHAMENTO ENVIADO PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER\n");  
+            printf("\nENCAMINHAMENTO ENVIADO PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER\n");
+            fprintf(arquivoSaida,"\nENCAMINHAMENTO ENVIADO PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER\n" );
             printf("QUALQUER TECLA PARA RETORNAR AO MENU ANTERIOR\n");
+            fprintf(arquivoSaida,"QUALQUER TECLA PARA RETORNAR AO MENU ANTERIOR\n" );
             scanf("%*c%*c");
 
             break;
@@ -783,7 +816,7 @@ void adcionaConsulta(tClinica*clinica, tConsulta*consulta) {
 void adcionaLesoes(tClinica* clinica, tLesoes *lesoes) {
     
     clinica->tamVetorLesoes++;
-    int tam = clinica->tamVetorLesoes++;
+    int tam = clinica->tamVetorLesoes;
     // Realocar o vetor de pacientes para acomodar o novo tamanho
     clinica->vetorLesoes = (tLesoes**)realloc(clinica->vetorLesoes, (tam) * sizeof(tLesoes*));
 

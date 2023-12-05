@@ -51,7 +51,7 @@ void leSecretario(tSecretario* secretario){
     scanf("%10[^\n]%*c", secretario->dataNascimento);
     converterParaMaiuscula(secretario->dataNascimento);
 
-    printf(" TELEFONE:\n");
+    printf("TELEFONE:\n");
     scanf("%14[^\n]%*c", secretario->telefone);
     converterParaMaiuscula(secretario->telefone);
 

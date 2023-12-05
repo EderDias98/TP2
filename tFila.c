@@ -35,6 +35,7 @@ void desalocaFila(tFila *f){
         for(int i=0; i<f->tam;i++){
             desalocaDocumento(f->vetorDoc[i]);
         }
+        free(f->vetorDoc);
         free(f);
     }
 }
