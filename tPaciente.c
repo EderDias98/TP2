@@ -69,23 +69,23 @@ void liberaPaciente(tPaciente *paciente)
 
 void lePaciente(tPaciente *paciente)
 {
-    printf("NOME COMPLETO:\n");
+    printf("NOME COMPLETO: ");
     scanf("%100[^\n]%*c", paciente->nomeCompleto);
     converterParaMaiuscula(paciente->nomeCompleto);
 
-    printf("CPF: \n");
+    printf("CPF: ");
     scanf("%14[^\n]%*c", paciente->cpf);
     converterParaMaiuscula(paciente->cpf);
 
-    printf("DATA DE NASCIMENTO:\n");
+    printf("DATA DE NASCIMENTO: ");
     scanf("%10[^\n]%*c", paciente->dataNascimento);
     converterParaMaiuscula(paciente->dataNascimento);
 
-    printf(" TELEFONE:\n");
+    printf(" TELEFONE: ");
     scanf("%14[^\n]%*c", paciente->telefone);
     converterParaMaiuscula(paciente->telefone);
 
-    printf("GENERO:\n");
+    printf("GENERO: ");
     scanf("%9[^\n]%*c", paciente->genero);
     converterParaMaiuscula(paciente->genero);
 }
@@ -172,26 +172,26 @@ char *SimOuNao(int afirmacao)
     return resp;
 }
 
-void CompletaDadosPaciente(tPaciente *paciente, FILE* arquivoSaida)
+void CompletaDadosPaciente(tPaciente *paciente)
 {
     printf("POSSUI DIABETES: ");
-    fprintf(arquivoSaida,"POSSUI DIABETES: ");
+
     scanf("%d%*c", &paciente->diabetes);
 
     printf("FUMANTE: ");
-    fprintf(arquivoSaida,"FUMANTE: ");
+  
     scanf("%d%*c", &paciente->fumante);
 
     printf("ALEGIA A MEDICAMENTO: ");
-    fprintf(arquivoSaida,"ALEGIA A MEDICAMENTO: ");
+
     scanf("%d%*c", &paciente->alergiaMedicamento);
 
     printf("HISTORICO DE CANCER: ");
-    fprintf(arquivoSaida,"HISTORICO DE CANCER: ");
+
     scanf("%d%*c", &paciente->historicoCancer);
 
-    printf("TIPO DE PELE: ");
-    fprintf(arquivoSaida,"TIPO DE PELE: \n");
+    printf("TIPO DE PELE:\n");
+    
     scanf("%4[^\n]%*c", paciente->tipoPele);
 }
 

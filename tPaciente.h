@@ -22,7 +22,7 @@ void lePaciente(tPaciente *paciente);
 
 int EhCadastradoPaciente(tPaciente **vetor, char *cpf, int tam);
 
-void CompletaDadosPaciente(tPaciente *paciente, FILE* arquivoSaida);
+void CompletaDadosPaciente(tPaciente *paciente);
 
 void DefiniLesoesPaciente(tPaciente *paciente, tLesoes *lesoes);
 

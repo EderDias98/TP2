@@ -6,72 +6,71 @@
 #include "tLista_busca.h"
 #define TAM_CAMINHO 300
 
-void MostrarMenu(Nivel acesso, FILE* arquivoSaida)
+void MostrarMenu(Nivel acesso)
 {
     switch (acesso)
     {
     case USER:
         printf("####################### MENU PRINCIPAL #########################\n");
-        fprintf(arquivoSaida,"####################### MENU PRINCIPAL #########################\n");
+
         printf("ESCOLHA UMA OPCAO:\n");
-        fprintf(arquivoSaida,"ESCOLHA UMA OPCAO:\n");
-        printf("(2) CADASTRAR MEDICO\n");
-        fprintf(arquivoSaida,"(2) CADASTRAR MEDICO\n");
-        printf("(3) CADASTRAR PACIENTE\n");
-        fprintf(arquivoSaida,"(3) CADASTRAR PACIENTE\n");
-        printf("(5) BUSCAR PACIENTES\n");
-        fprintf(arquivoSaida,"(5) BUSCAR PACIENTES\n");
-        printf("(6) RELATORIO GERAL\n");
-        fprintf(arquivoSaida,"(6) RELATORIO GERAL\n");
-        printf("(7) FILA DE IMPRESSAO\n");
-        fprintf(arquivoSaida,"(7) FILA DE IMPRESSAO\n");
-        printf("(8) FINALIZAR O PROGRAMA\n");
-        fprintf(arquivoSaida,"(8) FINALIZAR O PROGRAMA\n");
+
+        printf("    (2) CADASTRAR MEDICO\n");
+
+        printf("    (3) CADASTRAR PACIENTE\n");
+
+        printf("    (5) BUSCAR PACIENTES\n");
+
+        printf("    (6) RELATORIO GERAL\n");
+
+        printf("    (7) FILA DE IMPRESSAO\n");
+
+        printf("    (8) FINALIZAR O PROGRAMA\n");
+
         printf("###############################################################\n");
-        fprintf(arquivoSaida,"###############################################################\n");
 
         break;
     case ADMIN:
         printf("####################### MENU PRINCIPAL #########################\n");
-        fprintf(arquivoSaida,"####################### MENU PRINCIPAL #########################\n");
+
         printf("ESCOLHA UMA OPCAO:\n");
-        fprintf(arquivoSaida,"ESCOLHA UMA OPCAO:\n");
-        printf("(1) CADASTRAR SECRETARIO\n");
-        fprintf(arquivoSaida,"(1) CADASTRAR SECRETARIO\n");
-        printf("(2) CADASTRAR MEDICO\n");
-        fprintf(arquivoSaida,"(2) CADASTRAR MEDICO\n");
-        printf("(3) CADASTRAR PACIENTE\n");
-        fprintf(arquivoSaida,"(3) CADASTRAR PACIENTE\n");
-        printf("(4) REALIZAR CONSULTA\n");
-        fprintf(arquivoSaida,"(4) REALIZAR CONSULTA\n");
-        printf("(5) BUSCAR PACIENTES\n");
-        fprintf(arquivoSaida,"(5) BUSCAR PACIENTES\n");
-        printf("(6) RELATORIO GERAL\n");
-        fprintf(arquivoSaida,"(6) RELATORIO GERAL\n");
-        printf("(7) FILA DE IMPRESSAO\n");
-        fprintf(arquivoSaida,"(7) FILA DE IMPRESSAO\n");
-        printf("(8) FINALIZAR O PROGRAMA\n");
-        fprintf(arquivoSaida,"(8) FINALIZAR O PROGRAMA\n");
+
+        printf("    (1) CADASTRAR SECRETARIO\n");
+
+        printf("    (2) CADASTRAR MEDICO\n");
+
+        printf("    (3) CADASTRAR PACIENTE\n");
+
+        printf("    (4) REALIZAR CONSULTA\n");
+
+        printf("    (5) BUSCAR PACIENTES\n");
+
+        printf("    (6) RELATORIO GERAL\n");
+
+        printf("    (7) FILA DE IMPRESSAO\n");
+
+        printf("    (8) FINALIZAR O PROGRAMA\n");
+
         printf("###############################################################\n");
-        fprintf(arquivoSaida,"###############################################################\n");
+
         break;
     case MEDI:
         printf("####################### MENU PRINCIPAL #########################\n");
-        fprintf(arquivoSaida,"####################### MENU PRINCIPAL #########################\n");
-        printf("ESCOLHA UMA OPCAO:\n");
-        fprintf(arquivoSaida,"ESCOLHA UMA OPCAO:\n");
-        printf("(4) REALIZAR CONSULTA\n");
-        fprintf(arquivoSaida,"(4) REALIZAR CONSULTA\n");
-        printf("(5) BUSCAR PACIENTES\n");
-        fprintf(arquivoSaida,"(5) BUSCAR PACIENTES\n");
-        printf("(6) RELATORIO GERAL\n");
-        fprintf(arquivoSaida,"(6) RELATORIO GERAL\n");
-        printf("(7) FILA DE IMPRESSAO\n");
-        fprintf(arquivoSaida,"(7) FILA DE IMPRESSAO\n");
-        printf("(8) FINALIZAR O PROGRAMA\n");
-        fprintf(arquivoSaida,"(8) FINALIZAR O PROGRAMA\n");
+
+        printf("    ESCOLHA UMA OPCAO:\n");
+
+        printf("    (4) REALIZAR CONSULTA\n");
+
+        printf("    (5) BUSCAR PACIENTES\n");
+
+        printf("    (6) RELATORIO GERAL\n");
+
+        printf("    (7) FILA DE IMPRESSAO\n");
+
+        printf("    (8) FINALIZAR O PROGRAMA\n");
+
         printf("###############################################################\n");
-        fprintf(arquivoSaida,"###############################################################\n");
+
         break;
     default:
         break;
@@ -98,7 +97,6 @@ int ArquivoBinarioExiste(char *path, char *nome, char *pathBin)
 
     if (arquivo == NULL)
     {
-        printf("O arquivo %s ainda nao existe\n", nome);
 
         return 0;
     }
@@ -216,14 +214,11 @@ void ConfigurarArquivosBinarios(char *path, int *sec, int *med, int *pac, int *c
 int main(int argc, int *argv[])
 {
 
-    FILE* arquivoSaida = fopen("./saida.txt","w");
+    printf("################################################\n");
+
+    printf("DIGITE O CAMINHO DO BANCO DE DADOS:\n");
 
     printf("################################################\n");
-    fprintf(arquivoSaida,"################################################\n");
-    printf("DIGITE O CAMINHO DO BANCO DE DADOS:\n");
-    fprintf(arquivoSaida,"DIGITE O CAMINHO DO BANCO DE DADOS:\n");
-    printf("################################################\n");
-    fprintf(arquivoSaida,"################################################\n");
 
     char pathBancoDados[TAM_CAMINHO];
     scanf("%[^\n]%*c", pathBancoDados);
@@ -282,18 +277,39 @@ int main(int argc, int *argv[])
     {
         char senha[21];
         char usuario[21];
-        printf("######################## ACESSO MINI-SADE ######################\n");
-        fprintf(arquivoSaida,"######################## ACESSO MINI-SADE ######################\n");
-        printf("DIGITE SEU LOGIN:");
-        fprintf(arquivoSaida,"DIGITE SEU LOGIN:");
-        scanf("%20[^\n]%*c", usuario);
-        printf("\nDIGITE SUA SENHA:");
-        fprintf(arquivoSaida,"\nDIGITE SUA SENHA:");
-        scanf("%20[^\n]%*c", senha);
-        printf("\n###############################################################\n");
-        fprintf(arquivoSaida,"\n###############################################################\n");
-        converterParaMaiuscula(senha);
-        converterParaMaiuscula(usuario);
+
+        if (sec == 0 && med == 0)
+        {
+            CadastraSecretarioClinica(clinica);
+            printf("\n######################## ACESSO MINI-SADE ######################\n");
+
+            printf("DIGITE SEU LOGIN: ");
+
+            scanf("%20[^\n]%*c", usuario);
+            printf("DIGITE SUA SENHA: ");
+
+            scanf("%20[^\n]%*c", senha);
+            printf("\n###############################################################\n");
+
+            converterParaMaiuscula(senha);
+            converterParaMaiuscula(usuario);
+        }
+        else
+        {
+            printf("\n######################## ACESSO MINI-SADE ######################\n");
+
+            printf("DIGITE SEU LOGIN: ");
+
+            scanf("%20[^\n]%*c", usuario);
+            printf("DIGITE SUA SENHA: ");
+
+            scanf("%20[^\n]%*c", senha);
+            printf("\n###############################################################\n");
+
+            converterParaMaiuscula(senha);
+            converterParaMaiuscula(usuario);
+        }
+
         // definir essa função depois
 
         Login resultado = comfirmarLogin(clinica, senha, usuario, &acesso, &indexMedico, &indexSecretario);
@@ -304,7 +320,6 @@ int main(int argc, int *argv[])
         else
         {
             printf(" SENHA INCORRETA OU USUARIO INEXISTENTE\n");
-            fprintf(arquivoSaida," SENHA INCORRETA OU USUARIO INEXISTENTE\n");
         }
     }
 
@@ -313,7 +328,7 @@ int main(int argc, int *argv[])
     tFila *fila = criaFila();
     while (1)
     {
-        MostrarMenu(acesso, arquivoSaida);
+        MostrarMenu(acesso);
         scanf("%d%*c", &funcionalidade);
 
         // fazer um teste pra ver se é possivel a opção, por exemplo um medico acessar a funcionalidade 3 seria um erro
@@ -325,55 +340,38 @@ int main(int argc, int *argv[])
         switch (funcionalidade)
         {
         case 1:
-            printf("#################### CADASTRO SECRETARIO #######################\n");
-            fprintf(arquivoSaida,"#################### CADASTRO SECRETARIO #######################\n");
+
             if (CadastraSecretarioClinica(clinica))
             {
-                printf("CADASTRO REALIZADO COM SUCESSO. PRESSIONE QUALQUER TECLA PARA\n");
-                fprintf(arquivoSaida,"CADASTRO REALIZADO COM SUCESSO. PRESSIONE QUALQUER TECLA PARA\n");
-                printf("VOLTAR PARA O MENU INICIAL\n");
-                fprintf(arquivoSaida,"VOLTAR PARA O MENU INICIAL\n");
-                printf("###############################################################");
-                fprintf(arquivoSaida,"###############################################################");
+                printf("\nCADASTRO REALIZADO COM SUCESSO. PRESSIONE QUALQUER TECLA PARA VOLTAR PARA O MENU INICIAL\n");
+
+                printf("###############################################################\n");
             }
 
             scanf("%*c%*c");
             break;
         case 2:
-            printf("#################### CADASTRO MEDICO #######################\n");
-            fprintf(arquivoSaida,"#################### CADASTRO MEDICO #######################\n");
+
             if (CadastraMedicoClinica(clinica))
             {
-                printf("CADASTRO REALIZADO COM SUCESSO. PRESSIONE QUALQUER TECLA PARA\n");
-                fprintf(arquivoSaida,"CADASTRO REALIZADO COM SUCESSO. PRESSIONE QUALQUER TECLA PARA\n");
-                printf("VOLTAR PARA O MENU INICIAL\n");
-                fprintf(arquivoSaida,"VOLTAR PARA O MENU INICIAL\n");
-                printf("###############################################################");
-                fprintf(arquivoSaida,"###############################################################");
+                printf("\nCADASTRO REALIZADO COM SUCESSO. PRESSIONE QUALQUER TECLA PARA VOLTAR PARA O MENU INICIAL\n");
+
+                printf("###############################################################\n");
             }
             scanf("%*c%*c");
             break;
         case 3:
-            printf("#################### CADASTRO PACIENTE #######################\n");
-            fprintf(arquivoSaida,"#################### CADASTRO PACIENTE #######################\n");
+
             if (CadastraPacienteClinica(clinica))
             {
-                printf("CADASTRO REALIZADO COM SUCESSO. PRESSIONE QUALQUER TECLA PARA\n");
-                fprintf(arquivoSaida,"CADASTRO REALIZADO COM SUCESSO. PRESSIONE QUALQUER TECLA PARA\n");
-                printf("VOLTAR PARA O MENU INICIAL\n");
-                fprintf(arquivoSaida,"VOLTAR PARA O MENU INICIAL\n");
-                printf("###############################################################");
-                fprintf(arquivoSaida,"###############################################################");
+                printf("\nCADASTRO REALIZADO COM SUCESSO. PRESSIONE QUALQUER TECLA PARA VOLTAR PARA O MENU INICIAL\n");
+
+                printf("###############################################################\n");
             }
             scanf("%*c%*c");
             break;
         case 4:
-            printf("#################### CONSULTA MEDICA #######################\n");
-            fprintf(arquivoSaida,"#################### CONSULTA MEDICA #######################\n");
-            printf("CPF DO PACIENTE:\n");
-            fprintf(arquivoSaida,"CPF DO PACIENTE:\n");
-            printf("############################################################\n");
-            fprintf(arquivoSaida,"############################################################\n");
+
             char cpf[15] = {'\0'};
             scanf("%14[^\n]%*c", cpf);
             int indexPaciente = EhCadastradoCLinica(clinica, cpf);
@@ -386,31 +384,31 @@ int main(int argc, int *argv[])
             if (indexPaciente != -1)
             {
 
-                ConsultaMedica(clinica, indexPaciente, indexMedico, fila, arquivoSaida);
+                ConsultaMedica(clinica, indexPaciente, indexMedico, fila);
             }
             else
             {
                 printf("#################### CONSULTA MEDICA #######################\n");
-                fprintf(arquivoSaida,"#################### CONSULTA MEDICA #######################\n");
+
                 printf("CPF DO PACIENTE: %s\n", cpf);
-                fprintf(arquivoSaida,"CPF DO PACIENTE: %s\n", cpf);
+
                 printf("PACIENTE SEM CADASTRO\n");
-                fprintf(arquivoSaida,"PACIENTE SEM CADASTRO\n");
+
                 printf("PRESSIONE QUALQUER TECLA PARA VOLTAR PARA O MENU INICIAL\n");
-                fprintf(arquivoSaida,"PRESSIONE QUALQUER TECLA PARA VOLTAR PARA O MENU INICIAL\n");
+
                 printf("############################################################\n");
-                fprintf(arquivoSaida,"############################################################\n");
+
                 scanf("%*c%*c");
-                
+
                 continue;
             }
             break;
         case 5:
 
             printf("#################### BUSCAR PACIENTES #######################\n");
-            fprintf(arquivoSaida,"#################### BUSCAR PACIENTES #######################\n");
+
             printf("NOME DO PACIENTE: \n");
-            fprintf(arquivoSaida,"NOME DO PACIENTE: \n");
+
             char nome[100] = {'\0'};
             scanf("%99[^\n]%*c", nome);
 
@@ -424,13 +422,11 @@ int main(int argc, int *argv[])
             {
 
                 printf("#################### BUSCAR PACIENTES #######################\n");
-                fprintf(arquivoSaida,"#################### BUSCAR PACIENTES #######################\n");
-                printf("NENHUM PACIENTE FOI ENCONTRADO. PRESSIONE QUALQUER TECLA PARA\n");
-                fprintf(arquivoSaida,"NENHUM PACIENTE FOI ENCONTRADO. PRESSIONE QUALQUER TECLA PARA\n");
-                printf("RETORNAR AO MENU ANTERIOR\n");
-                fprintf(arquivoSaida,"RETORNAR AO MENU ANTERIOR\n");
+
+                printf("NENHUM PACIENTE FOI ENCONTRADO. PRESSIONE QUALQUER TECLA PARA RETORNAR AO MENU ANTERIOR\n");
+
                 printf("############################################################\n");
-                fprintf(arquivoSaida,"############################################################\n");
+
                 scanf("%*c%*c");
                 continue;
             }
@@ -441,26 +437,25 @@ int main(int argc, int *argv[])
 
             imprimeNaTelaLista(listaBusca);
 
-            printf("\nSELECIONE UMA OPÇÃO:\n");
-            fprintf(arquivoSaida,"\nSELECIONE UMA OPÇÃO:\n");
-            printf("(1) ENVIAR LISTA PARA IMPRESSAO\n");
-            fprintf(arquivoSaida,"(1) ENVIAR LISTA PARA IMPRESSAO\n");
-            printf("(2) RETORNAR AO MENU PRINCIPAL\n");
-            fprintf(arquivoSaida,"(2) RETORNAR AO MENU PRINCIPAL\n");
+            printf("#################### BUSCAR PACIENTES #######################\n");
+            printf("SELECIONE UMA OPCAO:\n");
+
+            printf("    (1) ENVIAR LISTA PARA IMPRESSAO\n");
+
+            printf("    (2) RETORNAR AO MENU PRINCIPAL\n");
+
             printf("############################################################\n");
-            fprintf(arquivoSaida,"############################################################\n");
+
             scanf("%d%*c", &opcao);
             if (opcao == 1)
             {
                 insereDocumentoFila(fila, listaBusca, imprimeNaTelaLista, imprimeEmArquivoLista, desalocaLista);
                 printf(" #################### BUSCAR PACIENTES #######################\n");
-                fprintf(arquivoSaida," #################### BUSCAR PACIENTES #######################\n");
-                printf("LISTA ENVIADA PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER TECLA PARA\n");
-                fprintf(arquivoSaida,"LISTA ENVIADA PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER TECLA PARA\n");
-                printf("RETORNAR AO MENU PRINCIPAL\n");
-                fprintf(arquivoSaida,"RETORNAR AO MENU PRINCIPAL\n");
+
+                printf("LISTA ENVIADA PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER TECLA PARA RETORNAR AO MENU PRINCIPAL\n");
+
                 printf("############################################################\n");
-                fprintf(arquivoSaida,"############################################################\n");
+
                 scanf("%*c%*c");
             }
 
@@ -468,46 +463,58 @@ int main(int argc, int *argv[])
         case 6:
             int opcaoA;
             tRelatorio *relatorio = CriaRelatorio(clinica);
+            printf("#################### RELATORIO GERAL #######################\n");
             imprimeNaTelaRelatorio(relatorio);
+            printf("SELECIONE UMA OPCAO:\n");
+
+            printf("    (1) ENVIAR LISTA PARA IMPRESSAO\n");
+
+            printf("    (2) RETORNAR AO MENU PRINCIPAL\n");
+
+            printf("############################################################\n");
             scanf("%d%*c", &opcaoA);
             if (opcaoA == 1)
-            {   
-                insereDocumentoFila(fila,relatorio,imprimeNaTelaRelatorio, imprimeEmArquivoRelatorio,desalocaRelatorio);
+            {
+                insereDocumentoFila(fila, relatorio, imprimeNaTelaRelatorio, imprimeEmArquivoRelatorio, desalocaRelatorio);
                 printf("RELATORIO ENVIADO PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER TECLA PARA RETORNAR AO MENU ANTERIOR\n");
-                fprintf(arquivoSaida,"RELATORIO ENVIADO PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER TECLA PARA RETORNAR AO MENU ANTERIOR\n");
-            
+
                 printf("############################################################\n");
-                fprintf(arquivoSaida,"############################################################\n");
+
                 scanf("%*c%*c");
             }
 
             break;
         case 7:
-            printf("################### FILA DE IMPRESSAO MEDICA #####################\n");
-            fprintf(arquivoSaida,"################### FILA DE IMPRESSAO MEDICA #####################\n");
-            printf("ESCOLHA UMA OPCAO:\n");
-            fprintf(arquivoSaida,"ESCOLHA UMA OPCAO:\n");
-            printf("(1) EXECUTAR FILA DE IMPRESSAO\n");
-            fprintf(arquivoSaida,"(1) EXECUTAR FILA DE IMPRESSAO\n");
-            printf("(2) RETORNAR AO MENU PRINCIPAL\n");
-            fprintf(arquivoSaida,"(2) RETORNAR AO MENU PRINCIPAL\n");
-            printf("############################################################\n");
-            fprintf(arquivoSaida,"############################################################\n");
-            int opcaoF=0;
+            int opcaoF = 0;
             scanf("%d%*c", &opcaoF);
-            if (opcaoF == 1)
-            {   
-                printf("################ FILA DE IMPRESSAO MEDICA ##################\n");
-                fprintf(arquivoSaida,"################ FILA DE IMPRESSAO MEDICA ##################\n");
-                printf("EXECUTANDO FILA DE IMPRESSAO:\n");
-                fprintf(arquivoSaida,"EXECUTANDO FILA DE IMPRESSAO:\n");
-                imprimeFila(fila,".");
+            while (opcaoF != 2)
+            {
+                /* code */
+                printf("################### FILA DE IMPRESSAO MEDICA #####################\n");
+
+                printf("ESCOLHA UMA OPCAO:\n");
+
+                printf("    (1) EXECUTAR FILA DE IMPRESSAO\n");
+
+                printf("    (2) RETORNAR AO MENU PRINCIPAL\n");
+
+                printf("############################################################\n");
+                if (opcaoF == 1)
+                {
+                    printf("################ FILA DE IMPRESSAO MEDICA ##################\n");
+
+                    printf("EXECUTANDO FILA DE IMPRESSAO:\n");
+
+                    imprimeFila(fila, ".");
+                }
+                printf("PRESSIONE QUALQUER TECLA PARA VOLTAR PARA O MENU ANTERIOR\n");
+
+                printf("############################################################\n");
+
+                scanf("%*c%*c");
+                scanf("%d%*c", &opcaoF);
             }
-            printf("PRESSIONE QUALQUER TECLA PARA VOLTAR PARA O MENU ANTERIOR\n");
-            fprintf(arquivoSaida,"PRESSIONE QUALQUER TECLA PARA VOLTAR PARA O MENU ANTERIOR\n");
-            printf("############################################################\n");
-            fprintf(arquivoSaida,"############################################################\n");
-            scanf("%*c%*c");
+
             break;
         case 8:
             sairL = 1;
@@ -521,7 +528,7 @@ int main(int argc, int *argv[])
             break;
     }
     // quarda os dados nos arquivos binarios;
-    fclose(arquivoSaida);
+
     EscreveBinsecretarios(clinica, pathSec);
     EscreveBinMedicos(clinica, pathMed);
     EscreveBinConsultas(clinica, pathCons);
@@ -529,3 +536,4 @@ int main(int argc, int *argv[])
     EscreveBinLesoes(clinica, pathLes);
     return 1;
 }
+//~/template-TP2-etapa-1/Casos/1

@@ -38,7 +38,7 @@ void calculaEstatisticasIdade(tPaciente **pacientes, int numPacientes, float *me
 {
     // Cálculo da média
     float somaIdades = 0.0;
-    for (int i = 0; i < numPacientes; ++i)
+    for (int i = 0; i < numPacientes; i++)
     {
         somaIdades += CalculaIdade(ObtemDataPaciente(ObtemPaciente(pacientes, i)));
     }
@@ -286,13 +286,14 @@ void desalocaRelatorio(void *dado)
 void imprimeNaTelaRelatorio(void *dado)
 {
     tRelatorio *relatorio = (tRelatorio *)dado;
+
     printf("NUMERO TOTAL DE PACIENTES ATENDIDOS: %d\n", relatorio->numPacientesAtendidos);
     printf("IDADE MEDIA: %.0f\n", relatorio->mediaIdade);
     printf("DISTRIBUICAO POR GENERO:\n");
     printf("- FEMININO: %.0f\n", relatorio->distribuicaoFeminino);
     printf("- MASCULINO: %.0f\n", relatorio->distribuicaoMasculino);
     printf("- OUTROS: %.0f\n", relatorio->distribuicaoOutros);
-    printf("TAMANHO MEDIO DAS LESOES: %.0fMM\n", relatorio->tamMedioLesoes);
+    printf("TAMANHO MEDIO DAS LESOES: %.0f\n", relatorio->tamMedioLesoes);
     printf("NUMERO TOTAL DE LESOES: %.0f\n", relatorio->numLesoes);
     printf("NUMERO TOTAL DE CIRURGIAS: %.0f\n", relatorio->numCirurgias);
     printf("NUMERO TOTAL DE CRIOTERAPIA: %.0f\n\n", relatorio->numCrioterapias);
@@ -338,7 +339,7 @@ void imprimeEmArquivoRelatorio(void *dado, char *path)
     fprintf(arquivo, "- FEMININO: %.0f\n", relatorio->distribuicaoFeminino);
     fprintf(arquivo, "- MASCULINO: %.0f\n", relatorio->distribuicaoMasculino);
     fprintf(arquivo, "- OUTROS: %.0f%%\n", relatorio->distribuicaoOutros);
-    fprintf(arquivo, "TAMANHO MEDIO DAS LESOES: %.0fMM\n", relatorio->tamMedioLesoes);
+    fprintf(arquivo, "TAMANHO MEDIO DAS LESOES: %.0f\n", relatorio->tamMedioLesoes);
     fprintf(arquivo, "NUMERO TOTAL DE LESOES: %.0f\n", relatorio->numLesoes);
     fprintf(arquivo, "NUMERO TOTAL DE CIRURGIAS: %.0f\n", relatorio->numCirurgias);
     fprintf(arquivo, "NUMERO TOTAL DE CRIOTERAPIA: %.0f\n\n", relatorio->numCrioterapias);

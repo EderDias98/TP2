@@ -35,35 +35,35 @@ void liberaMedico(tMedico* medico) {
 //Funçao que Le o medico
 
 void leMedico(tMedico* medico){
-    printf("NOME COMPLETO:\n");
+    printf("NOME COMPLETO: ");
     scanf("%100[^\n]%*c", medico->nomeCompleto);
     converterParaMaiuscula(medico->nomeCompleto);
 
-    printf("CPF: \n");
+    printf("CPF: ");
     scanf("%14[^\n]%*c", medico->cpf);
     converterParaMaiuscula(medico->cpf);
 
-    printf("DATA DE NASCIMENTO:\n");
+    printf("DATA DE NASCIMENTO: ");
     scanf("%10[^\n]%*c", medico->dataNascimento);
     converterParaMaiuscula(medico->dataNascimento);
 
-    printf(" TELEFONE:\n");
+    printf(" TELEFONE: ");
     scanf("%14[^\n]%*c", medico->telefone);
     converterParaMaiuscula(medico->telefone);
 
-    printf("GENERO:\n");
+    printf("GENERO: ");
     scanf("%9[^\n]%*c", medico->genero);
     converterParaMaiuscula(medico->genero);
 
-    printf("CRM:\n");
+    printf("CRM: ");
     scanf("%12[^\n]%*c", medico->crm);
     converterParaMaiuscula(medico->crm);
 
-    printf("NOME DE USUARIO:\n");
+    printf("NOME DE USUARIO: ");
     scanf("%20[^\n]%*c", medico->nomeUsuario);
     converterParaMaiuscula(medico->nomeUsuario);
 
-    printf("SENHA:\n");
+    printf("SENHA: ");
     scanf("%20[^\n]%*c", medico->senha);
     converterParaMaiuscula(medico->senha);
 }

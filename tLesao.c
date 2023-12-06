@@ -147,16 +147,16 @@ void liberaLesao(tLesao* lesao) {
 //Funçao que Le o lesao
 
 void leLesao(tLesao* lesao){
-    printf("DIAGNOSTICO CLINICO:\n");
+    printf("DIAGNOSTICO CLINICO: ");
     scanf("%19[^\n]%*c", lesao->diagnosticoClinico);
 
-    printf("REGIAO DO CORPO:\n");
+    printf("REGIAO DO CORPO: ");
     scanf("%10[^\n]%*c", lesao->regiaoCorpo);
 
-    printf("TAMANHO:\n");
+    printf("TAMANHO: ");
     scanf("%d%*c", &lesao->tamanho);
 
-    printf("ENVIAR PARA CIRURGIA:\n");
+    printf("ENVIAR PARA CIRURGIA: ");
     scanf("%d%*c", &lesao->enviarCirurgia);
 
     printf("ENVIAR PARA CRIOTERAPIA:\n");

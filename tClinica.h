@@ -38,7 +38,7 @@ int EhCadastradoCLinica(tClinica* clinica, char *cpf);
 
 
 
-void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico, tFila* fila,FILE* arquivoSaida);
+void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico, tFila* fila);
 void ImprimiSubMenu();
 tPaciente** ObtemPacientes(tClinica* clinica);
 
@@ -77,6 +77,8 @@ void LeBinSecretarios(tClinica* clinica,char *path);
 void EscreveBinsecretarios(tClinica* clinica,char *path);
 
 
+int obtemNumSecretarios(tClinica* clinica);
+int obtemNUmMedicos(tClinica* clinica);
 
 void adcionaPaciente( tClinica* clinica, tPaciente *paciente);
 void adcionaSecretario(tClinica* clinica, tSecretario *secretario);

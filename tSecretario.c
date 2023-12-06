@@ -39,35 +39,35 @@ void liberaSecretario(tSecretario* secretario) {
 //Funçao que Le o secretario
 
 void leSecretario(tSecretario* secretario){
-    printf("NOME COMPLETO:\n");
+    printf("NOME COMPLETO: ");
     scanf("%100[^\n]%*c", secretario->nomeCompleto);
     converterParaMaiuscula(secretario->nomeCompleto);
 
-    printf("CPF: \n");
+    printf("CPF: ");
     scanf("%14[^\n]%*c", secretario->cpf);
     converterParaMaiuscula(secretario->cpf);
 
-    printf("DATA DE NASCIMENTO:\n");
+    printf("DATA DE NASCIMENTO: ");
     scanf("%10[^\n]%*c", secretario->dataNascimento);
     converterParaMaiuscula(secretario->dataNascimento);
 
-    printf("TELEFONE:\n");
+    printf("TELEFONE: ");
     scanf("%14[^\n]%*c", secretario->telefone);
     converterParaMaiuscula(secretario->telefone);
 
-    printf("GENERO:\n");
+    printf("GENERO: ");
     scanf("%9[^\n]%*c", secretario->genero);
     converterParaMaiuscula(secretario->genero);
 
-    printf("NOME DE USUARIO:\n");
+    printf("NOME DE USUARIO: ");
     scanf("%20[^\n]%*c", secretario->nomeUsuario);
     converterParaMaiuscula(secretario->nomeUsuario);
 
-    printf("SENHA:\n");
+    printf("SENHA: ");
     scanf("%20[^\n]%*c", secretario->senha);
     converterParaMaiuscula(secretario->senha);
 
-    printf("NIVEL DE ACESSO:\n");
+    printf("NIVEL DE ACESSO: ");
     scanf("%9[^\n]%*c", secretario->nivelAcesso);
     converterParaMaiuscula(secretario->nivelAcesso);
 }
