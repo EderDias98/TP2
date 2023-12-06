@@ -109,7 +109,7 @@ void ConfigurarArquivosBinarios(char *path, int *sec, int *med, int *pac, int *c
 {
     char pathBin[200] = {'\0'};
     int tamVetor;
-    if (ArquivoBinarioExiste(path, "/secretarios.bin", pathBin) == 0)
+    if (ArquivoBinarioExiste(path, "secretarios.bin", pathBin) == 0)
     {
 
         FILE *arquivo = fopen(pathBin, "wb");
@@ -127,7 +127,7 @@ void ConfigurarArquivosBinarios(char *path, int *sec, int *med, int *pac, int *c
     }
     memset(pathBin, '\0', sizeof(pathBin));
 
-    if (ArquivoBinarioExiste(path, "/medicos.bin", pathBin) == 0)
+    if (ArquivoBinarioExiste(path, "medicos.bin", pathBin) == 0)
     {
 
         FILE *arquivo = fopen(pathBin, "wb");
@@ -147,7 +147,7 @@ void ConfigurarArquivosBinarios(char *path, int *sec, int *med, int *pac, int *c
 
     memset(pathBin, '\0', sizeof(pathBin));
 
-    if (ArquivoBinarioExiste(path, "/pacientes.bin", pathBin) == 0)
+    if (ArquivoBinarioExiste(path, "pacientes.bin", pathBin) == 0)
     {
 
         FILE *arquivo = fopen(pathBin, "wb");
@@ -166,7 +166,7 @@ void ConfigurarArquivosBinarios(char *path, int *sec, int *med, int *pac, int *c
 
     memset(pathBin, '\0', sizeof(pathBin));
 
-    if (ArquivoBinarioExiste(path, "/consultas.bin", pathBin) == 0)
+    if (ArquivoBinarioExiste(path, "consultas.bin", pathBin) == 0)
     {
 
         FILE *arquivo = fopen(pathBin, "wb");
@@ -185,7 +185,7 @@ void ConfigurarArquivosBinarios(char *path, int *sec, int *med, int *pac, int *c
 
     memset(pathBin, '\0', sizeof(pathBin));
 
-    if (ArquivoBinarioExiste(path, "/lesoes.bin", pathBin) == 0)
+    if (ArquivoBinarioExiste(path, "lesoes.bin", pathBin) == 0)
     {
 
         FILE *arquivo = fopen(pathBin, "wb");
@@ -211,7 +211,7 @@ void ConfigurarArquivosBinarios(char *path, int *sec, int *med, int *pac, int *c
 // ● lesoes.bin
 // ● fila_impressao.bin
 // ~/TP2/bancoDeDados
-int main(int argc, int *argv[])
+int main(int argc, char *argv[])
 {
 
     printf("################################################\n");
@@ -220,8 +220,23 @@ int main(int argc, int *argv[])
 
     printf("################################################\n");
 
-    char pathBancoDados[TAM_CAMINHO];
-    scanf("%[^\n]%*c", pathBancoDados);
+    char pathA[TAM_CAMINHO]= {'\0'};
+    strcat(pathA,argv[1]);
+    char pathBancoDados[TAM_CAMINHO]= {'\0'};
+    char pathSaida[TAM_CAMINHO]= {'\0'};
+    char path[TAM_CAMINHO]= {'\0'};
+    scanf("%[^\n]%*c", path);
+    
+    // strcat(pathBancoDados,pathA);
+    strcat(pathBancoDados,path);
+
+    // strcat(pathSaida,pathA);
+    // strcat(pathSaida,"saida");
+
+    // printf("Caminho do banco de dados: %s\n", pathBancoDados);
+    // printf("Caminho da pasta de saida: %s\n", pathSaida);
+   
+
 
     // se o binário existir é porque já existe um banco de dados para a
     // entidade se não vc ira cria-lo dentro do diretório informado
@@ -240,11 +255,11 @@ int main(int argc, int *argv[])
     strcat(pathCons, pathBancoDados);
     strcat(pathLes, pathBancoDados);
 
-    strcat(pathSec, "/secretarios.bin");
-    strcat(pathMed, "/medicos.bin");
-    strcat(pathPac, "/pacientes.bin");
-    strcat(pathCons, "/consultas.bin");
-    strcat(pathLes, "/lesoes.bin");
+    strcat(pathSec, "secretarios.bin");
+    strcat(pathMed, "medicos.bin");
+    strcat(pathPac, "pacientes.bin");
+    strcat(pathCons, "consultas.bin");
+    strcat(pathLes, "lesoes.bin");
 
     ConfigurarArquivosBinarios(pathBancoDados, &sec, &med, &pac, &cons, &les, clinica);
 
