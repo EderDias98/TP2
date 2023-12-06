@@ -80,7 +80,7 @@ void LeBinSecretarios(tClinica* clinica,char *path){
     fread(&tam,sizeof(int),1,arquivo);
     
     if(tam!= 0)
-        clinica->secretarios =(tSecretario**)realloc(&(clinica->secretarios),sizeof(tSecretario*)*tam);
+        clinica->secretarios =(tSecretario**)realloc((clinica->secretarios),sizeof(tSecretario*)*tam);
     
     if (clinica->secretarios == NULL) {
         printf("Erro ao realocar memória para secretários\n");
@@ -92,10 +92,11 @@ void LeBinSecretarios(tClinica* clinica,char *path){
     // Loop para ler cada secretário do arquivo
     for (int i = 0; i < tam; i++) {
         // Alocar memória para o secretário atual
-        clinica->secretarios[i] = (tSecretario*) malloc(obtemTamTSecretario());
+        int tamT = obtemTamTSecretario();
+        clinica->secretarios[i] = (tSecretario*) malloc(tamT);
 
         // Ler os dados do secretário do arquivo
-        fread(clinica->secretarios[i], obtemTamTSecretario(), 1, arquivo);
+        fread(clinica->secretarios[i], tamT, 1, arquivo);
     }
 
     // Fechar o arquivo
@@ -164,6 +165,7 @@ void EscreveBinConsultas(tClinica* clinica, const char* path) {
     // Escrever o número de consultas no início do arquivo
     fwrite(&(clinica->numConsultas), sizeof(int), 1, arquivo);
 
+ 
     // Loop para escrever cada consulta no arquivo
     for (int i = 0; i < clinica->numConsultas; i++) {
         // Escrever os dados da consulta no arquivo
@@ -174,7 +176,7 @@ void EscreveBinConsultas(tClinica* clinica, const char* path) {
     fclose(arquivo);
 }
 void LeBinConsultas(tClinica* clinica, const char* path) {
-    FILE* arquivo = fopen(path, "wb");
+    FILE* arquivo = fopen(path, "rb");
     if (arquivo == NULL) {
         printf("Erro ao abrir o arquivo binário\n");
         exit(-1);
@@ -261,43 +263,8 @@ void LeBinPacientes(tClinica* clinica, const char* path) {
     // Fechar o arquivo
     fclose(arquivo);
 }
-void EscreveBinLesaoVetor(tLesao** vetor, FILE* arquivo, int tam) {
-    // Escrever o número de lesões no arquivo
-    fwrite(&tam, sizeof(int), 1, arquivo);
-
-    // Loop para escrever cada lesão no arquivo
-    for (int i = 0; i < tam; i++) {
-        // Escrever os dados da lesão no arquivo
-        fwrite(vetor[i], obtemTamTLesao(), 1, arquivo);
-    }
-}
-
-void LeBinLesaoVetor(tLesao** vetor,FILE * arquivo, int tam) {
 
 
-
-    // Realocar o vetor de lesões na estrutura tLesoes
-    if(tam!= 0)
-        vetor =(tLesao**) malloc(sizeof(tLesao*) * tam);
-
-    if (vetor == NULL) {
-        printf("Erro ao realocar memória para lesões\n");
-        exit(-1);
-    }
-
-
-    // Loop para ler cada lesão do arquivo
-    for (int i = 0; i < tam; i++) {
-        // Alocar memória para a lesão atual
-        vetor[i] = (tLesao*)malloc(obtemTamTLesao());
-
-        // Ler os dados da lesão do arquivo
-        fread(vetor[i], obtemTamTLesao(), 1, arquivo);
-    }
-
-    // Fechar o arquivo
-    fclose(arquivo);
-}
 
 
 void EscreveBinLesoes(tClinica* clinica, const char* path) {
@@ -313,19 +280,22 @@ void EscreveBinLesoes(tClinica* clinica, const char* path) {
     // Loop para escrever cada conjunto de lesões no arquivo
     for (int i = 0; i < clinica->tamVetorLesoes; i++) {
         // Escrever o tamanho do vetor de lesões
-        int tam = ObtemTamLesoes(clinica->vetorLesoes[i]);
+
+        tLesoes* lesoesAtual = clinica->vetorLesoes[i];
+        int tam = ObtemTamLesoes(lesoesAtual);
         fwrite(&tam, sizeof(int), 1, arquivo);
 
         // Escrever o índice do paciente
-        int indexPaciente = ObtemIndexPacienteLesoes(clinica->vetorLesoes[i]);
+        int indexPaciente = ObtemIndexPacienteLesoes(lesoesAtual);
         fwrite(&indexPaciente, sizeof(int), 1, arquivo);
 
         // Escrever as lesões do vetor
-        EscreveBinLesaoVetor(ObtemVetorLesoes(clinica->vetorLesoes[i]), arquivo, tam);
+       
+        EscreveBinLesaoVetor(lesoesAtual, arquivo);
     }
-
-    // Fechar o arquivo
     fclose(arquivo);
+    // Fechar o arquivo
+
 }
 
 void LeBinLesoes(tClinica* clinica, const char* path) {
@@ -359,7 +329,7 @@ void LeBinLesoes(tClinica* clinica, const char* path) {
         fread(&indexPaciente, sizeof(int), 1, arquivo);
         DefineLesoesBin(clinica->vetorLesoes[i],indexPaciente,tam);
         // Ler os dados do conjunto de lesões do arquivo
-        LeBinLesaoVetor(ObtemVetorLesoes(lesoesAtual),arquivo,tam);
+        LeBinLesaoVetor(lesoesAtual,arquivo,tam);
     }
 
     // Fechar o arquivo
@@ -563,7 +533,7 @@ void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico, tFila
     //cada paciente tera uma consulta e sua data ta na sua struct
     CompletaDadosPaciente(paciente);
     // Os documentos e lesoes serao adcionados de acordo 
-    tConsulta* consulta= criaConsulta(dataConsulta,ObtemNomeMedico(medico), ObtemNomePaciente(paciente));
+    tConsulta* consulta= criaConsulta(dataConsulta,ObtemNomeMedico(medico), ObtemNomePaciente(paciente),indexPaciente);
     tLesoes* lesoes =NULL;
     while (1)
     {
@@ -580,7 +550,7 @@ void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico, tFila
                 //compartilham o ponteiro para struct lesoes
                 adcionaLesoes(clinica,lesoes);
                 //colocar a lesoes no paciente
-                DefiniLesoesConsulta(consulta,lesoes);
+  
    
             }
             
@@ -599,7 +569,7 @@ void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico, tFila
             
         
         
-            printf("############################################################");
+            printf("############################################################\n");
           
             scanf("%*c%*c");
             cont++;
@@ -649,7 +619,7 @@ void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico, tFila
 
             insereDocumentoFila(fila, receita,imprimeNaTelaReceita, imprimeEmArquivoReceita,desalocaReceita);
 
-            DefiniReceitaConsulta(consulta,receita);
+    
             printf("RECEITA ENVIADA PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER TECLA PARA RETORNAR AO MENU ANTERIOR\n");
             
           
@@ -677,7 +647,7 @@ void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico, tFila
             insereDocumentoFila(fila, biobsia, imprimeNaTelaBiopsia, imprimeEmArquivoBiopsia, desalocaBiopsia);
 
 
-            DefiniBiopsiaConsulta(consulta, biobsia);
+          
 
             printf("#################### CONSULTA MEDICA #######################\n");
 
@@ -704,7 +674,7 @@ void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico, tFila
             tEncaminhamento* encaminhamento = criaEncaminhamento(ObtemNomePaciente(paciente),ObtemCpfPaciente(paciente)
             ,ObtemNomeMedico(medico),ObtemCrm(medico),dataConsulta,especialidade,motivo);
             
-            DefiniEncaminhamentoConsulta(consulta,encaminhamento);
+           
 
             insereDocumentoFila(fila,encaminhamento,imprimeNaTelaEncaminhamento, imprimeEmArquivoEncaminhamento,desalocaEncaminhamento);
 

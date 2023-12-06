@@ -32,6 +32,47 @@ struct lesoes{
     int tam;
 };
 
+void EscreveBinLesaoVetor(tLesoes* lesoes, FILE* arquivo) {
+    // Escrever o número de lesões no arquivo
+
+
+    // Loop para escrever cada lesão no arquivo
+    for (int i = 0; i < lesoes->tam; i++) {
+        // Escrever os dados da lesão no arquivo
+        fwrite(lesoes->vetor[i], obtemTamTLesao(), 1, arquivo);
+    }
+}
+
+
+void LeBinLesaoVetor(tLesoes* lesoes,FILE * arquivo, int tam) {
+
+
+
+    // Realocar o vetor de lesões na estrutura tLesoes
+    if(tam!= 0)
+        lesoes->vetor =(tLesao**) malloc(sizeof(tLesao*) * tam);
+
+    if (lesoes->vetor == NULL) {
+        printf("Erro ao realocar memória para lesões\n");
+        exit(-1);
+    }
+
+
+    // Loop para ler cada lesão do arquivo
+    for (int i = 0; i < tam; i++) {
+        // Alocar memória para a lesão atual
+        lesoes->vetor[i] = (tLesao*)malloc(obtemTamTLesao());
+
+        // Ler os dados da lesão do arquivo
+        fread(lesoes->vetor[i], obtemTamTLesao(), 1, arquivo);
+    }
+
+    // Fechar o arquivo
+
+}
+
+
+
 
 void deslocaLesao(tLesao*lesao){
     if(lesao)

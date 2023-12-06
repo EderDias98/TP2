@@ -59,8 +59,8 @@ tConsulta** obtemVetorConsultas(tClinica* clinica);
 void LeBinLesoes(tClinica* clinica, const char* path);
 void EscreveBinLesoes(tClinica* clinica, const char* path);
 
-void LeBinLesaoVetor(tLesao** vetor,FILE * arquivo, int tam);
-void EscreveBinLesaoVetor(tLesao** vetor, FILE* arquivo, int tam);
+
+
 
 
 void LeBinPacientes(tClinica* clinica, const char* path);

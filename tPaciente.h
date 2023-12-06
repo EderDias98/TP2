@@ -15,8 +15,10 @@ void adcionaData(tPaciente*paciente, char *data);
 void liberaPaciente(tPaciente *paciente);
 
 tPaciente *criaPaciente();
+
 void DeslocaPaciente(tPaciente* paciente);
-char* obtemDataPaciente(tPaciente* paciente, int index);
+
+
 void lePaciente(tPaciente *paciente);
 
 
@@ -24,7 +26,7 @@ int EhCadastradoPaciente(tPaciente **vetor, char *cpf, int tam);
 
 void CompletaDadosPaciente(tPaciente *paciente);
 
-void DefiniLesoesPaciente(tPaciente *paciente, tLesoes *lesoes);
+
 
 
 int comparar_nomes(const void *a, const void *b);
@@ -34,7 +36,6 @@ char *SimOuNao(int afirmacao);
 
 tPaciente* copiaPaciente(tPaciente* paciente);
 
-tLesoes **ObtemVetorLesoesPaciente(tPaciente *paciente);
 tPaciente *ObtemPaciente(tPaciente **pacientes, int index);
 
 char* ObtemNomePaciente(tPaciente *paciente);
@@ -53,14 +54,13 @@ int ObtemFumantePaciente(tPaciente *paciente);
 int ObtemAlergiaPaciente(tPaciente *paciente);
 
 int ObtemHistoricoCancerPaciente(tPaciente *paciente);
-int ObtemNumLesoesPaciente(tPaciente* paciente);
 
-void incrementaNumLesoesPaciente(tPaciente* paciente);
+
+
 
 int JaTemPacientesLista(tPaciente** lista, tPaciente*paciente,int tam);
 
 int obtemTamTPaciente();
-int obtemNumLesoes(tPaciente* paciente);
 
 tPaciente** BuscaPacientes(tPaciente** vetorPacientes,int tamPacientes,char *nome,int* tamLista);
 tPaciente** adcionaPacienteLista( tPaciente** vetor, tPaciente *paciente, int tam);

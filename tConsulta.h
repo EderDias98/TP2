@@ -10,16 +10,12 @@
 #include "tFila.h"
 
 typedef struct consulta tConsulta;
-tConsulta* criaConsulta( char *data, char * nomeMedico,char * nomePaciente);
+tConsulta* criaConsulta( char *data, char * nomeMedico,char * nomePaciente, int indexPaciente);
 
-tLesoes* obtemLesoesConsulta(tConsulta* consulta);
+
 void liberaConsulta(tConsulta* consulta);
 
-void DefiniLesoesConsulta(tConsulta* consulta,tLesoes * lesoes);
-void DefiniReceitaConsulta(tConsulta* consulta,tReceita* receita);
-void DefiniBiopsiaConsulta(tConsulta* consulta, tBiopsia * biobsia);
 
-void DefiniEncaminhamentoConsulta(tConsulta* consulta, tEncaminhamento* encaminhamento);
 
 char* obtemDataConsulta(tConsulta* consulta);
 

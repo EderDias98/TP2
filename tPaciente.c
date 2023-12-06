@@ -13,12 +13,6 @@ struct paciente
     int alergiaMedicamento;  // 1 e SIM e 0 e NAO
     int historicoCancer;     // 1 e SIM e 0 e NAO
     char tipoPele[5];        // I, II, III, IV, V, VI
-    int totalLesoes;
-    int enviadaCirurgia;
-    int enviadaCrioterapia;
-    int numConsultas;
-    int numDatas;
-    int numLesoes;
     int atendido;
 };
 
@@ -33,10 +27,7 @@ void AtendePaciente(tPaciente *paciente)
 
 
 
-int obtemNumLesoes(tPaciente *paciente)
-{
-    return paciente->numLesoes;
-}
+
 int obtemTamTPaciente()
 {
     return sizeof(tPaciente);
@@ -255,23 +246,14 @@ tPaciente *copiaPaciente(tPaciente *paciente)
     copia->alergiaMedicamento = paciente->alergiaMedicamento;
     copia->historicoCancer = paciente->historicoCancer;
     strcpy(copia->tipoPele, paciente->tipoPele);
-    copia->totalLesoes = paciente->totalLesoes;
-    copia->enviadaCirurgia = paciente->enviadaCirurgia;
-    copia->enviadaCrioterapia = paciente->enviadaCrioterapia;
+   
 
     // CopiaLesoes
     return copia;
 }
-int ObtemNumLesoesPaciente(tPaciente *paciente)
-{
 
-    return paciente->numLesoes;
-}
 
-void incrementaNumLesoesPaciente(tPaciente *paciente)
-{
-    paciente->numLesoes++;
-}
+
 
 int JaTemPacientesLista(tPaciente **lista, tPaciente *paciente, int tam)
 {

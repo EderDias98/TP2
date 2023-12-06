@@ -91,4 +91,7 @@ void DefineLesoesBin(tLesoes* lesoes, int indexPaciente, int tam);
 int obtemTamTLesao();
 int obtemTamTLesoes();
 int NaoTemLesaoCirurgia(tLesoes* lesoes);
+
+void LeBinLesaoVetor(tLesoes* lesoes,FILE * arquivo, int tam);
+void EscreveBinLesaoVetor(tLesoes* lesoes, FILE* arquivo);
 #endif

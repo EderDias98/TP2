@@ -109,7 +109,7 @@ void ConfigurarArquivosBinarios(char *path, int *sec, int *med, int *pac, int *c
 {
     char pathBin[200] = {'\0'};
     int tamVetor;
-    if (ArquivoBinarioExiste(path, "secretarios.bin", pathBin) == 0)
+    if (ArquivoBinarioExiste(path, "/secretarios.bin", pathBin) == 0)
     {
 
         FILE *arquivo = fopen(pathBin, "wb");
@@ -127,7 +127,7 @@ void ConfigurarArquivosBinarios(char *path, int *sec, int *med, int *pac, int *c
     }
     memset(pathBin, '\0', sizeof(pathBin));
 
-    if (ArquivoBinarioExiste(path, "medicos.bin", pathBin) == 0)
+    if (ArquivoBinarioExiste(path, "/medicos.bin", pathBin) == 0)
     {
 
         FILE *arquivo = fopen(pathBin, "wb");
@@ -147,7 +147,7 @@ void ConfigurarArquivosBinarios(char *path, int *sec, int *med, int *pac, int *c
 
     memset(pathBin, '\0', sizeof(pathBin));
 
-    if (ArquivoBinarioExiste(path, "pacientes.bin", pathBin) == 0)
+    if (ArquivoBinarioExiste(path, "/pacientes.bin", pathBin) == 0)
     {
 
         FILE *arquivo = fopen(pathBin, "wb");
@@ -166,7 +166,7 @@ void ConfigurarArquivosBinarios(char *path, int *sec, int *med, int *pac, int *c
 
     memset(pathBin, '\0', sizeof(pathBin));
 
-    if (ArquivoBinarioExiste(path, "consultas.bin", pathBin) == 0)
+    if (ArquivoBinarioExiste(path, "/consultas.bin", pathBin) == 0)
     {
 
         FILE *arquivo = fopen(pathBin, "wb");
@@ -185,7 +185,7 @@ void ConfigurarArquivosBinarios(char *path, int *sec, int *med, int *pac, int *c
 
     memset(pathBin, '\0', sizeof(pathBin));
 
-    if (ArquivoBinarioExiste(path, "lesoes.bin", pathBin) == 0)
+    if (ArquivoBinarioExiste(path, "/lesoes.bin", pathBin) == 0)
     {
 
         FILE *arquivo = fopen(pathBin, "wb");
@@ -220,11 +220,13 @@ int main(int argc, char *argv[])
 
     printf("################################################\n");
 
-    char pathA[TAM_CAMINHO]= {'\0'};
-    strcat(pathA,argv[1]);
-    char pathBancoDados[TAM_CAMINHO]= {'\0'};
-    char pathSaida[TAM_CAMINHO]= {'\0'};
+    // char pathA[TAM_CAMINHO]= {'\0'};
+    // strcat(pathA,argv[1]);
+
+    // char pathSaida[TAM_CAMINHO]= {'\0'};
     char path[TAM_CAMINHO]= {'\0'};
+
+    char pathBancoDados[TAM_CAMINHO]= {'\0'};
     scanf("%[^\n]%*c", path);
     
     // strcat(pathBancoDados,pathA);
@@ -255,11 +257,11 @@ int main(int argc, char *argv[])
     strcat(pathCons, pathBancoDados);
     strcat(pathLes, pathBancoDados);
 
-    strcat(pathSec, "secretarios.bin");
-    strcat(pathMed, "medicos.bin");
-    strcat(pathPac, "pacientes.bin");
-    strcat(pathCons, "consultas.bin");
-    strcat(pathLes, "lesoes.bin");
+    strcat(pathSec, "/secretarios.bin");
+    strcat(pathMed, "/medicos.bin");
+    strcat(pathPac, "/pacientes.bin");
+    strcat(pathCons, "/consultas.bin");
+    strcat(pathLes, "/lesoes.bin");
 
     ConfigurarArquivosBinarios(pathBancoDados, &sec, &med, &pac, &cons, &les, clinica);
 
@@ -422,7 +424,7 @@ int main(int argc, char *argv[])
 
             printf("#################### BUSCAR PACIENTES #######################\n");
 
-            printf("NOME DO PACIENTE: \n");
+            printf("NOME DO PACIENTE: ");
 
             char nome[100] = {'\0'};
             scanf("%99[^\n]%*c", nome);
@@ -465,9 +467,9 @@ int main(int argc, char *argv[])
             if (opcao == 1)
             {
                 insereDocumentoFila(fila, listaBusca, imprimeNaTelaLista, imprimeEmArquivoLista, desalocaLista);
-                printf(" #################### BUSCAR PACIENTES #######################\n");
+                printf("#################### BUSCAR PACIENTES #######################\n");
 
-                printf("LISTA ENVIADA PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER TECLA PARA RETORNAR AO MENU PRINCIPAL\n");
+                printf("\nLISTA ENVIADA PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER TECLA PARA RETORNAR AO MENU PRINCIPAL\n");
 
                 printf("############################################################\n");
 
@@ -491,7 +493,7 @@ int main(int argc, char *argv[])
             if (opcaoA == 1)
             {
                 insereDocumentoFila(fila, relatorio, imprimeNaTelaRelatorio, imprimeEmArquivoRelatorio, desalocaRelatorio);
-                printf("RELATORIO ENVIADO PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER TECLA PARA RETORNAR AO MENU ANTERIOR\n");
+                printf("\nRELATORIO ENVIADO PARA FILA DE IMPRESSAO. PRESSIONE QUALQUER TECLA PARA RETORNAR AO MENU ANTERIOR\n");
 
                 printf("############################################################\n");
 
@@ -502,7 +504,7 @@ int main(int argc, char *argv[])
         case 7:
             int opcaoF = 0;
             scanf("%d%*c", &opcaoF);
-            while (opcaoF != 2)
+            while (1)
             {
                 /* code */
                 printf("################### FILA DE IMPRESSAO MEDICA #####################\n");
@@ -514,13 +516,17 @@ int main(int argc, char *argv[])
                 printf("    (2) RETORNAR AO MENU PRINCIPAL\n");
 
                 printf("############################################################\n");
+
+                if(opcaoF==2){
+                    break;
+                }
                 if (opcaoF == 1)
                 {
                     printf("################ FILA DE IMPRESSAO MEDICA ##################\n");
 
                     printf("EXECUTANDO FILA DE IMPRESSAO:\n");
 
-                    imprimeFila(fila, ".");
+                    imprimeFila(fila, "./saida");
                 }
                 printf("PRESSIONE QUALQUER TECLA PARA VOLTAR PARA O MENU ANTERIOR\n");
 
@@ -545,9 +551,13 @@ int main(int argc, char *argv[])
     // quarda os dados nos arquivos binarios;
 
     EscreveBinsecretarios(clinica, pathSec);
+    
     EscreveBinMedicos(clinica, pathMed);
+
     EscreveBinConsultas(clinica, pathCons);
+
     EscreveBinPacientes(clinica, pathPac);
+
     EscreveBinLesoes(clinica, pathLes);
     return 1;
 }
