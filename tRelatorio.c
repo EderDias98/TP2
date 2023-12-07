@@ -338,7 +338,7 @@ void imprimeEmArquivoRelatorio(void *dado, char *path)
     fprintf(arquivo, "DISTRIBUICAO POR GENERO:\n");
     fprintf(arquivo, "- FEMININO: %.0f\n", relatorio->distribuicaoFeminino);
     fprintf(arquivo, "- MASCULINO: %.0f\n", relatorio->distribuicaoMasculino);
-    fprintf(arquivo, "- OUTROS: %.0f%%\n", relatorio->distribuicaoOutros);
+    fprintf(arquivo, "- OUTROS: %.0f\n", relatorio->distribuicaoOutros);
     fprintf(arquivo, "TAMANHO MEDIO DAS LESOES: %.0f\n", relatorio->tamMedioLesoes);
     fprintf(arquivo, "NUMERO TOTAL DE LESOES: %.0f\n", relatorio->numLesoes);
     fprintf(arquivo, "NUMERO TOTAL DE CIRURGIAS: %.0f\n", relatorio->numCirurgias);

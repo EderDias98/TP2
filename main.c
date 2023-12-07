@@ -220,23 +220,23 @@ int main(int argc, char *argv[])
 
     printf("################################################\n");
 
-    // char pathA[TAM_CAMINHO]= {'\0'};
-    // strcat(pathA,argv[1]);
+    char pathA[TAM_CAMINHO]= {'\0'};
+    strcat(pathA,argv[1]);
 
-    // char pathSaida[TAM_CAMINHO]= {'\0'};
+    char pathSaida[TAM_CAMINHO]= {'\0'};
     char path[TAM_CAMINHO]= {'\0'};
 
     char pathBancoDados[TAM_CAMINHO]= {'\0'};
     scanf("%[^\n]%*c", path);
     
-    // strcat(pathBancoDados,pathA);
+    strcat(pathBancoDados,pathA);
     strcat(pathBancoDados,path);
 
-    // strcat(pathSaida,pathA);
-    // strcat(pathSaida,"saida");
+    strcat(pathSaida,pathA);
+    strcat(pathSaida,"saida");
 
-    // printf("Caminho do banco de dados: %s\n", pathBancoDados);
-    // printf("Caminho da pasta de saida: %s\n", pathSaida);
+    printf("Caminho do banco de dados: %s\n", pathBancoDados);
+    printf("Caminho da pasta de saida: %s\n", pathSaida);
    
 
 
@@ -451,7 +451,7 @@ int main(int argc, char *argv[])
             tLista *listaBusca = criaListaDeBusca(lista, numPacientesLista);
 
             int opcao = 0;
-
+            printf("PACIENTES ENCONTRADOS:\n");
             imprimeNaTelaLista(listaBusca);
 
             printf("#################### BUSCAR PACIENTES #######################\n");
@@ -526,7 +526,7 @@ int main(int argc, char *argv[])
 
                     printf("EXECUTANDO FILA DE IMPRESSAO:\n");
 
-                    imprimeFila(fila, "./saida");
+                    imprimeFila(fila, pathSaida);
                 }
                 printf("PRESSIONE QUALQUER TECLA PARA VOLTAR PARA O MENU ANTERIOR\n");
 

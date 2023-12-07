@@ -39,7 +39,6 @@ void desalocaLista(void *dado){
  */
 void imprimeNaTelaLista(void *dado){
     
-    printf("PACIENTES ENCONTRADOS:\n");
     
     tLista *lista = (tLista*) dado;
     
@@ -71,8 +70,6 @@ void imprimeEmArquivoLista(void *dado, char *path){
         printf("Erro ao abrir o arquivo receita.txt para escrita.\n");
         return;
     }
-
-    fprintf(arquivo,"PACIENTES ENCONTRADOS:\n");
     
     for(int i=0; i<lista->tam;i++){
         fprintf(arquivo,"%d - %s (%s)\n", i+1, ObtemNomePaciente(lista->vetor[i]), ObtemCpfPaciente(lista->vetor[i]));

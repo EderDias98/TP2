@@ -2,7 +2,7 @@
 
  struct encaminhamento{
     char nomePaciente[100];
-    char cpfPaciente[12];
+    char cpfPaciente[15];
     char nomeMedico[100];
     char CRM[20];
     char dataStr[11];
@@ -91,7 +91,7 @@ void imprimeEmArquivoEncaminhamento(void *dado, char *path){
     fprintf(arquivo, "ESPECIALIDADE ENCAMINHADA: %s\n", encaminhamento->especialidade);
     fprintf(arquivo, "MOTIVO: %s\n\n", encaminhamento->motivo);
     fprintf(arquivo, "%s (%s)\n", encaminhamento->nomeMedico, encaminhamento->CRM);
-    fprintf(arquivo, "%s (data da consulta)\n\n", encaminhamento->dataStr);
+    fprintf(arquivo, "%s\n\n", encaminhamento->dataStr);
 
     // Fecha o arquivo
     fclose(arquivo);
