@@ -221,7 +221,7 @@ int main(int argc, char *argv[])
     printf("################################################\n");
 
     char pathA[TAM_CAMINHO]= {'\0'};
-    strcat(pathA,argv[1]);
+    // strcat(pathA,argv[1]);
 
     char pathSaida[TAM_CAMINHO]= {'\0'};
     char path[TAM_CAMINHO]= {'\0'};
@@ -233,10 +233,10 @@ int main(int argc, char *argv[])
     strcat(pathBancoDados,path);
 
     strcat(pathSaida,pathA);
-    strcat(pathSaida,"saida");
+    strcat(pathSaida,"./saida");
 
-    printf("Caminho do banco de dados: %s\n", pathBancoDados);
-    printf("Caminho da pasta de saida: %s\n", pathSaida);
+    // printf("Caminho do banco de dados: %s\n", pathBancoDados);
+    // printf("Caminho da pasta de saida: %s\n", pathSaida);
    
 
 

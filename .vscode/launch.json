@@ -1,11 +1,12 @@
 {
     "configurations": [
+        
         {
             "name": "C/C++: gcc build and debug active file",
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}/prog",
-            "args": [ "Casos/1/","<~/template-TP2-etapa-1/Casos/3/entrada.txt"],
+            "args": [ "<~/template-TP2-etapa-1/Casos/5/entrada.txt"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],

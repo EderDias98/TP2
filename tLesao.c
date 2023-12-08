@@ -13,7 +13,7 @@ struct lesao {
 // ACTINICA, NEVO,
 // CERATOSE SEBORREICA e OUTROS
 
-    char diagnosticoClinico[20]; 
+    char diagnosticoClinico[25]; 
 // Região do corpo
 // Valores possíveis: FACE, ORELHA, COURO CABELUDO, PEITORAL,
 // DORSO, ABDOME, BRAÇO, ANTEBRAÇO, MÃO, COXA, CANELA, PE e
@@ -189,7 +189,7 @@ void liberaLesao(tLesao* lesao) {
 
 void leLesao(tLesao* lesao){
     printf("DIAGNOSTICO CLINICO: ");
-    scanf("%19[^\n]%*c", lesao->diagnosticoClinico);
+    scanf("%23[^\n]%*c", lesao->diagnosticoClinico);
 
     printf("REGIAO DO CORPO: ");
     scanf("%10[^\n]%*c", lesao->regiaoCorpo);
