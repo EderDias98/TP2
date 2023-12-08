@@ -64,7 +64,16 @@ void imprimeEmArquivoLista(void *dado, char *path){
     char endereco[200];
     strncpy(endereco,path,sizeof(endereco)-1);
     strcat(endereco,"/lista_busca.txt");
-    arquivo = fopen(endereco, "w");
+
+
+    static int primeiraVezFuncao = 1;
+    if(primeiraVezFuncao){
+        arquivo = fopen(endereco, "w");
+    }else {
+        arquivo = fopen(endereco, "a");
+    }
+
+    primeiraVezFuncao =0;
 
     if (arquivo == NULL) {
         printf("Erro ao abrir o arquivo receita.txt para escrita.\n");
@@ -74,6 +83,6 @@ void imprimeEmArquivoLista(void *dado, char *path){
     for(int i=0; i<lista->tam;i++){
         fprintf(arquivo,"%d - %s (%s)\n", i+1, ObtemNomePaciente(lista->vetor[i]), ObtemCpfPaciente(lista->vetor[i]));
     }
-
+    fprintf(arquivo,"\n");
     fclose(arquivo);
 }

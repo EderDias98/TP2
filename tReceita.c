@@ -78,7 +78,7 @@ void imprimeNaTelaReceita(void *dado){
     printf("%d %s\n\n", receita->qntd, receita->tipoMedicamento);
     printf("%s\n\n", receita->instrucoes);
     if(receita->nomeMedico[0]!='\0'){
-        printf("%s (CRM-%s)\n", receita->nomeMedico, receita->CRM);
+        printf("%s (%s)\n", receita->nomeMedico, receita->CRM);
     }else{
         printf("%s (%s)\n", receita->nomeMedico, receita->CRM);
     }
@@ -116,8 +116,15 @@ void imprimeEmArquivoReceita(void *dado, char *path){
     char endereco[200];
     strncpy(endereco,path,sizeof(endereco)-1);
     strcat(endereco,"/receita.txt");
-    arquivo = fopen(endereco, "w");
 
+    static int primeiraVezFuncao = 1;
+    if(primeiraVezFuncao){
+        arquivo = fopen(endereco, "w");
+    }else {
+        arquivo = fopen(endereco, "a");
+    }
+
+    primeiraVezFuncao =0;
     if (arquivo == NULL) {
         printf("Erro ao abrir o arquivo receita.txt para escrita.\n");
         return;
@@ -132,12 +139,16 @@ void imprimeEmArquivoReceita(void *dado, char *path){
     fprintf(arquivo, "%d %s\n\n", receita->qntd, receita->tipoMedicamento);
     fprintf(arquivo, "%s\n\n", receita->instrucoes);
     if(receita->nomeMedico[0]!='\0'){
-        fprintf(arquivo,"%s (CRM-%s)\n", receita->nomeMedico, receita->CRM);
+        fprintf(arquivo,"%s (%s)\n", receita->nomeMedico, receita->CRM);
     }else{
         fprintf(arquivo,"%s (%s)\n", receita->nomeMedico, receita->CRM);
     }
 
-    fprintf(arquivo, "%s\n\n", receita->dataStr);
+    int ano = 0, mes = 0, dia = 0;
+
+    sscanf(receita->dataStr, "%d/%d/%d", &dia, &mes, &ano);
+
+    fprintf(arquivo, "%d/%d/%d\n\n", dia,mes,ano);
 
     // Fecha o arquivo
     fclose(arquivo);

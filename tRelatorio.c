@@ -79,17 +79,19 @@ void calcularDistribuicaoGenero(tPaciente **pacientes, int numPacientes, float *
 void calculaEstatisticasTamanhoLesoes(tLesoes **vetor, int numLesoes, float *media, float *desvioPadrao)
 {
     // Cálculo da média
-    float somaIdades = 0.0;
+    float somaTam = 0.0;
+    int cont =0;
     for (int i = 0; i < numLesoes; ++i)
     {
         tLesoes *lesoesAtual = obtemLesoes(vetor, i);
 
         for (int j = 0; j < ObtemTamLesoes(lesoesAtual); j++)
         {
-            somaIdades += ObtemTamanho(obtemLesao(lesoesAtual, j));
+            somaTam += ObtemTamanho(obtemLesao(lesoesAtual, j));
+            cont++;
         }
     }
-    *media = somaIdades / numLesoes;
+    *media = somaTam / cont;
 
     // Cálculo do desvio padrão
     float somaDiferencasQuadradas = 0.0;
@@ -170,6 +172,8 @@ tRelatorio *CriaRelatorio(tClinica *clinica)
     // ContaNumDiagnostico(vetorLesoes,vetorDiagnostico, relatorio->numDiagnosticos, numLesoes);
     // bubbleSort(vetorDiagnostico, relatorio->numDiagnosticos,compararDiagnostico);
     // qsort(vetorDiagnostico,relatorio->numDiagnosticos,sizeof(tDiagnostico*), compararDiagnostico);
+
+    return relatorio;
 }
 
 tDiagnostico *CriaDiagnostico(char *nome)
@@ -325,7 +329,16 @@ void imprimeEmArquivoRelatorio(void *dado, char *path)
     char endereco[200];
     strncpy(endereco, path, sizeof(endereco) - 1);
     strcat(endereco, "/relatorio_geral.txt");
-    arquivo = fopen(endereco, "w");
+
+
+    static int primeiraVezFuncao = 1;
+    if(primeiraVezFuncao){
+        arquivo = fopen(endereco, "w");
+    }else {
+        arquivo = fopen(endereco, "a");
+    }
+
+    primeiraVezFuncao =0;
 
     if (arquivo == NULL)
     {

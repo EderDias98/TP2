@@ -78,7 +78,16 @@ void imprimeEmArquivoEncaminhamento(void *dado, char *path){
     char endereco[200];
     strncpy(endereco,path,sizeof(endereco)-1);
     strcat(endereco,"/encaminhamento.txt");
-    arquivo = fopen(endereco, "w");
+
+
+    static int primeiraVezFuncao = 1;
+    if(primeiraVezFuncao){
+        arquivo = fopen(endereco, "w");
+    }else {
+        arquivo = fopen(endereco, "a");
+    }
+
+    primeiraVezFuncao =0;
 
     if (arquivo == NULL) {
         fprintf(stderr, "Erro ao abrir o arquivo para escrita.\n");
@@ -91,7 +100,12 @@ void imprimeEmArquivoEncaminhamento(void *dado, char *path){
     fprintf(arquivo, "ESPECIALIDADE ENCAMINHADA: %s\n", encaminhamento->especialidade);
     fprintf(arquivo, "MOTIVO: %s\n\n", encaminhamento->motivo);
     fprintf(arquivo, "%s (%s)\n", encaminhamento->nomeMedico, encaminhamento->CRM);
-    fprintf(arquivo, "%s\n\n", encaminhamento->dataStr);
+
+    int ano = 0, mes = 0, dia = 0;
+
+    sscanf(encaminhamento->dataStr, "%d/%d/%d", &dia, &mes, &ano);
+
+    fprintf(arquivo, "%d/%d/%d\n\n", dia,mes,ano);
 
     // Fecha o arquivo
     fclose(arquivo);

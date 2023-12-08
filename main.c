@@ -108,7 +108,7 @@ int ArquivoBinarioExiste(char *path, char *nome, char *pathBin)
 void ConfigurarArquivosBinarios(char *path, int *sec, int *med, int *pac, int *cons, int *les, tClinica *clinica)
 {
     char pathBin[200] = {'\0'};
-    int tamVetor;
+
     if (ArquivoBinarioExiste(path, "/secretarios.bin", pathBin) == 0)
     {
 
@@ -244,13 +244,13 @@ int main(int argc, char *argv[])
     // entidade se não vc ira cria-lo dentro do diretório informado
     tClinica *clinica = criaClinica();
     InicializaClinicaVetores(clinica);
-    int sec = 0, med = 0, pac = 0, cons = 0, les = 0, fil = 0;
+    int sec = 0, med = 0, pac = 0, cons = 0, les = 0;
     char pathSec[200] = {'\0'};
     char pathMed[200] = {'\0'};
     char pathPac[200] = {'\0'};
     char pathCons[200] = {'\0'};
     char pathLes[200] = {'\0'};
-    char pathFil[200] = {'\0'};
+
     strcat(pathSec, pathBancoDados);
     strcat(pathMed, pathBancoDados);
     strcat(pathPac, pathBancoDados);
@@ -286,7 +286,7 @@ int main(int argc, char *argv[])
         LeBinLesoes(clinica, pathLes);
     }
 
-    int sair = 0;
+
     Nivel acesso;
     int indexMedico = 0;
     int indexSecretario = 0;

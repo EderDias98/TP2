@@ -86,7 +86,7 @@ int EhCadastradoMedico(tMedico** vetor, tMedico *medico, int tam){
 Login loginMedico(tMedico** vetor, char *senha, char * usuario, int tam,int *indexMedico){
     int senhaCorreta =0;
     int usuarioCorreto =0;
-    int mesmaConta=0;
+
     int i,j;
     for(i=0; i< tam; i++){
         if(strcmp(vetor[i]->senha,senha)==0){

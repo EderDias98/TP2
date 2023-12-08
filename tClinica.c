@@ -70,7 +70,7 @@ void EscreveBinsecretarios(tClinica* clinica,char *path){
     fclose(arquivo);
 }
 void LeBinSecretarios(tClinica* clinica,char *path){
-    clinica->secretarios;
+
     int tam=0;
     FILE *arquivo = fopen(path,"rb");
     if(arquivo ==NULL){
@@ -535,11 +535,12 @@ void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico, tFila
     // Os documentos e lesoes serao adcionados de acordo 
     tConsulta* consulta= criaConsulta(dataConsulta,ObtemNomeMedico(medico), ObtemNomePaciente(paciente),indexPaciente);
     tLesoes* lesoes =NULL;
+    int cont =1;
     while (1)
     {
         ImprimiSubMenu();
         int opcao;
-        int sair = 0,cont=1;
+        int sair = 0;
         scanf("%d%*c", &opcao);
         switch (opcao)
         {

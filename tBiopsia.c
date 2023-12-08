@@ -94,7 +94,15 @@ void imprimeEmArquivoBiopsia(void *dado, char *path){
     char endereco[200];
     strncpy(endereco,path,sizeof(endereco)-1);
     strcat(endereco,"/biopsia.txt");
-    arquivo = fopen(endereco, "w");
+
+    static int primeiraVezFuncao = 1;
+    if(primeiraVezFuncao){
+        arquivo = fopen(endereco, "w");
+    }else {
+        arquivo = fopen(endereco, "a");
+    }
+
+    primeiraVezFuncao =0;
 
     if (arquivo == NULL) {
         fprintf(stderr, "Erro ao abrir o arquivo para escrita.\n");
@@ -117,7 +125,11 @@ void imprimeEmArquivoBiopsia(void *dado, char *path){
     }
 
     fprintf(arquivo, "\n%s (%s)\n", biopsia->nomeMedico, biopsia->CRM);
-    fprintf(arquivo, "%s\n\n", biopsia->data);
+    int ano = 0, mes = 0, dia = 0;
+
+    sscanf(biopsia->data, "%d/%d/%d", &dia, &mes, &ano);
+
+    fprintf(arquivo, "%d/%d/%d\n\n", dia,mes,ano);
 
     // Fecha o arquivo
     fclose(arquivo);

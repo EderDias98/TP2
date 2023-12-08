@@ -252,7 +252,7 @@ void IncrementaTamLesoes(tLesoes* lesoes){
 }
 
 tLesao ** ObtemVetorLesoes(tLesoes* lesoes){
-    lesoes->vetor;
+    return lesoes->vetor;
 }
 
 int ObtemTamLesoes(tLesoes* lesoes){

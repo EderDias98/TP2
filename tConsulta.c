@@ -19,7 +19,7 @@ tConsulta* criaConsulta(char *data, char * nomeMedico, char * nomePaciente, int 
         exit(EXIT_FAILURE);
     }
 
-    consulta->indexPaciente;
+    consulta->indexPaciente = indexPaciente;
     strcpy(consulta->dataConsulta,data);
     strcpy(consulta->nomeMedico, nomeMedico);
     strcpy(consulta->nomePaciente,nomePaciente);
@@ -28,7 +28,7 @@ tConsulta* criaConsulta(char *data, char * nomeMedico, char * nomePaciente, int 
 
 
 void liberaConsulta(tConsulta* consulta) {
-    if(consulta=NULL){
+    if(consulta){
         free(consulta);
     }
 }

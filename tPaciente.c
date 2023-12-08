@@ -202,17 +202,20 @@ int CalculaIdade(char *data)
 {
 
     int anoAtual = 2023, mesAtual = 11, diaAtual = 9;
-    int ano = 0, mes = 0, dia = 0;
+    int ano = 0;
+
+    int mes = 0, dia = 0;
 
     sscanf(data, "%d/%d/%d", &dia, &mes, &ano);
 
     int idade = anoAtual - ano;
 
     // Ajusta a idade se a data de nascimento ainda não ocorreu este ano
-    if ((mes < mesAtual) || (mes == mesAtual && dia < diaAtual))
-    {
-        idade--;
-    }
+ 
+    // if ((mes < mesAtual) || (mes == mesAtual && dia < diaAtual))
+    // {
+    //     idade--;
+    // }
 
     return idade;
 }

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Compila o programa em C
+gcc *.c -o prog -lm
+
+# Verifica se a compilação foi bem-sucedida
+if [ $? -eq 0 ]; then
+	./prog <~/template-TP2-etapa-1/Casos/1/entrada.txt
+	./prog <~/template-TP2-etapa-1/Casos/2/entrada.txt
+	
+else
+    echo "Erro na compilação do programa em C."
+fi
