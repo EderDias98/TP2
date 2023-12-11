@@ -93,7 +93,7 @@ void LeBinSecretarios(tClinica* clinica,char *path){
     for (int i = 0; i < tam; i++) {
         // Alocar memória para o secretário atual
         int tamT = obtemTamTSecretario();
-        clinica->secretarios[i] = (tSecretario*) malloc(tamT);
+        clinica->secretarios[i] = (tSecretario*) calloc(1,tamT);
 
         // Ler os dados do secretário do arquivo
         fread(clinica->secretarios[i], tamT, 1, arquivo);
@@ -146,7 +146,7 @@ void LeBinMedicos(tClinica* clinica, const char* path) {
     // Loop para ler cada médico do arquivo
     for (int i = 0; i < tam; i++) {
         // Alocar memória para o médico atual
-        clinica->medicos[i] = (tMedico*)malloc(obtemTamTMedico());
+        clinica->medicos[i] = (tMedico*) calloc(1,obtemTamTMedico());
 
         // Ler os dados do médico do arquivo
 
@@ -203,7 +203,7 @@ void LeBinConsultas(tClinica* clinica, const char* path) {
     // Loop para ler cada consulta do arquivo
     for (int i = 0; i < tam; i++) {
         // Alocar memória para a consulta atual
-        clinica->consultas[i] = (tConsulta*)malloc(obtemTamTConsulta());
+        clinica->consultas[i] = (tConsulta*) calloc(1,obtemTamTConsulta());
 
         int indexPaciente =0;
 
@@ -260,7 +260,7 @@ void LeBinPacientes(tClinica* clinica, const char* path) {
     // Loop para ler cada paciente do arquivo
     for (int i = 0; i < tam; i++) {
         // Alocar memória para o paciente atual
-        clinica->pacientes[i] = (tPaciente*)malloc(obtemTamTPaciente());
+        clinica->pacientes[i] = (tPaciente*) calloc(1,obtemTamTPaciente());
 
         // Ler os dados do paciente do arquivo
         fread(clinica->pacientes[i], obtemTamTPaciente(), 1, arquivo);
@@ -328,7 +328,7 @@ void LeBinLesoes(tClinica* clinica, const char* path) {
     // Loop para ler cada conjunto de lesões do arquivo
     for (int i = 0; i < tam; i++) {
         // Alocar memória para o conjunto de lesões atual
-        clinica->vetorLesoes[i] = (tLesoes*)malloc(obtemTamTLesoes());
+        clinica->vetorLesoes[i] = (tLesoes*) calloc(1,obtemTamTLesoes());
         tLesoes* lesoesAtual = clinica->vetorLesoes[i];
         int tam=0,indexPaciente=0;
         fread(&tam, sizeof(int), 1, arquivo);
@@ -384,35 +384,7 @@ void InicializaClinicaVetores(tClinica* clinica){
 
 
 // Função para destruir uma instância da clínica
-void liberaClinica(tClinica* clinica) {
-    if (clinica != NULL) {
 
-
-        // Liberar memória relacionada aos secretários
-        for (int i = 0; i < clinica->numSecretarios; i++) {
-           liberaSecretario(clinica->secretarios[i]);
-        }
-        free(clinica->secretarios);
-
-        // Liberar memória relacionada aos médicos
-        for (int i = 0; i < clinica->numMedicos; i++) {
-            liberaMedico(clinica->medicos[i]);
-        }
-        free(clinica->medicos);
-
-        // Liberar memória relacionada aos pacientes
-        for (int i = 0; i < clinica->numPacientes; i++) {
-            liberaPaciente(clinica->pacientes[i]);
-        }
-        free(clinica->pacientes);
-        //Libera memoria relascionda a Consultas
-
-        //Libera memoria relacionada a lesoes
-
-        // Liberar a estrutura principal
-        free(clinica);
-    }
-}
 
 //Cadastrar Paciente 
 // retorna se cadastro foi bem sucedido
@@ -426,7 +398,7 @@ int CadastraPacienteClinica(tClinica *clinica){
         adcionaPaciente(clinica,paciente);
         return 1;
     }
-    liberaPaciente(paciente);
+    desalocaPaciente(paciente);
     printf("CPF JA EXISTENTE. OPERACAO NAO PERMITIDA.\n");
     return 0;
 }
@@ -538,7 +510,13 @@ void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico, tFila
     printf("DATA DA CONSULTA: ");
    
     char dataConsulta[11]= {'\0'};
-    scanf("%10[^\n]%*c",dataConsulta);    
+    char dataBase[12]= {'\0'};
+    scanf("%10[^\n]%*c",dataBase);
+    
+    int ano = 0, mes = 0, dia = 0;
+
+    sscanf(dataBase, "%d/%d/%d", &dia, &mes, &ano);
+    sprintf(dataConsulta,"%d/%d/%d",dia,mes,ano);
  
     //cada paciente tera uma consulta e sua data ta na sua struct
     CompletaDadosPaciente(paciente);

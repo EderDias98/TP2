@@ -125,11 +125,9 @@ void imprimeEmArquivoBiopsia(void *dado, char *path){
     }
 
     fprintf(arquivo, "\n%s (%s)\n", biopsia->nomeMedico, biopsia->CRM);
-    int ano = 0, mes = 0, dia = 0;
 
-    sscanf(biopsia->data, "%d/%d/%d", &dia, &mes, &ano);
 
-    fprintf(arquivo, "%d/%d/%d\n\n", dia,mes,ano);
+    fprintf(arquivo, "%s\n\n", biopsia->data);
 
     // Fecha o arquivo
     fclose(arquivo);

@@ -314,6 +314,7 @@ tPaciente **BuscaPacientes(tPaciente **vetorPacientes, int tamPacientes, char *n
     }
 
     if(peloMenosUmPaciente == 0){
+        free(lista);
         return NULL;
     }
 

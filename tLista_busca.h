@@ -31,5 +31,5 @@ void imprimeEmArquivoLista(void *dado, char *path);
 
 
 
-
+void adcionaPacienteListaBusca(tLista* lista, tPaciente* paciente);
 #endif

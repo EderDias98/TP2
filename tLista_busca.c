@@ -5,23 +5,28 @@ struct lista{
     int tam;
 };
 
-
+void adcionaPacienteListaBusca(tLista* lista, tPaciente* paciente){
+    lista->tam++;
+    int tam= lista->tam;
+    lista->vetor = realloc(lista->vetor, sizeof(tPaciente*)*tam);
+    lista->vetor[tam-1] = paciente;
+}
 
 
 tLista* criaListaDeBusca(tPaciente** lista, int numPacientesLista){
     
     tLista* novaLista = (tLista*) calloc(1,sizeof(tLista));
-
+    novaLista->vetor = (tPaciente**) calloc(1,sizeof(tPaciente*));
     if(lista==NULL){
         printf("Erro ao alocar memoria para lista\n");
         exit(EXIT_FAILURE);
     }
     for(int i=0; i<numPacientesLista;i++){
-        novaLista->vetor[i] = copiaPaciente(lista[i]);
+        adcionaPacienteListaBusca(novaLista, copiaPaciente(lista[i]));
     }
 
     novaLista->tam = numPacientesLista;
-
+    free(lista);
     return novaLista;
 }
 
@@ -36,6 +41,7 @@ void desalocaLista(void *dado){
         for(int i=0; i<lista->tam;i++){
             desalocaPaciente(lista->vetor[i]);
         }
+        free(lista->vetor);
         free(lista);
     }
         

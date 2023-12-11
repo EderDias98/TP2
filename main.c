@@ -93,6 +93,8 @@ int ArquivoBinarioExiste(char *path, char *nome, char *pathBin)
     strcat(pathBin, path);
     strcat(pathBin, nome);
 
+  
+
     FILE *arquivo = fopen(pathBin, "rb");
 
     if (arquivo == NULL)
@@ -115,8 +117,10 @@ void ConfigurarArquivosBinarios(char *path, int *sec, int *med, int *pac, int *c
         FILE *arquivo = fopen(pathBin, "wb");
 
         if (arquivo == NULL)
-        {
+        {   
+
             printf("Erro ao criar o secretarios.bin %s\n", pathBin);
+
             exit(-1);
         }
         fclose(arquivo);
@@ -211,6 +215,8 @@ void ConfigurarArquivosBinarios(char *path, int *sec, int *med, int *pac, int *c
 // ● lesoes.bin
 // ● fila_impressao.bin
 // ~/TP2/bancoDeDados
+
+// valgrind ./prog <~/template-TP2-etapa-1/Casos/1/entrada.txt
 int main(int argc, char *argv[])
 {
 
@@ -220,8 +226,7 @@ int main(int argc, char *argv[])
 
     printf("################################################\n");
 
-    char pathA[TAM_CAMINHO]= {'\0'};
-    // strcat(pathA,argv[1]);
+
 
     char pathSaida[TAM_CAMINHO]= {'\0'};
     char path[TAM_CAMINHO]= {'\0'};
@@ -229,17 +234,17 @@ int main(int argc, char *argv[])
     char pathBancoDados[TAM_CAMINHO]= {'\0'};
     scanf("%[^\n]%*c", path);
     
-    strcat(pathBancoDados,pathA);
+    strcat(pathBancoDados,argv[1]);
+     strcat(pathBancoDados,"/");
     strcat(pathBancoDados,path);
-
-    strcat(pathSaida,pathA);
-    strcat(pathSaida,"./saida");
-
-    // printf("Caminho do banco de dados: %s\n", pathBancoDados);
-    // printf("Caminho da pasta de saida: %s\n", pathSaida);
    
+    strcat(pathSaida,argv[1]);
+    strcat(pathSaida,"/saida");
 
-
+    printf("Caminho do banco de dados: %s\n", pathBancoDados);
+    printf("Caminho da pasta de saida: %s\n", pathSaida);
+   
+ 
     // se o binário existir é porque já existe um banco de dados para a
     // entidade se não vc ira cria-lo dentro do diretório informado
     tClinica *clinica = criaClinica();
@@ -262,7 +267,7 @@ int main(int argc, char *argv[])
     strcat(pathPac, "/pacientes.bin");
     strcat(pathCons, "/consultas.bin");
     strcat(pathLes, "/lesoes.bin");
-
+  
     ConfigurarArquivosBinarios(pathBancoDados, &sec, &med, &pac, &cons, &les, clinica);
 
     if (sec == 1)
@@ -439,10 +444,10 @@ int main(int argc, char *argv[])
             tPaciente **vetorPaciente = obtemVetorPacientes(clinica);
             tPaciente **lista = BuscaPacientes(vetorPaciente, numPacientes,
                                                nome, &numPacientesLista);
-            if (lista == NULL)
+            if (numPacientesLista == 0)
             {
 
-                printf("#################### BUSCAR PACIENTES #######################\n");
+                printf("\n#################### BUSCAR PACIENTES #######################\n");
 
                 printf("NENHUM PACIENTE FOI ENCONTRADO. PRESSIONE QUALQUER TECLA PARA RETORNAR AO MENU ANTERIOR\n");
 

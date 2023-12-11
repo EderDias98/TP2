@@ -144,11 +144,7 @@ void imprimeEmArquivoReceita(void *dado, char *path){
         fprintf(arquivo,"%s (%s)\n", receita->nomeMedico, receita->CRM);
     }
 
-    int ano = 0, mes = 0, dia = 0;
-
-    sscanf(receita->dataStr, "%d/%d/%d", &dia, &mes, &ano);
-
-    fprintf(arquivo, "%d/%d/%d\n\n", dia,mes,ano);
+    fprintf(arquivo, "%s\n\n", receita->dataStr);
 
     // Fecha o arquivo
     fclose(arquivo);

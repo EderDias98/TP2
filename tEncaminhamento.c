@@ -15,7 +15,7 @@
 
 tEncaminhamento *criaEncaminhamento(char *nomePaciente,  char *cpfPaciente,
 char *nomeMedico, char *CRM, char *dataStr,char* especialidade, char* motivo){
-    tEncaminhamento *encaminhamento = (tEncaminhamento*)malloc(sizeof(tEncaminhamento));
+    tEncaminhamento *encaminhamento = (tEncaminhamento*) calloc(1,sizeof(tEncaminhamento));
 
     // Verifica se a alocação de memória foi bem-sucedida
     if (encaminhamento == NULL) {
@@ -76,7 +76,7 @@ void imprimeEmArquivoEncaminhamento(void *dado, char *path){
 
     // Abre o arquivo para escrita
     char endereco[200];
-    strncpy(endereco,path,sizeof(endereco)-1);
+    strcpy(endereco,path);
     strcat(endereco,"/encaminhamento.txt");
 
 
@@ -101,11 +101,8 @@ void imprimeEmArquivoEncaminhamento(void *dado, char *path){
     fprintf(arquivo, "MOTIVO: %s\n\n", encaminhamento->motivo);
     fprintf(arquivo, "%s (%s)\n", encaminhamento->nomeMedico, encaminhamento->CRM);
 
-    int ano = 0, mes = 0, dia = 0;
 
-    sscanf(encaminhamento->dataStr, "%d/%d/%d", &dia, &mes, &ano);
-
-    fprintf(arquivo, "%d/%d/%d\n\n", dia,mes,ano);
+    fprintf(arquivo, "%s\n\n", encaminhamento->dataStr);
 
     // Fecha o arquivo
     fclose(arquivo);

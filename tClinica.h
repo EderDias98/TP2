@@ -20,7 +20,7 @@ void InicializaClinicaVetores(tClinica* clinica);
 int obtemTamVetorConsultas(tClinica* clinica);
  int obtemNumPacientes(tClinica* clinica);
 // Função para destruir uma instância da clínica
-void liberaClinica(tClinica* clinica);
+
 
 //Cadastrar Paciente 
 // retorna se cadastro foi bem sucedido
