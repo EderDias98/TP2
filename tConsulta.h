@@ -13,7 +13,7 @@ typedef struct consulta tConsulta;
 tConsulta* criaConsulta( char *data, char * nomeMedico,char * nomePaciente, int indexPaciente);
 
 
-void liberaConsulta(tConsulta* consulta);
+void desalocaConsulta(tConsulta* consulta);
 
 
 
@@ -21,4 +21,7 @@ char* obtemDataConsulta(tConsulta* consulta);
 
 int obtemTamTConsulta();
 
+int obtemIndexPacienteConsulta(tConsulta* consulta);
+
+void defineIndexPacienteConsulta(tConsulta* consulta, int indexPaciente);
 #endif

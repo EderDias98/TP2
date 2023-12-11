@@ -274,12 +274,16 @@ void desalocaRelatorio(void *dado)
 {
     tRelatorio *relatorio = (tRelatorio *)dado;
     if (relatorio)
-    {
-        for (int i = 0; i < relatorio->numDiagnosticos; i++)
-        {
+    {   
+        if(relatorio->diagnosticos){
+            for (int i = 0; i < relatorio->numDiagnosticos; i++)
+            {
             free(relatorio->diagnosticos[i]);
+            }
+
+            free(relatorio->diagnosticos);
         }
-        free(relatorio->diagnosticos);
+
         free(relatorio);
     }
 }

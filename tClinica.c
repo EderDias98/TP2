@@ -149,6 +149,7 @@ void LeBinMedicos(tClinica* clinica, const char* path) {
         clinica->medicos[i] = (tMedico*)malloc(obtemTamTMedico());
 
         // Ler os dados do médico do arquivo
+
         fread(clinica->medicos[i], obtemTamTMedico(), 1, arquivo);
     }
 
@@ -169,7 +170,10 @@ void EscreveBinConsultas(tClinica* clinica, const char* path) {
     // Loop para escrever cada consulta no arquivo
     for (int i = 0; i < clinica->numConsultas; i++) {
         // Escrever os dados da consulta no arquivo
+
+
         fwrite(clinica->consultas[i], obtemTamTConsulta(), 1, arquivo);
+ 
     }
 
     // Fechar o arquivo
@@ -200,6 +204,8 @@ void LeBinConsultas(tClinica* clinica, const char* path) {
     for (int i = 0; i < tam; i++) {
         // Alocar memória para a consulta atual
         clinica->consultas[i] = (tConsulta*)malloc(obtemTamTConsulta());
+
+        int indexPaciente =0;
 
         // Ler os dados da consulta do arquivo
         fread(clinica->consultas[i], obtemTamTConsulta(), 1, arquivo);
@@ -506,10 +512,14 @@ void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico, tFila
     tPaciente* paciente =NULL;
     paciente = clinica->pacientes[indexPaciente];
     tMedico* medico = NULL;
+
+    int desalocaMedicoA=0;
     if(indexMedico !=-1){
         medico =clinica->medicos[indexMedico];
     }else{
+        
         medico = criaMedico();
+        desalocaMedicoA =1;
     }
 
     AtendePaciente(paciente);
@@ -548,6 +558,7 @@ void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico, tFila
             if(cont==1){
                 
                 lesoes= CriaLesoes();
+                defineIndexPacienteLesoes(lesoes,indexPaciente);
                 //compartilham o ponteiro para struct lesoes
                 adcionaLesoes(clinica,lesoes);
                 //colocar a lesoes no paciente
@@ -701,6 +712,10 @@ void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico, tFila
         }
     }
     adcionaConsulta(clinica,consulta);
+
+    if(desalocaMedicoA){
+        desalocaMedico(medico);
+    }
 }
 
 tPaciente** ObtemPacientes(tClinica* clinica){
@@ -814,4 +829,46 @@ void adcionaLesoes(tClinica* clinica, tLesoes *lesoes) {
 
     //Inserir Paciente
     clinica->vetorLesoes[tam-1] = lesoes;
+}
+
+void desalocaClinica(tClinica* clinica){
+    if(clinica){
+
+        if(clinica->secretarios){
+            for(int i=0; i< clinica->numSecretarios;i++){
+                desalocarSecretario(clinica->secretarios[i]);
+            }
+            free(clinica->secretarios);
+        }
+
+        if(clinica->medicos){
+            for(int j=0; j< clinica->numMedicos;j++){
+                desalocaMedico(clinica->medicos[j]);
+            }
+            free(clinica->medicos);
+        }
+
+        if(clinica->pacientes){
+            for(int k=0; k<clinica->numPacientes;k++){
+                desalocaPaciente(clinica->pacientes[k]);
+            }
+            free(clinica->pacientes);
+        }
+
+        if(clinica->consultas){
+            for(int l=0; l<clinica->numConsultas;l++){
+                desalocaConsulta(clinica->consultas[l]);
+            }
+            free(clinica->consultas);
+        }
+        if(clinica->vetorLesoes){
+            for(int m=0; m<clinica->tamVetorLesoes;m++){
+                desalocaLesoes(clinica->vetorLesoes[m]);
+            }
+            free(clinica->vetorLesoes);
+        }
+
+        free(clinica);
+
+    }
 }

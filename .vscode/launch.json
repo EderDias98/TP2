@@ -6,7 +6,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}/prog",
-            "args": [ "<~/template-TP2-etapa-1/Casos/5/entrada.txt"],
+            "args": [ "<~/template-TP2-etapa-1/Casos/6/entrada.txt"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],

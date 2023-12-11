@@ -23,4 +23,5 @@ tSecretario* obtemSecretario(tSecretario** vetor, int index);
 
 
 int obtemTamTSecretario();
+void desalocarSecretario(tSecretario* secretario);
 #endif

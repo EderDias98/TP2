@@ -12,10 +12,10 @@ typedef struct lesoes tLesoes;
 tLesao* criaLesao();
 
 
-void deslocaLesao(tLesao*lesao);
 
 
-void deslocaLesoes(tLesoes* lesoes);
+
+void desalocaLesoes(tLesoes* lesoes);
 
 tLesoes** copiaVetorLesoes(tLesoes** vetor, int tam);
 
@@ -27,7 +27,8 @@ tLesao* copiaLesao(tLesao* lesao);
 
 
 // Função para liberar a memória alocada para um lesao
-void liberaLesao(tLesao* lesao);
+void desalocaLesao(tLesao* lesao);
+
 tLesoes* CriaLesoes();
 //Funçao que Le o lesao
 
@@ -94,4 +95,5 @@ int NaoTemLesaoCirurgia(tLesoes* lesoes);
 
 void LeBinLesaoVetor(tLesoes* lesoes,FILE * arquivo, int tam);
 void EscreveBinLesaoVetor(tLesoes* lesoes, FILE* arquivo);
+void defineIndexPacienteLesoes(tLesoes* lesoes, int indexPaciente);
 #endif

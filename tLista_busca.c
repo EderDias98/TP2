@@ -16,7 +16,10 @@ tLista* criaListaDeBusca(tPaciente** lista, int numPacientesLista){
         printf("Erro ao alocar memoria para lista\n");
         exit(EXIT_FAILURE);
     }
-    novaLista->vetor = lista;
+    for(int i=0; i<numPacientesLista;i++){
+        novaLista->vetor[i] = copiaPaciente(lista[i]);
+    }
+
     novaLista->tam = numPacientesLista;
 
     return novaLista;
@@ -29,8 +32,13 @@ tLista* criaListaDeBusca(tPaciente** lista, int numPacientesLista){
 void desalocaLista(void *dado){
     tLista *lista = (tLista*) dado;
 
-    if(lista)
+    if(lista){
+        for(int i=0; i<lista->tam;i++){
+            desalocaPaciente(lista->vetor[i]);
+        }
         free(lista);
+    }
+        
 }
 
 /**

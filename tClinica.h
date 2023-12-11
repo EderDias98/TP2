@@ -85,4 +85,6 @@ void adcionaSecretario(tClinica* clinica, tSecretario *secretario);
 void adcionaMedico(tClinica* clinica, tMedico *medico);
 void adcionaConsulta(tClinica*clinica, tConsulta*consulta);
 void adcionaLesoes(tClinica* clinica, tLesoes *lesoes);
+
+void desalocaClinica(tClinica* clinica);
 #endif

@@ -132,3 +132,9 @@ Nivel ObtemNivelAcessoSecretario(tSecretario * secretario){
     
     return MEDI;
 }
+
+void desalocarSecretario(tSecretario* secretario){
+    if(secretario){
+        free(secretario);
+    }
+}

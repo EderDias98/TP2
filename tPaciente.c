@@ -48,9 +48,9 @@ tPaciente *criaPaciente()
 }
 
 // Função para liberar a memória alocada para um paciente
-void liberaPaciente(tPaciente *paciente)
+void desalocaPaciente(tPaciente *paciente)
 {
-    if (paciente != NULL)
+    if (paciente)
     {
         free(paciente);
     }
@@ -251,7 +251,6 @@ tPaciente *copiaPaciente(tPaciente *paciente)
     strcpy(copia->tipoPele, paciente->tipoPele);
    
 
-    // CopiaLesoes
     return copia;
 }
 

@@ -74,15 +74,12 @@ void LeBinLesaoVetor(tLesoes* lesoes,FILE * arquivo, int tam) {
 
 
 
-void deslocaLesao(tLesao*lesao){
-    if(lesao)
-        free(lesao);
-}
 
-void deslocaLesoes(tLesoes* lesoes){
+
+void desalocaLesoes(tLesoes* lesoes){
     if(lesoes){
         for(int i=0; i<lesoes->tam;i++){
-            deslocaLesao(lesoes->vetor[i]);
+            desalocaLesao(lesoes->vetor[i]);
         }
         free(lesoes->vetor);
         free(lesoes);
@@ -178,8 +175,8 @@ tLesao* criaLesao() {
 
 
 // Função para liberar a memória alocada para um lesao
-void liberaLesao(tLesao* lesao) {
-    if(lesao!=NULL){
+void desalocaLesao(tLesao* lesao) {
+    if(lesao){
         free(lesao);
     }
 
@@ -238,6 +235,10 @@ tLesoes* CriaLesoes(){
         exit(EXIT_FAILURE);
     }
     return lesoes;
+}
+
+void defineIndexPacienteLesoes(tLesoes* lesoes, int indexPaciente){
+    lesoes->indexPaciente = indexPaciente;
 }
 void CadastraLesao(tLesoes* lesoes, tLesao*lesao){
 

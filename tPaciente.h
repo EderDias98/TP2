@@ -16,7 +16,7 @@ void liberaPaciente(tPaciente *paciente);
 
 tPaciente *criaPaciente();
 
-void DeslocaPaciente(tPaciente* paciente);
+void desalocaPaciente(tPaciente* paciente);
 
 
 void lePaciente(tPaciente *paciente);

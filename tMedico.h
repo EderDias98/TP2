@@ -17,4 +17,6 @@ Login loginMedico(tMedico** vetor, char *senha, char *usuario, int tam,int *inde
 
 char * ObtemNomeMedico(tMedico* medico);
 char *ObtemCrm(tMedico*medico);
+
+void desalocaMedico(tMedico* medico);
 #endif

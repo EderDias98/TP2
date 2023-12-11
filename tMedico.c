@@ -125,3 +125,8 @@ char * ObtemNomeMedico(tMedico* medico){
 char *ObtemCrm(tMedico*medico){
     return medico->crm;
 }
+void desalocaMedico(tMedico* medico){
+    if(medico){
+        free(medico);
+    }
+}

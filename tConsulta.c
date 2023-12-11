@@ -8,6 +8,14 @@ struct consulta{
     //colocar as lesoes aqui
 };
 
+int obtemIndexPacienteConsulta(tConsulta* consulta){
+    return consulta->indexPaciente;
+}
+
+void defineIndexPacienteConsulta(tConsulta* consulta, int indexPaciente){
+    consulta->indexPaciente = indexPaciente;
+}
+
 int obtemTamTConsulta(){
     return sizeof(tConsulta);
 }
@@ -27,7 +35,7 @@ tConsulta* criaConsulta(char *data, char * nomeMedico, char * nomePaciente, int 
 }
 
 
-void liberaConsulta(tConsulta* consulta) {
+void desalocaConsulta(tConsulta* consulta) {
     if(consulta){
         free(consulta);
     }

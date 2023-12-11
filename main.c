@@ -363,9 +363,11 @@ int main(int argc, char *argv[])
                 printf("\nCADASTRO REALIZADO COM SUCESSO. PRESSIONE QUALQUER TECLA PARA VOLTAR PARA O MENU INICIAL\n");
 
                 printf("###############################################################\n");
+
+                scanf("%*c%*c");
+
             }
 
-            scanf("%*c%*c");
             break;
         case 2:
 
@@ -374,8 +376,9 @@ int main(int argc, char *argv[])
                 printf("\nCADASTRO REALIZADO COM SUCESSO. PRESSIONE QUALQUER TECLA PARA VOLTAR PARA O MENU INICIAL\n");
 
                 printf("###############################################################\n");
+                scanf("%*c%*c");
             }
-            scanf("%*c%*c");
+
             break;
         case 3:
 
@@ -384,8 +387,9 @@ int main(int argc, char *argv[])
                 printf("\nCADASTRO REALIZADO COM SUCESSO. PRESSIONE QUALQUER TECLA PARA VOLTAR PARA O MENU INICIAL\n");
 
                 printf("###############################################################\n");
+                scanf("%*c%*c");
             }
-            scanf("%*c%*c");
+
             break;
         case 4:
 
@@ -474,6 +478,8 @@ int main(int argc, char *argv[])
                 printf("############################################################\n");
 
                 scanf("%*c%*c");
+            }else{
+                desalocaLista(listaBusca);
             }
 
             break;
@@ -498,6 +504,8 @@ int main(int argc, char *argv[])
                 printf("############################################################\n");
 
                 scanf("%*c%*c");
+            }else{
+                desalocaRelatorio(relatorio);
             }
 
             break;
@@ -559,6 +567,8 @@ int main(int argc, char *argv[])
     EscreveBinPacientes(clinica, pathPac);
 
     EscreveBinLesoes(clinica, pathLes);
+    desalocaClinica(clinica);
+    desalocaFila(fila);
     return 1;
 }
 //~/template-TP2-etapa-1/Casos/1

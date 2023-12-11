@@ -45,7 +45,7 @@ void desalocaBiopsia(void *dado){
     tBiopsia* biopsia = (tBiopsia*) dado;
     if(biopsia){
         if(biopsia->lesoes){
-            deslocaLesoes(biopsia->lesoes);
+            desalocaLesoes(biopsia->lesoes);
         }
 
         free(biopsia);
