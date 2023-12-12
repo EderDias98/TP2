@@ -437,7 +437,7 @@ int CadastraMedicoClinica(tClinica* clinica){
 
 // medico e primeira vez
 // secretario e primeira vez
-Login comfirmarLogin(tClinica* clinica,char* senha,char* usuario,Nivel *acesso, int *indexMedico, int *indexSecretario){
+void comfirmarLogin(tClinica* clinica,char* senha,char* usuario,Nivel *acesso, int *indexMedico, int *indexSecretario, Login *resultado){
     //porcurar login ou senha em medicos seja e retornar login
     Login medico;
     
@@ -446,15 +446,15 @@ Login comfirmarLogin(tClinica* clinica,char* senha,char* usuario,Nivel *acesso, 
     Login secretario = loginSecretario(clinica->secretarios, senha , usuario, clinica->numSecretarios, indexSecretario);
     if(medico == CORRETO){
         *acesso = MEDI;
-        return CORRETO;
+        *resultado = CORRETO;
     }else if(secretario == CORRETO){
         *acesso = ObtemNivelAcessoSecretario(obtemSecretario(clinica->secretarios,*indexSecretario));
-        return CORRETO;
+        *resultado = CORRETO;
+    }else {
+        *resultado = INCORRETO;
     }
-    if(clinica->numMedicos==0 && clinica->numSecretarios==0){
-        *acesso = ADMIN;
-    }
-    return INCORRETO;
+
+    
 }
 
 int EhCadastradoCLinica(tClinica* clinica, char *cpf){

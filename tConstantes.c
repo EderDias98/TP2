@@ -9,3 +9,4 @@ void converterParaMaiuscula(char *str) {
         str[i] = toupper(str[i]);
     }
 }
+

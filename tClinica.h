@@ -32,7 +32,7 @@ int CadastraSecretarioClinica(tClinica* clinica);
 
 int CadastraMedicoClinica(tClinica* clinica);
 
-Login comfirmarLogin(tClinica* clinica,char* senha,char* usuario,Nivel *acesso, int *indexMedico, int *indexSecretario);
+void comfirmarLogin(tClinica* clinica,char* senha,char* usuario,Nivel *acesso, int *indexMedico, int *indexSecretario, Login *resultado);
 
 int EhCadastradoCLinica(tClinica* clinica, char *cpf);
 

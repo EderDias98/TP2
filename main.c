@@ -292,13 +292,16 @@ int main(int argc, char *argv[])
     }
 
 
-    Nivel acesso;
+    Nivel acesso = MEDI;
     int indexMedico = 0;
     int indexSecretario = 0;
+    char senha[21] ={'0'};
+    char usuario[21] = {'0'};
+
+    Login resultado = INCORRETO;
     while (1)
     {
-        char senha[21];
-        char usuario[21];
+
 
         if (sec == 0 && med == 0)
         {
@@ -315,6 +318,8 @@ int main(int argc, char *argv[])
 
             converterParaMaiuscula(senha);
             converterParaMaiuscula(usuario);
+            acesso = ADMIN;
+            break;
         }
         else
         {
@@ -334,8 +339,8 @@ int main(int argc, char *argv[])
 
         // definir essa função depois
 
-        Login resultado = comfirmarLogin(clinica, senha, usuario, &acesso, &indexMedico, &indexSecretario);
-        if (resultado == CORRETO || acesso == ADMIN)
+        comfirmarLogin(clinica, senha, usuario, &acesso, &indexMedico, &indexSecretario, &resultado);
+        if (resultado == CORRETO )
         {
             break;
         }
@@ -343,6 +348,7 @@ int main(int argc, char *argv[])
         {
             printf(" SENHA INCORRETA OU USUARIO INEXISTENTE\n");
         }
+        
     }
 
     int funcionalidade = 0;
