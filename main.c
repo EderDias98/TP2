@@ -354,6 +354,7 @@ int main(int argc, char *argv[])
     int funcionalidade = 0;
     int sairL = 0;
     tFila *fila = criaFila();
+    tMedico* medicoVazio = criaMedico();
     while (1)
     {
         MostrarMenu(acesso);
@@ -416,7 +417,7 @@ int main(int argc, char *argv[])
             if (indexPaciente != -1)
             {
 
-                ConsultaMedica(clinica, indexPaciente, indexMedico, fila);
+                ConsultaMedica(clinica, indexPaciente, indexMedico, fila, medicoVazio);
             }
             else
             {
@@ -580,6 +581,7 @@ int main(int argc, char *argv[])
     EscreveBinLesoes(clinica, pathLes);
     desalocaClinica(clinica);
     desalocaFila(fila);
+    desalocaMedico(medicoVazio);
     return 1;
 }
 //~/template-TP2-etapa-1/Casos/1

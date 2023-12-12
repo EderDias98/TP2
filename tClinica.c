@@ -454,7 +454,7 @@ void comfirmarLogin(tClinica* clinica,char* senha,char* usuario,Nivel *acesso, i
         *resultado = INCORRETO;
     }
 
-    
+    printf("\n#%d#\n", *resultado);
 }
 
 int EhCadastradoCLinica(tClinica* clinica, char *cpf){
@@ -480,7 +480,7 @@ void ImprimiSubMenu(){
 
 // acrescentar taVetorLesoes antes
 
-void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico, tFila* fila){
+void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico, tFila* fila, tMedico* medicoVazio){
     tPaciente* paciente =NULL;
     paciente = clinica->pacientes[indexPaciente];
     tMedico* medico = NULL;
@@ -490,8 +490,7 @@ void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico, tFila
         medico =clinica->medicos[indexMedico];
     }else{
         
-        medico = criaMedico();
-        desalocaMedicoA =1;
+        medico =  medicoVazio;
     }
 
     AtendePaciente(paciente);
@@ -691,9 +690,7 @@ void ConsultaMedica(tClinica* clinica, int indexPaciente, int indexMedico, tFila
     }
     adcionaConsulta(clinica,consulta);
 
-    if(desalocaMedicoA){
-        desalocaMedico(medico);
-    }
+
 }
 
 tPaciente** ObtemPacientes(tClinica* clinica){
